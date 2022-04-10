@@ -1,0 +1,135 @@
+/* Global rules */
+:root{
+    --background: #54494B;
+    --text: #F7F7F7;
+    --accent: #FF3464;/*red*/
+    --accent2: #42EBC3;/*green*/
+    --accent3: #B2FFFF; /*blue*/
+}
+
+body{
+    font-family: 'IBM Plex Mono', monospace;
+    background-color: var(--background);
+    color: var(--text);
+}
+body *{
+    margin: 0;
+}
+a{
+  text-decoration: none;;
+}
+input{
+    background: transparent;
+    border: none;
+    color: var(--text);
+}
+input:focus-visible{
+    outline: none;
+}
+/* marks, coloured emphasis text */
+mark{
+    background: transparent;
+}
+mark.danger{
+  color: var(--accent);
+}
+mark.info{
+  color: var(--accent3);
+}
+mark.success{
+  color: var(--accent2);
+}
+/* Various containers */
+.avatar{
+  width: 30%;
+  height: fit-content;
+}
+.window{
+    border: .5rem solid var(--accent);
+    border-top: 2rem solid var(--accent);
+    height: fit-content;
+}
+.window h2{
+    margin-top: -2rem !important;
+    margin-left: 1rem !important;
+}
+
+.search-box{
+    border: solid var(--accent);
+    padding: 0.5rem;
+    width: fit-content;
+}
+.search-box{
+    border: solid var(--accent);
+    padding: 0.5rem;
+    width: fit-content;
+}
+.container{
+  display: flex;
+}
+.container .window{
+  margin: .5rem;
+  max-width: 80%;
+}
+.container aside{
+  max-width: 20%
+}
+.container aside *{
+  margin:.5rem;
+}
+.content h3{
+  font-size: 2.5rem;
+}
+/* post section */
+.post{
+  padding: .5rem;
+  display: flex;
+}
+.post *{
+  padding: 1rem;
+}
+.post img{
+  max-width: 20%;
+  height: fit-content;
+}
+
+/* Navbar section */
+nav.container{
+    display: inline-block;
+}
+nav.navbar .container,.logo{
+    margin-left: 3rem;
+}
+nav.navbar {
+    display: flex;
+    align-items: center;
+}
+nav.navbar ul{
+    list-style: none;
+    display: inline-flex;
+    padding: .75rem;
+}
+nav.navbar li{
+    margin-left: 3rem;
+}
+nav.navbar a{
+    color: var(--text);
+}
+nav.navbar a.is-active{
+    text-decoration: underline;
+}
+/* Logo settings */
+.logo{
+    width: fit-content;
+    color: var(--accent);
+}
+.logo h1{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    margin: 0;
+}
+.logo h2{
+    font-family: 'Noto Sans JP', sans-serif;
+    float: right;
+    margin: 0;
+}
