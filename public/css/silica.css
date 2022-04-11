@@ -39,15 +39,26 @@ mark.info{
 mark.success{
   color: var(--accent2);
 }
+/* columns */
+.columns{
+  display:flex;
+}
+.column{
+  width: auto;
+}
+.column.is-1-4{
+  min-width: 25%;
+}
 /* Various containers */
 .avatar{
-  width: 30%;
+  width: 20%;
   height: fit-content;
 }
 .window{
     border: .5rem solid var(--accent);
     border-top: 2rem solid var(--accent);
     height: fit-content;
+    margin: .5rem;
 }
 .window h2{
     margin-top: -2rem !important;
@@ -66,16 +77,20 @@ mark.success{
 }
 .container{
   display: flex;
+  padding: 1rem;
 }
 .container .window{
   margin: .5rem;
-  max-width: 80%;
 }
 .container aside{
-  max-width: 20%
+  position: sticky;
+  top: 0;
 }
 .container aside *{
   margin:.5rem;
+}
+.content{
+  padding: .5rem;
 }
 .content h3{
   font-size: 2.5rem;
