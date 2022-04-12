@@ -1,4 +1,5 @@
 
     <?php
-        echo "My first PHP script!";
+        require ".env";
+        include $templates['default'];
     ?>

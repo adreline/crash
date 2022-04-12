@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,13 +9,15 @@
     </head>
     <body>
 
-    <?php
-        echo "My first PHP script!";
-    ?>
+        <?php
+            include $modules['navbar']
+        ?>
         <div class="columns">
             <div class="column">
+
             </div>
             <div class="column is-1-4">
+                
             </div>
         </div>
     </body>
