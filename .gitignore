@@ -6,6 +6,8 @@
 #custom
 img/
 *.html
+.env
+.vscode/
 
 # Node artifact files
 node_modules/
