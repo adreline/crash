@@ -9,7 +9,8 @@ $locations=array(
     );
 $modules=array(
         "navbar"=>$locations['elements']."modules/navbar.php",
-        "head"=>$locations['elements']."modules/head.php"
+        "head"=>$locations['elements']."modules/head.php",
+        "database"=>$locations['elements']."database.php"
     );
 
 ?>

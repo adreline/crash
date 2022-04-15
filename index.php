@@ -1,19 +1,19 @@
 
     <?php
-        require ".env";
-        require "resources/elements/app.php"
+        require "resources/elements/app.php";
+        include $modules['database'];
     ?>
 <!DOCTYPE html>
     <?php
-        include $modules['head']
+        include $modules['head'];
     ?>
     <body>
         <?php
-            include $modules['navbar']
+            include $modules['navbar'];
         ?>
         <div class="columns">
             <div class="column">
-
+               <?php  getTest(); ?>
             </div>
             <div class="column is-1-4">
                 
