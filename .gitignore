@@ -6,6 +6,7 @@
 #custom
 img/
 *.html
+*.bak
 .env
 .vscode/
 
