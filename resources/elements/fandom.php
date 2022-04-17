@@ -1,6 +1,6 @@
 <?php
 //this class defines a fandom db object
-require "database.php";
+require_once "database.php";
 
 class Fandom {
   public $id;

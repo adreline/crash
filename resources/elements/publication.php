@@ -1,5 +1,7 @@
 <?php
-//this class defines a fandom db object
+//this class defines a publication db object
+require_once "database.php";
+
 class Publication {
   public $id;
   public $title;

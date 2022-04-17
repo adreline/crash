@@ -1,6 +1,6 @@
 <?php
 //this class defines a fanfic page object
-require "database.php";
+require_once "database.php";
 
 class Leaflet{
   public $id;
@@ -17,7 +17,7 @@ class Leaflet{
     'insert' => "INSERT INTO `leafs` (`id_leaf`, `body`, `publications_id_publication`) VALUES (NULL, '%0', '%1')",
     'select' => "SELECT * FROM `leafs` WHERE `leafs`.`publications_id_publication` = %0",
     'delete' => "DELETE FROM `leafs` WHERE `leafs`.`id_leaf` = %0",
-    'update' => "UPDATE `leafs` SET `body` = '%0' WHERE `leafs`.`id_leaf` = %1";
+    'update' => "UPDATE `leafs` SET `body` = '%0' WHERE `leafs`.`id_leaf` = %1"
   );
 
   public static function getLeaflet($id_publication){
