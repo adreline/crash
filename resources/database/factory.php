@@ -110,9 +110,9 @@
       $head_tail=explode("VALUES",INSERT_METHODS[$method]);
       $sql=$head_tail[0]." VALUES ";
       for ($i=0; $i < $n; $i++) {
-        $sql.=fill_in($head_tail[1],$f()).",";
+        $sql.=Helper::fill_in($head_tail[1],$f()).",";
       }
-      $sql.=fill_in($head_tail[1],$f()).";";
+      $sql.=Helper::fill_in($head_tail[1],$f()).";";
       return $sql;
     }
     //------ main logic ------
