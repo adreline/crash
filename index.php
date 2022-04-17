@@ -2,6 +2,7 @@
     <?php
         require "resources/elements/app.php";
         include Helper::$modules['fandom'];
+        include Helper::$modules['leaflet'];
         include Helper::$modules['publication'];
     ?>
 <!DOCTYPE html>
@@ -31,7 +32,13 @@
                    <?php
                         foreach(Publication::getPublication(null,"LIMIT 4") as $publication){
                             $title=$publication->title;
-                            $paragraphs=array("test","of parandjasd ansd ojansdioasn oasndo iasodja");
+                            $leafs=Leaflet::getLeaflet($publication->id);
+                            if(sizeof($leafs)>0){
+                                $prompt=substr($leafs[0]->body,0,100)."...";
+                            }else{
+                                $prompt="...";
+                            }
+                            
                             include Helper::$modules['post'];
                         }
                     ?>
