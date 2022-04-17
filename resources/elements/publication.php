@@ -30,7 +30,7 @@ class Publication {
     if(isset($id)){
       $optional_sql="WHERE id_publication=$id ".$optional_sql;
     }
-    $sql = Publication::$methods['select'].$optional_sql;
+    $sql = Publication::$methods['select']." ".$optional_sql;
     return Database::select($sql, function($row){
         return new Publication($row['id_publication'],$row['title'],$row['planned_length'],$row['status'],$row['time_stamp'],$row['users_id_user'],$row['fandoms_id_fandom']);
     });
