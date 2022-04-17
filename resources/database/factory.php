@@ -7,9 +7,7 @@
     define("ALPHA_L",count(ALPHA));
 
     //helper functions
-    function str_contains(string $haystack, string $needle): bool{
-      return '' === $needle || false !== strpos($haystack, $needle);
-    }
+
 
     function genRandomWord(){
       //this helper funct gens random words
