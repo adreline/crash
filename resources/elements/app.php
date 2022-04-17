@@ -9,9 +9,11 @@ public static $locations=array(
         "elements"=>"resources/elements/"
     );
 public static $modules=array(
-        "navbar"=>$locations['elements']."modules/navbar.php",
-        "head"=>$locations['elements']."modules/head.php",
-        "database"=>$locations['elements']."database.php"
+        "navbar"=>"resources/elements/modules/navbar.php",
+        "head"=>"resources/elements/modules/head.php",
+        "database"=>"resources/elements/database.php",
+        "fandom"=>"resources/elements/fandom.php",
+        "publication"=>"resources/elements/publication.php"
     );
 //helper functions 
     public static function fill_in($str,$data){
