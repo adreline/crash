@@ -6,7 +6,7 @@ Crash is a online content management system (CMS), made in pure PHP and designed
 
 For SunriseSystem internal evaluation.
 
-* [Documentation](https://maddie-nie.atlassian.net/wiki/spaces/CF/overview)
+* [Documentation](https://maddie-nie.atlassian.net/l/c/zEJqCSvo)
 * [Live demo](http://niecko.4suns.pl/crash/)
 
 ### How do I get set up? ###
