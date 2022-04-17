@@ -1,6 +1,6 @@
 # Crash #
 
-Crash is a online content management system (CMS), made in pure PHP and designed to be as little as possible. It specialises in publishing written transformative works. 
+Crash is a online content management system (CMS), made in pure PHP and designed to be as small as possible. It specialises in publishing written transformative works. 
 
 ### What is this repository for? ###
 
