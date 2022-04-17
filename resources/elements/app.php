@@ -14,12 +14,13 @@ public static $modules=array(
         "post"=>"resources/elements/modules/post.php",
         "database"=>"resources/elements/database.php",
         "fandom"=>"resources/elements/fandom.php",
+        "leaflet"=>"resources/elements/leaflet.php",
         "publication"=>"resources/elements/publication.php"
     );
     public static function str_contains(string $haystack, string $needle): bool{
       return '' === $needle || false !== strpos($haystack, $needle);
     }
-//helper functions 
+    //helper functions
     public static function fill_in($str,$data){
       //this funct inserts data into strings at specified places
       $head="%0";
