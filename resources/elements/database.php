@@ -40,6 +40,14 @@
                 return false;
             }
         }
+        public static function delete($sql){
+           //welp, turns out it will be the same as insert
+           return Database::insert($sql); 
+        }
+        public static function update($sql){
+           //welp, turns out it will be the same as insert
+           return Database::insert($sql); 
+        }
         
     }
     //main functions
