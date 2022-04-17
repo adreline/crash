@@ -24,7 +24,7 @@ class Fandom {
       if(isset($id)){
        $optional_sql="WHERE id_fandom=$id ".$optional_sql;
       }
-      $sql = Fandom::$methods['select'].$optional_sql
+      $sql = Fandom::$methods['select'].$optional_sql;
       return Database::select($sql, function($row){
             return new Fandom($row['id_fandom'],$row['friendly_name'],$row['name']);
       });
