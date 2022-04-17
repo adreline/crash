@@ -11,6 +11,7 @@ public static $locations=array(
 public static $modules=array(
         "navbar"=>"resources/elements/modules/navbar.php",
         "head"=>"resources/elements/modules/head.php",
+        "post"=>"resources/elements/modules/post.php",
         "database"=>"resources/elements/database.php",
         "fandom"=>"resources/elements/fandom.php",
         "publication"=>"resources/elements/publication.php"
