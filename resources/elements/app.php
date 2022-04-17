@@ -15,12 +15,15 @@ public static $modules=array(
         "fandom"=>"resources/elements/fandom.php",
         "publication"=>"resources/elements/publication.php"
     );
+    public static function str_contains(string $haystack, string $needle): bool{
+      return '' === $needle || false !== strpos($haystack, $needle);
+    }
 //helper functions 
     public static function fill_in($str,$data){
       //this funct inserts data into strings at specified places
       $head="%0";
       $pos=0;
-      while (str_contains($str,$head)) {
+      while (Helper::str_contains($str,$head)) {
         $str=str_replace($head,$data[$pos],$str);
         $pos++;
         $head="%$pos";
