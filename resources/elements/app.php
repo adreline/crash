@@ -3,17 +3,18 @@
  * This file holds global variables, that are
  * meant to be a convinient shortcuts
  */
+class Helper{
 
-$locations=array(
+public static $locations=array(
         "elements"=>"resources/elements/"
     );
-$modules=array(
+public static $modules=array(
         "navbar"=>$locations['elements']."modules/navbar.php",
         "head"=>$locations['elements']."modules/head.php",
         "database"=>$locations['elements']."database.php"
     );
 //helper functions 
-    function fill_in($str,$data){
+    public static function fill_in($str,$data){
       //this funct inserts data into strings at specified places
       $head="%0";
       $pos=0;
@@ -24,5 +25,8 @@ $modules=array(
       }
       return $str;
     }
+
+}
+
 
 ?>
