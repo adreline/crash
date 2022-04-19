@@ -16,6 +16,7 @@
                 				<ul>
                 					<li data-icon="#"> <a href="https://maddie-nie.atlassian.net/l/c/8jAUCsUe"> <mark class="success">Confluence project wiki</mark> </a> </li>
                 					<li data-icon="#"> <a href="https://bitbucket.org/adreline/crash/src/master/"> <mark class="success">Code repository</mark> </a> </li>
+                					<li data-icon="#"> <a href="https://maddie-nie.atlassian.net/l/c/prTPb4iP"> <mark class="success">Learn how to build on Crash</mark> </a> </li>
                 				</ul>
                 			</div>
                 		</div>
