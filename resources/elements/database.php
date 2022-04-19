@@ -20,12 +20,13 @@
             $results;
             $result = mysqli_query($c, $method);
             if (mysqli_num_rows($result) > 0) {
+                
                 // output data of each row
                 while($row = mysqli_fetch_assoc($result)) { 
                     $results[]=$f($row);
                 }
             } else {
-                echo "0 results";
+                return [];
             }
             mysqli_close($c);
             return $results;

@@ -1,6 +1,6 @@
 <?php 
 //this class defines the webpage object. do not confuse it with leaflet 
-require_once "database.php"
+require_once "database.php";
 
 class Page{
     public $id;
@@ -23,17 +23,35 @@ class Page{
         'insert' => "INSERT INTO `pages` (`id_page`, `friendly_name`, `name`, `content`, `custom_css`, `javascript`) VALUES (NULL, '%0', '%1', '%2', '%3', '%4')",
         'select' => "SELECT * FROM `pages`",
         'update' => "UPDATE `pages` SET `friendly_name` = '%0', `name` = '%1', `content` = '%2', `custom_css` = '%3', `javascript` = '%4' WHERE `pages`.`id_page` = %5",
-        'delete' => "DELETE FROM `pages` WHERE `pages`.`id_page` = %0"
+        'delete' => "DELETE FROM `pages` WHERE `pages`.`id_page` = %0",
+        'exists' => "SELECT id_page FROM `pages` WHERE `pages`.`name` = '%0'"
     );
-
+    public static function fetchPageByName($name){
+        //this function returns either id of a page or -1 if page is not found.
+        $sql = Helper::fill_in(Page::$methods['exists'],array($name));
+        $id = Database::select($sql, function ($row){
+            return $row['id_page'];
+        });
+        if(sizeof($id)==1){
+            return $id[0];
+        }else{
+            return -1;
+        }
+    }
     public static function getPage($id=null, $optional_sql=""){
         if(isset($id)){
             $optional_sql="WHERE id_page=$id ".$optional_sql;
         }
         $sql = Page::$methods['select'].$optional_sql;
-        return Database::select($sql, function ($row){
+        $pages = Database::select($sql, function ($row){
             return new Page($row['name'],$row['friendly_name'],$row['content'],$row['custom_css'],$row['javascript'],$row['id_page']);
         });
+        if(sizeof($pages)==0){
+            return null;
+        }else{
+            return $pages;
+        }
+         
     }
     public static function insertPage($page){
         $sql = Helper::fill_in(Page::$methods['insert'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript));
@@ -44,7 +62,7 @@ class Page{
         }
     }
     public static function deletePage($id){
-        sql = Helper::fill_in(Page::$methods['delete'],array($id));
+        $sql = Helper::fill_in(Page::$methods['delete'],array($id));
         if(Database::delete($sql)){
             echo "Deleted";
         }else{

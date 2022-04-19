@@ -1,3 +1,4 @@
+<?php include_once Crash::$element['page']; ?>
 <nav class="navbar">
             <div class="logo">
                 <h1>Crash</h1>
@@ -8,10 +9,12 @@
                     <p>maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text"></p>
                 </div>
                 <ul>
-                    <li><a class="is-active" href="">Home</a></li>
-                    <li><a href="">Explore trends</a></li>
-                    <li><a href="">Help</a></li>
-                    <li><a href="">About the project</a></li>
+                    <li><a href="http://niecko.4suns.pl/crash/">Home</a></li>
+                    <?php
+                        foreach (Page::getPage() as $page){
+                            echo "<li><a class=\"is-active\" href=\"$page->name\">$page->friendly_name</a></li>";
+                        }
+                    ?>
                 </ul>
             </div>
 </nav>
