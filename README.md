@@ -14,7 +14,8 @@ Pull the repo
 ```bash
 git clone https://adreline@bitbucket.org/adreline/crash.git
 ```
-Create .env file, example:
+Create .env file and put it in project root (crash/)
+Example of .env:
 ```php
 <?php
     define("DB_CONF",array(
@@ -29,6 +30,10 @@ Migrate the database
 ```bash
 mysql -u your_database_user -p your_database_name < crash/resources/database/migrate.sql
 ```
-You may want to populate database with mock data. To do that, navigate to /your/host/crash/resources/database/factory.php
+## What now? ##
+[Learn how to build on Crash](https://maddie-nie.atlassian.net/l/c/prTPb4iP)
+~~You may want to populate database with mock data. To do that, navigate to /your/host/crash/resources/database/factory.php~~ Depreciated.
+
+
 
 
