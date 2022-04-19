@@ -16,12 +16,16 @@ class Crash{
       "leaflet"=>"resources/elements/leaflet.php",
       "publication"=>"resources/elements/publication.php"
     );
+    //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
         "home" => "resources/views/home.php"
     );
+    //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
     public static $template=array(
       "default" => "resources/views/templates/default.php"
     );
+    //When adding new nesting level (higher then 2) you must add a new controller and add it here
+    //together with a path to the actuall file. the name used here will be same as in request url.
     public static $controller=array(
       "app" => "resources/elements/controllers/app.php"
     );
@@ -56,9 +60,15 @@ class Helper{
       //due to htaccess config, it will never not be but just to be sure
         return null;
     }else{
-      if (isset($uris[1])&&strlen($uris[1])!>0) {
+      if (isset($uris[1])&&strlen($uris[1])>0) {
         //this is controller call
         return $uris;
+      }else{
+        if (sizeof($uris)==1) {
+          //this is home call, just return it as home
+          $uris[]='home';
+          return $uris;
+        }
       }
     }
     
