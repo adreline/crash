@@ -10,4 +10,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;400&family=Noto+Sans+JP:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="public/css/silica.css">
+    <?php 
+        if (isset($page)) {
+            echo $page->custom_css;
+            echo $page->javascript;
+        }
+     ?>
 </head>
