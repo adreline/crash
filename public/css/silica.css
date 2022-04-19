@@ -15,6 +15,9 @@ body{
 body *{
     margin: 0;
 }
+p{
+    text-align: justify;
+}
 a{
   text-decoration: none;;
 }
@@ -28,15 +31,36 @@ input:focus-visible{
 }
 /* marks, coloured emphasis text */
 mark{
-    background: transparent;
+    background: transparent !important;
 }
 mark.danger{
-  color: var(--accent);
+  color: var(--accent) !important;
 }
 mark.info{
-  color: var(--accent3);
+  color: var(--accent3) !important;
 }
 mark.success{
+  color: var(--accent2) !important;
+}
+/* globally used ul custom bullet style */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+li {
+  display: grid;
+  grid-template-columns: 0 1fr;
+  gap: 1.75em;
+  align-items: start;
+  line-height: 1.25;
+}
+ul li::before {
+  content: attr(data-icon);
+  /* Make slightly larger than the li font-size
+  but smaller than the li gap */
+  font-size: 1.25em;
   color: var(--accent2);
 }
 /* columns */
@@ -44,10 +68,10 @@ mark.success{
   display:flex;
 }
 .column{
-  width: auto;
+  width: 100%;
 }
 .column.is-1-4{
-  min-width: 25%;
+  width: 25%; 
 }
 /* Various containers */
 .avatar{
