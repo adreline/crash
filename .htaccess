@@ -1,6 +1,6 @@
 RewriteEngine On
 
-FallbackResource /crash/route.php
+FallbackResource /crash/router.php
 
 <FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh|env)$">
 Order Allow,Deny

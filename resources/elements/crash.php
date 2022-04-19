@@ -22,6 +22,9 @@ class Crash{
     public static $template=array(
       "default" => "resources/views/templates/default.php"
     );
+    public static $controller=array(
+      "app" => "resources/elements/controllers/app.php"
+    );
 }
 /**
  * This file holds globaly available functions, that are
@@ -45,8 +48,19 @@ class Helper{
     return $str;
   }
   public static function assertRoute(){
-    $path = ltrim($_SERVER['REQUEST_URI'], '/');    // Trim leading slash(es)
-    $uris = explode('/', $path);                // Split path on slashes
+    //this function does some ugly looking url parsing and validating
+    $path = trim(str_replace('/',' ',$_SERVER['REQUEST_URI'])); //get rid of trailing slash
+    $uris = explode(' ', $path);
+    //deconstruct the request
+    if ($uris[0]!='crash') {
+      //due to htaccess config, it will never not be but just to be sure
+        return null;
+    }else{
+      if (isset($uris[1])&&strlen($uris[1])!>0) {
+        //this is controller call
+        return $uris;
+      }
+    }
     
   }
 
