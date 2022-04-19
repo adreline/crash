@@ -30,10 +30,10 @@ Migrate the database
 ```bash
 mysql -u your_database_user -p your_database_name < crash/resources/database/migrate.sql
 ```
-## What now? ##
+#### What now? #####
 [Learn how to build on Crash](https://maddie-nie.atlassian.net/l/c/prTPb4iP)
 
-~~You may want to populate database with mock data. To do that, navigate to /your/host/crash/resources/database/factory.php~~ Depreciated.
+~~You may want to populate database with mock data. To do that, navigate to /your/host/crash/resources/database/factory.php~~ <- Depreciated
 
 
 
