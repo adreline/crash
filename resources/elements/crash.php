@@ -14,7 +14,8 @@ class Crash{
       "page"=>"resources/elements/page.php",
       "fandom"=>"resources/elements/fandom.php",
       "leaflet"=>"resources/elements/leaflet.php",
-      "publication"=>"resources/elements/publication.php"
+      "publication"=>"resources/elements/publication.php",
+      "user"=>"resources/elements/user.php"
     );
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
@@ -72,6 +73,7 @@ class Helper{
         }
       }
     }
+  
     
   }
 

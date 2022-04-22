@@ -1,7 +1,7 @@
 <?php
 require_once Crash::$element['page'];
 /*
-* This controller processes default pages. usually static pages.
+* This controller processes default pages. usually static pages, which reside in views folder.
 */
 	function process($req, $template='default'){
 		//check if requested page is present in static pages 
@@ -16,7 +16,7 @@ require_once Crash::$element['page'];
 				$page = Page::getPage($page_id);
 				include Crash::$template[$template];
 			}else{
-				//page cant be found, return 404
+				//page cant be found, return 404. should render static 404 page in the future.
 				header('HTTP/1.1 404 Not Found');
 			}
 		}

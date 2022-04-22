@@ -3,6 +3,7 @@
         include Crash::$element['fandom'];
         include Crash::$element['leaflet'];
         include Crash::$element['publication'];
+        include Crash::$element['user'];
     ?>
 <!DOCTYPE html>
     <?php
@@ -46,7 +47,16 @@
                 </div>
             </div>
             <div class="column is-1-4">
-                
+                <div class="window">
+                    <h2>Newcomers</h2>
+                    <div class="content">
+                        <?php
+                            foreach(User::getUser(null,"LIMIT 5") as $user){
+                                echo "<p>><mark class=\"success\">$user->username</mark><br>joined at $user->created_at</p>";
+                            }
+                         ?>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
