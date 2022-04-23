@@ -20,7 +20,8 @@ class Crash{
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
         "home" => "resources/views/home.php",
-        "about" => "resources/views/about.php"
+        "about" => "resources/views/about.php",
+        "404" => "resources/views/404.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
     public static $template=array(

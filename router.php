@@ -18,7 +18,7 @@ if (isset($req)) {
             process($req[2]);
         }else{
             //controller was not found return 404
-            header('HTTP/1.1 404 Not Found');
+            include Crash::$static_page['404'];
         }
     }else{
         //if the request only have 2 fields, that means it will use default controller
@@ -26,7 +26,7 @@ if (isset($req)) {
         process($req[1]);
     }
 }else{
-     header('HTTP/1.1 404 Not Found');
+     include Crash::$static_page['404'];
 }
 
 ?>

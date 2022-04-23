@@ -16,8 +16,8 @@ require_once Crash::$element['page'];
 				$page = Page::getPage($page_id);
 				include Crash::$template[$template];
 			}else{
-				//page cant be found, return 404. should render static 404 page in the future.
-				header('HTTP/1.1 404 Not Found');
+				//page cant be found, return 404.
+				include Crash::$static_page['404'];
 			}
 		}
 	}
