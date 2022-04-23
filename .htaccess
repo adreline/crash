@@ -6,3 +6,7 @@ FallbackResource /crash/router.php
 Order Allow,Deny
 Deny from all
 </FilesMatch>
+
+<FilesMatch "\.(css)$">
+ForceType 'text/css'
+</FilesMatch>
