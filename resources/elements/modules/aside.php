@@ -14,7 +14,7 @@
                     <div class="content">
                         <?php
                             include_once Crash::$element['user'];
-                            foreach(User::getUser(null,"LIMIT 5") as $user){
+                            foreach(User::getUser(null,"ORDER BY time_stamp DESC LIMIT 5") as $user){
                                 echo "<p>><mark class=\"success\">$user->username</mark><br>joined at $user->created_at</p>";
                             }
                          ?>

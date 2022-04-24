@@ -14,7 +14,7 @@ class User{
   function __construct($username,$password,$avatar=null,$privelage=0,$created_at=null,$id=0){
     $this->id = $id;
     $this->username = $username;
-    $this->password = crypt($password); //should be salted in the future
+    $this->password = $password; 
     $this->kudos = 0;
     $this->avatar = $avatar;
     $this->privelage = $privelage;
@@ -32,7 +32,7 @@ class User{
     if(isset($id)){
       $optional_sql="WHERE id_user=$id ".$optional_sql;
     }
-    $sql = User::$methods['select'].$optional_sql;
+    $sql = User::$methods['select']." ".$optional_sql;
     return Database::select($sql, function($row){
       return new User(
       $row['username'],
