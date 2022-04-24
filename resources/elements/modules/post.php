@@ -1,5 +1,5 @@
               <div class="post">
-                <img src="img/91026b4802025c0ac38329e7cab1c113.jpg" alt="">
+                <img src="public/img/placeholder.jpg" alt="">
                 <div class="content">
                   <h3><?php echo $title; ?></h3>
                     <p><?php echo $prompt; ?></p>
