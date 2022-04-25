@@ -2,7 +2,7 @@
                 <div class="window">
                     <h2>Login or join</h2>
                     <div class="content">
-                        <form action="users/enlist" method="post">
+                        <form action="/crash/users/enlist" method="post">
                         <a>crash@login:~$ <input type="text" name="username"></a>
                         <a>crash@password:~$ <input type="password" name="password"></a>
                         <button type="submit" name="login"><mark class="success">>login</mark></button>

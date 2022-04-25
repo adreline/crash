@@ -24,7 +24,7 @@ class Crash{
     public static $static_page=array(
         "home" => "resources/views/home.php",
         "about" => "resources/views/about.php",
-        "404" => "resources/views/404.php"
+        "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
     public static $template=array(
@@ -36,6 +36,13 @@ class Crash{
       "app" => "resources/elements/controllers/app.php",
       "users" => "resources/elements/controllers/users.php"
     );
+    
+    public static function error($code, $msg){
+      include Crash::$static_page['error'];
+    }
+    public static function notify($title, $body){
+      include Crash::$module['modal'];
+    }
 }
 /**
  * This class defines router class and method to attach routes to it.

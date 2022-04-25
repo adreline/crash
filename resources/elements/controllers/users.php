@@ -7,7 +7,7 @@ use Elements\User as User;
 * This controller processes register and login
 */
 	function process($req=null, $template='default'){
-
+		echo "Hello";
 		switch($_SERVER["REQUEST_METHOD"]){
 			case "POST":
 				if(isset($_POST['login'])){
@@ -18,14 +18,19 @@ use Elements\User as User;
 					$user = User::getUser(null,"WHERE `username`='$username'");
 					if(isset($user[0])){
 						if(password_verify($password,$user[0]->password)){
-							//login successful, redirect back to home
-							$modal="login successful";
-							app_process("home");
+							//login successful, redirect back to home and display a modal msg
+							app_process("home", function(){
+								Crash::notify("Success","Login successful");
+							});
 						}else{
-						echo "password invalid";
+						app_process("home", function(){
+								Crash::notify("Fail","Password was incorrect");
+							});
 						}
 					}else{
-						echo "user not found";
+						app_process("home", function(){
+								Crash::notify("Fail","No user with such name was found");
+							});
 					}
 				}else{
 				if(isset($_POST['register'])){
@@ -36,7 +41,7 @@ use Elements\User as User;
 			}
 			break;
 			default:
-				include Crash::$static_page['404'];
+				Crash::error(404, "Thrown in Controller\Users. Requested url: $req");
 			break;
 		}
 	}

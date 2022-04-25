@@ -5,7 +5,11 @@ use Elements\Page as Page;
 /*
 * This controller processes default pages. usually static pages, which reside in views folder.
 */
-	function process($req, $template='default'){
+	function process($req, $eval=null, $template='default'){
+		//we can pass a function $f if we want the controller to ewaluate something prior (like passing a modal message)
+		if(isset($eval)){
+			$eval();
+		}
 		//check if requested page is present in static pages 
 		if (isset(Crash::$static_page[$req])) {
 			//reneder the page
@@ -19,7 +23,7 @@ use Elements\Page as Page;
 				include Crash::$template[$template];
 			}else{
 				//page cant be found, return 404.
-				include Crash::$static_page['404'];
+				Crash::error(404, "Thrown in Controller\App. Requested url: $req");
 			}
 		}
 	}

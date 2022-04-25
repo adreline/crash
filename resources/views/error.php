@@ -12,9 +12,9 @@
             include Crash::$module['navbar'];
         ?>
                 	<div class="window">
-                	<h2>Error 404</h2>
+                	<h2>Error <?php if(isset($code)) echo $code; ?></h2>
                       <div class="content">
-                        <p>Requested page has not been found</p>
+                        <p><?php if(isset($msg)) echo $msg; ?></p>
                       </div>
                 	</div>
     </body>
