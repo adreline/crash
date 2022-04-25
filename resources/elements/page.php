@@ -1,6 +1,9 @@
 <?php 
 //this class defines the webpage object. do not confuse it with leaflet 
+namespace Elements;
+use Crash\Helper as Helper;
 require_once "database.php";
+use Elements\Database as Database;
 
 class Page{
     public $id;

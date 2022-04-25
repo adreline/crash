@@ -21,6 +21,12 @@ p{
 a{
   text-decoration: none;;
 }
+/* Form styling */
+button{
+  background: none;  
+  border: none;
+  cursor: pointer;
+}
 input{
     background: transparent;
     border: none;

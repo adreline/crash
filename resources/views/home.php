@@ -12,6 +12,9 @@
     <body>
         <?php
             include Crash::$module['navbar'];
+            if(isset($modal)){
+            include Crash::$module['modal'];
+            }
         ?>
         <div class="columns">
             <div class="column">
@@ -47,16 +50,7 @@
                 </div>
             </div>
             <div class="column is-1-4">
-                <div class="window">
-                    <h2>Newcomers</h2>
-                    <div class="content">
-                        <?php
-                            foreach(User::getUser(null,"LIMIT 5") as $user){
-                                echo "<p>><mark class=\"success\">$user->username</mark><br>joined at $user->created_at</p>";
-                            }
-                         ?>
-                    </div>
-                </div>
+                <?php include Crash::$module['aside']; ?>
             </div>
         </div>
     </body>

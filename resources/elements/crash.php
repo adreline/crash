@@ -1,4 +1,5 @@
 <?php
+namespace Crash;
 /**
  * This file holds global variables, that are
  * meant to be a convinient shortcuts
@@ -7,6 +8,8 @@ class Crash{
     public static $module=array(
         "navbar"=>"resources/elements/modules/navbar.php",
         "post"=>"resources/elements/modules/post.php",
+        "aside"=>"resources/elements/modules/aside.php",
+        "modal"=>"resources/elements/modules/modal.php",
         "head"=>"resources/elements/modules/head.php"
     );
     public static $element=array(
@@ -30,7 +33,8 @@ class Crash{
     //When adding new nesting level (higher then 2) you must add a new controller and add it here
     //together with a path to the actuall file. the name used here will be same as in request url.
     public static $controller=array(
-      "app" => "resources/elements/controllers/app.php"
+      "app" => "resources/elements/controllers/app.php",
+      "users" => "resources/elements/controllers/users.php"
     );
 }
 /**

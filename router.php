@@ -1,6 +1,11 @@
 <?php 
-require "resources/elements/crash.php";
-require Crash::$element['page'];
+ini_set('display_errors', 'On');
+require "/crash/.env";
+require "/crash/resources/elements/crash.php";
+use Crash\Helper as Helper;
+use Crash\Crash as Crash;
+require Crash::$controller['app'];
+use function Controller\App\process as app_process;
 /**
 * This file is first point of reference for all requests.
 * From here, we decide how to process incoming requests.
@@ -22,8 +27,7 @@ if (isset($req)) {
         }
     }else{
         //if the request only have 2 fields, that means it will use default controller
-        require Crash::$controller['app'];
-        process($req[1]);
+        app_process($req[1]);
     }
 }else{
      include Crash::$static_page['404'];
