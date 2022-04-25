@@ -29,6 +29,9 @@ require_once Crash::$element['user'];
 				}
 			}
 			break;
+			default:
+				include Crash::$static_page['404'];
+			break;
 		}
 	}
 ?>

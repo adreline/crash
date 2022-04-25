@@ -1,6 +1,8 @@
 <?php 
-require "resources/elements/crash.php";
-require Crash::$element['page'];
+ini_set('display_errors', 'On');
+include "/crash/.env";
+require "/crash/resources/elements/crash.php";
+
 /**
 * This file is first point of reference for all requests.
 * From here, we decide how to process incoming requests.
