@@ -1,6 +1,8 @@
 <?php
 //this class defines a publication db object
-require_once "database.php";
+namespace Elements;
+use Crash\Helper as Helper;
+use Elements\Database as Database;
 
 class Publication {
   public $id;

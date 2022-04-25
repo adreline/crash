@@ -1,7 +1,6 @@
 <?php
 namespace Controller\App;
 use Crash\Crash as Crash;
-require_once Crash::$element['page'];
 use Elements\Page as Page;
 /*
 * This controller processes default pages. usually static pages, which reside in views folder.

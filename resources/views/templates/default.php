@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <?php
+        use Crash\Crash as Crash;
         include Crash::$module['head'];
     ?>
     <body>

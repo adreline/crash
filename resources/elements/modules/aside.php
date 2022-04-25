@@ -1,3 +1,4 @@
+<?php  use Crash\Crash as Crash;  ?>
                 <div class="window">
                     <h2>Login or join</h2>
                     <div class="content">
@@ -14,6 +15,7 @@
                     <div class="content">
                         <?php
                             include_once Crash::$element['user'];
+                            use Elements\User as User;
                             foreach(User::getUser(null,"ORDER BY time_stamp DESC LIMIT 5") as $user){
                                 echo "<p>><mark class=\"success\">$user->username</mark><br>joined at $user->created_at</p>";
                             }
