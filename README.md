@@ -24,6 +24,7 @@ Example of .env:
         "database_user"=>"your_database_user",
         "database_pass"=>"your_database_password"
     ));
+    define("ANCHOR","http://your_host/crash/");
     ?>
 ```
 Migrate the database
