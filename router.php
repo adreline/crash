@@ -1,6 +1,6 @@
 <?php 
 ini_set('display_errors', 'On');
-include "/crash/.env";
+require "/crash/.env";
 require "/crash/resources/elements/crash.php";
 
 /**
