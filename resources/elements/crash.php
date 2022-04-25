@@ -38,7 +38,17 @@ class Crash{
     );
 }
 /**
- * This file holds globaly available functions, that are
+ * This class defines router class and method to attach routes to it.
+ * There should only be one router instance per application.
+ */
+class Router{
+  public $lookup;
+  public function route($route, $fn){
+      $this->lookup[$route]=$fn;
+  }
+}
+/**
+ * This class holds globaly available functions, that are
  * meant to be a convinient helper functions
  */
 class Helper{

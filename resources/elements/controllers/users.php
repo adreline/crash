@@ -1,12 +1,12 @@
 <?php
+namespace Controller\Users;
 use Crash\Crash as Crash;
-require_once Crash::$element['user'];
 use function Controller\App\process as app_process;
 use Elements\User as User;
 /*
 * This controller processes register and login
 */
-	function process($req, $template='default'){
+	function process($req=null, $template='default'){
 		switch($_SERVER["REQUEST_METHOD"]){
 			case "POST":
 				if(isset($_POST['login'])){
@@ -19,7 +19,6 @@ use Elements\User as User;
 						if(password_verify($password,$user[0]->password)){
 							//login successful, redirect back to home
 							$modal="login successful";
-							require Crash::$controller['app'];
 							app_process("/crash/");
 						}else{
 						echo "password invalid";

@@ -1,4 +1,8 @@
-<?php  header('HTTP/1.1 404 Not Found');  ?>
+<?php
+    header('HTTP/1.1 404 Not Found');
+    use Crash\Crash as Crash;
+?>
+
 <!DOCTYPE html>
     <?php
         include Crash::$module['head'];

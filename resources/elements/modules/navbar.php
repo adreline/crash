@@ -1,4 +1,8 @@
-<?php include_once Crash::$element['page']; ?>
+<?php
+    use Crash\Crash as Crash;  
+    use Elements\Page as Page;
+?>
+
 <nav class="navbar">
             <div class="logo">
                 <h1>Crash</h1>
