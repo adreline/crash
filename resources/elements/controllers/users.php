@@ -37,6 +37,9 @@ use Elements\User as User;
 					$username=$_POST['username'];
 					$password=password_hash($_POST['password']);
 					User::insertUser(new User($username,$password));
+					app_process("home", function(){
+						Crash::notify("Success","Your account was created");
+					});
 				}
 			}
 			break;
