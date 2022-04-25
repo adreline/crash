@@ -18,9 +18,9 @@ use function Controller\App\process as app_process;
 
 try{
     //try to forward request to a controller
-    $req = $_SERVER['REQUEST_URI'];
+    $req = trim($_SERVER['REQUEST_URI']);
     $forward->lookup[$req]();
-}catch(Exception|Throwable){
+}catch(Exception|Throwable){   
     //if route not found in the lookup tabe, fall back to the default controller as a last resort
     app_process(Helper::assertRoute()[1]);
 }

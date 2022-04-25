@@ -7,6 +7,7 @@ use Elements\User as User;
 * This controller processes register and login
 */
 	function process($req=null, $template='default'){
+
 		switch($_SERVER["REQUEST_METHOD"]){
 			case "POST":
 				if(isset($_POST['login'])){
@@ -19,7 +20,7 @@ use Elements\User as User;
 						if(password_verify($password,$user[0]->password)){
 							//login successful, redirect back to home
 							$modal="login successful";
-							app_process("/crash/");
+							app_process("home");
 						}else{
 						echo "password invalid";
 						}
