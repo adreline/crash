@@ -1,4 +1,5 @@
 <?php
+namespace Crash;
 /**
  * This file holds global variables, that are
  * meant to be a convinient shortcuts
@@ -8,6 +9,7 @@ class Crash{
         "navbar"=>"resources/elements/modules/navbar.php",
         "post"=>"resources/elements/modules/post.php",
         "aside"=>"resources/elements/modules/aside.php",
+        "modal"=>"resources/elements/modules/modal.php",
         "head"=>"resources/elements/modules/head.php"
     );
     public static $element=array(

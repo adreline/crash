@@ -12,6 +12,9 @@
     <body>
         <?php
             include Crash::$module['navbar'];
+            if(isset($modal)){
+            include Crash::$module['modal'];
+            }
         ?>
         <div class="columns">
             <div class="column">

@@ -1,6 +1,8 @@
 <?php
+namespace Elements;
 //this class defines a user db object
 require_once "database.php";
+use Elements\Database as Database;
 
 class User{
   public $id;

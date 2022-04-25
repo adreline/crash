@@ -1,5 +1,8 @@
 <?php
+use Crash\Crash as Crash;
 require_once Crash::$element['user'];
+use function Controller\App\process as app_process;
+use Elements\User as User;
 /*
 * This controller processes register and login
 */
@@ -14,7 +17,10 @@ require_once Crash::$element['user'];
 					$user = User::getUser(null,"WHERE `username`='$username'");
 					if(isset($user[0])){
 						if(password_verify($password,$user[0]->password)){
-							echo "login successful";
+							//login successful, redirect back to home
+							$modal="login successful";
+							require Crash::$controller['app'];
+							app_process("/crash/");
 						}else{
 						echo "password invalid";
 						}

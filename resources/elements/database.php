@@ -1,5 +1,5 @@
 <?php
-
+    namespace Elements;
     class Database{
         private static function connect(){
             $c =  mysqli_connect(DB_CONF['host'],DB_CONF['database_user'],DB_CONF['database_pass'],DB_CONF['database']);
