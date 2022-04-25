@@ -38,7 +38,7 @@ class User{
       $row['username'],
       $row['password'],
       $row['avatar'],
-      $row['privelage'],
+      $row['administrator'],
       $row['time_stamp'],
       $row['id_user']
       );
