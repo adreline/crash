@@ -11,6 +11,7 @@ class Crash{
         "aside"=>"resources/elements/modules/aside.php",
         "modal"=>"resources/elements/modules/modal.php",
         "users_form"=>"resources/elements/modules/users_form.php",
+        "user_banner"=>"resources/elements/modules/user_banner.php",
         "head"=>"resources/elements/modules/head.php"
     );
     public static $element=array(

@@ -1,10 +1,18 @@
 <?php  use Crash\Crash as Crash;  ?>
                 <div class="window">
-                    <h2>Login or join</h2>
+                    <?php 
+                            if(isset($_SESSION['protagonist'])){
+                                echo "<h2>$_SESSION['protagonist']->username</h2>";
+                            }else{
+                                echo "<h2>Login or join</h2>";
+                            }                           
+                    ?>
+                    
                     <div class="content">
                         <?php
+                            //display either user banner or login form
                             if(isset($_SESSION['protagonist'])){
-                                var_dump($_SESSION['protagonist']);
+                                include Crash::$module['user_banner'];
                             }else{
                                 include Crash::$module['users_form'];
                             }
