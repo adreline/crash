@@ -2,6 +2,7 @@
 namespace Elements;
 //this class defines a user db object
 use Elements\Database as Database;
+use Crash\Helper as Helper;
 
 class User{
   public $id;

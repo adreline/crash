@@ -22,8 +22,7 @@ use Elements\Session as Session;
 							
 							$_SESSION['protagonist']=$user[0];
 							Session::insertSession(new Session(session_id(),$user[0]->id));
-							redirect_home("home", function(){
-								
+							redirect_home("home", function(){								
 								Crash::notify("Success","Login successful");
 							});
 						}else{
@@ -39,7 +38,7 @@ use Elements\Session as Session;
 				}else{
 				if(isset($_POST['register'])){
 					$username=$_POST['username'];
-					$password=password_hash($_POST['password']);
+					$password=password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost'=>10));
 					User::insertUser(new User($username,$password));
 					redirect_home("home", function(){
 						Crash::notify("Success","Your account was created");
