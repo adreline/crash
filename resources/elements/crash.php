@@ -10,6 +10,7 @@ class Crash{
         "post"=>"resources/elements/modules/post.php",
         "aside"=>"resources/elements/modules/aside.php",
         "modal"=>"resources/elements/modules/modal.php",
+        "users_form"=>"resources/elements/modules/users_form.php",
         "head"=>"resources/elements/modules/head.php"
     );
     public static $element=array(
@@ -18,6 +19,7 @@ class Crash{
       "fandom"=>"resources/elements/fandom.php",
       "leaflet"=>"resources/elements/leaflet.php",
       "publication"=>"resources/elements/publication.php",
+      "session"=>"resources/elements/session.php",
       "user"=>"resources/elements/user.php"
     );
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.

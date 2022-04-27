@@ -1,8 +1,9 @@
 <?php
 namespace Controller\Users;
 use Crash\Crash as Crash;
-use function Controller\App\process as app_process;
+use function Controller\App\process as redirect_home;
 use Elements\User as User;
+use Elements\Session as Session;
 /*
 * This controller processes register and login
 */
@@ -19,16 +20,20 @@ use Elements\User as User;
 					if(isset($user[0])){
 						if(password_verify($password,$user[0]->password)){
 							//login successful, redirect back to home and display a modal msg
-							app_process("home", function(){
+							
+							$_SESSION['protagonist']=$user[0];
+							Session::insertSession(new Session(session_id(),$user[0]->id));
+							redirect_home("home", function(){
+								
 								Crash::notify("Success","Login successful");
 							});
 						}else{
-						app_process("home", function(){
+							redirect_home("home", function(){
 								Crash::notify("Fail","Password was incorrect");
 							});
 						}
 					}else{
-						app_process("home", function(){
+						redirect_home("home", function(){
 								Crash::notify("Fail","No user with such name was found");
 							});
 					}
@@ -37,7 +42,7 @@ use Elements\User as User;
 					$username=$_POST['username'];
 					$password=password_hash($_POST['password']);
 					User::insertUser(new User($username,$password));
-					app_process("home", function(){
+					redirect_home("home", function(){
 						Crash::notify("Success","Your account was created");
 					});
 				}
