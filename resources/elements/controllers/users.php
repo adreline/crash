@@ -8,7 +8,6 @@ use Elements\Session as Session;
 * This controller processes register and login
 */
 	function process($req=null, $template='default'){
-		echo "Hello";
 		switch($_SERVER["REQUEST_METHOD"]){
 			case "POST":
 				if(isset($_POST['login'])){
