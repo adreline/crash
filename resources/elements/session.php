@@ -19,7 +19,7 @@ class Session{
 
     private static $methods = array(
         'insert'=>"INSERT INTO `sessions` (`id_session`, `secret`, `users_id_user`) VALUES (NULL, '%0', '%1');",
-        'select'=>"SELECT * FROM `sessions` WHERE `secret`=%0",
+        'select'=>"SELECT * FROM `sessions` WHERE `secret`='%0'",
         'delete'=>"DELETE FROM `sessions` WHERE `sessions`.`id_session` = %0",
         'update'=>"UPDATE `sessions` SET `secret` = '%0', `users_id_user` = '%1' WHERE `sessions`.`id_session` = %2;"
       );
@@ -31,7 +31,7 @@ class Session{
                 $row['secret'],
                 $row['users_id_user'],
                 $row['created_at'],
-                $row['id']
+                $row['id_session']
             );
         });
         if(sizeof($sessions)==1){

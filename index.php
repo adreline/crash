@@ -18,12 +18,16 @@ foreach (Crash\Crash::$element as $e){
 use Crash\Helper as Helper;
 use function Controller\App\process as app_process;
 use Elements\Session as Session;
+use Elements\User as User;
 session_start(); //start session only after classes are loaded to avoid incomplete object warning
 //this part sets the user object if session exists in the database
-$protagonist = Session::getSession(session_id());
+$session = Session::getSession(session_id());
 
-if(isset($protagonist)){
-    $_SESSION['protagonist']=$protagonist;
+if(isset($session)){
+    $protagonist = User::getUser($session->users_id_user);
+    if(isset($protagonist[0])){
+        $_SESSION['protagonist']=$protagonist[0];
+    }
 }
 
 try{

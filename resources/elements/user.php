@@ -24,10 +24,10 @@ class User{
   }
 
   private static $methods = array(
-    'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1');",
+    'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1')",
     'select'=>"SELECT * FROM `users`",
     'delete'=>"DELETE FROM `users` WHERE id_user=%0",
-    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,avatar='%4' WHERE id_user=%5;"
+    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,avatar='%4' WHERE id_user=%5"
   );
 
   public static function getUser($id=null,$optional_sql=""){

@@ -5,9 +5,25 @@ use function Controller\App\process as redirect_home;
 use Elements\User as User;
 use Elements\Session as Session;
 /*
-* This controller processes register and login
+* This controller processes everything that has to do with users
 */
-	function process($req=null, $template='default'){
+	function view_profile(){
+		redirect_home('home',function(){
+			Crash::notify("Nope","Not yet implemented");
+		});
+	}
+	function logout(){
+		$_SESSION['protagonist']=null;
+		$session = Session::getSession(session_id());
+		if(isset($session)){
+			Session::deleteSession($session->id);
+		}
+		session_destroy();
+		redirect_home('home',function(){
+			Crash::notify("Loged out","You have been logged out");
+		});
+	}
+	function enlist($req=null){
 		switch($_SERVER["REQUEST_METHOD"]){
 			case "POST":
 				if(isset($_POST['login'])){

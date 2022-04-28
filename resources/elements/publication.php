@@ -12,7 +12,8 @@ class Publication {
   public $time_stamp;
   public $users_id_user;
   public $fandoms_id_fandom;
-  
+
+
   private static $methods = array(
     'insert' => "INSERT INTO `publications` (`id_publication`, `title`, `planned_length`, `status`, `time_stamp`, `users_id_user`, `fandoms_id_fandom`) VALUES (NULL, '%0', '%1', '%2', CURRENT_TIMESTAMP, '%3', '%4')",
     'select' => "SELECT * FROM `publications`",
