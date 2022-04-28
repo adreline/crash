@@ -75,15 +75,19 @@ ul li::before {
 }
 .column{
   width: 100%;
+  padding: .5rem;
 }
 .column.is-1-4{
   width: 25%; 
 }
 
 /* Various containers */
+.inline{
+  display: flex;
+}
 .avatar{
-  width: 20%;
-  height: fit-content;
+  width: 100%;
+  border-radius: 100%;
 }
 .window{
     border: .5rem solid var(--accent);
