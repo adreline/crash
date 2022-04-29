@@ -31,26 +31,14 @@ class Leaflet{
   }
   public static function insertLeaflet($leaf){
     $sql = Helper::fill_in(Leaflet::$methods['insert'],array($leaf->body,$leaf->publications_id_publication));
-      if(Database::insert($sql)){
-        echo "Inserted";
-      }else{
-        echo "Failed to insert";
-      }
+    return Database::insert($sql);
   }
   public static function deleteLeaflet($id){
     $sql = Helper::fill_in(Leaflet::$methods['delete'],array($id));
-    if(Database::delete($sql)){
-        echo "Deleted";
-      }else{
-        echo "Failed to delete";
-      }
+    return Database::delete($sql);
   }
-  public static function updateLeaflet($id,$leaf){
-    $sql = Helper::fill_in(Leaflet::$methods['update'],array($leaf->body,$id));
-    if(Database::update($sql)){
-        echo "Updated";
-      }else{
-        echo "Failed to update";
-      }
+  public static function updateLeaflet($leaf){
+    $sql = Helper::fill_in(Leaflet::$methods['update'],array($leaf->body,$leaf->id));
+    return Database::update($sql);
   }
 }

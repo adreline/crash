@@ -48,19 +48,11 @@ class Publication {
     $publication->users_id_user,
     $publication->fandoms_id_fandom));
     
-    if(Database::insert($sql)){
-      echo "Inserted";
-    }else{
-      echo "Failed to insert";
-    }
+    return Database::insert($sql);
   }
   public static function deletePublication($id){
     $sql = Helper::fill_in(Publication::$methods['delete'],array($id));
-    if(Database::delete($sql)){
-      echo "Deleted";
-    }else{
-      echo "Failed to delete";
-    }
+    return Database::delete($sql);
   }
   public static function updatePublication($id,$publication){
     $sql = Helper::fill_in(Publication::$methods['update'],array(
@@ -71,12 +63,7 @@ class Publication {
     $publication->users_id_user,
     $publication->fandoms_id_fandom,
     $id));
-    
-    if(Database::update($sql)){
-      echo "Inserted";
-    }else{
-      echo "Failed to insert";
-    }
+    return Database::update($sql);
   }
   
 }

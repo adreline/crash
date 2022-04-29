@@ -46,19 +46,11 @@ class Session{
             $session->secret,
             $session->users_id_user
         ));
-        if(Database::insert($sql)){
-            echo "Inserted";
-          }else{
-            echo "Failed to insert";
-          }
+        return Database::insert($sql);
     }
     public static function deleteSession($id){
         $sql = Helper::fill_in(Session::$methods['delete'],array($id));
-        if(Database::delete($sql)){
-            echo "Deleted";
-          }else{
-            echo "Failed to delete";
-          }
+        return Database::delete($sql);
     }
     public static function updateSession($session){
         $sql= Helper::fill_in(Session::$methods['update'],array(
@@ -66,11 +58,7 @@ class Session{
             $session->users_id_user,
             $session->id
         ));
-        if(Database::update($sql)){
-            echo "Updated";
-          }else{
-            echo "Failed to update";
-          }
+        return Database::update($sql);
     }
 
 }

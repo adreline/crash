@@ -52,20 +52,12 @@ class User{
       $user->username,
       $user->password 
     ));
-      if(Database::insert($sql)){
-        echo "Inserted";
-      }else{
-        echo "Failed to insert";
-      }
+      return Database::insert($sql);
   }
   
   public static function deleteUser($id){
     $sql = Helper::fill_in(User::$methods['delete'],array($id));
-    if(Database::delete($sql)){
-      echo "Deleted";
-    }else{
-      echo "Failed to delete";
-    }
+    return Database::delete($sql);
   }
   public static function updateUser($user){
     $sql = Helper::fill_in(User::$methods['update'],array(
@@ -76,11 +68,7 @@ class User{
       $user->avatar,
       $user->id
     ));
-      if(Database::update($sql)){
-        echo "Updated";
-      }else{
-        echo "Failed to update";
-      }
+      return Database::update($sql);
   }
 
 }

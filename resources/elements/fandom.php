@@ -34,27 +34,15 @@ class Fandom {
   
   public static function insertFandom($fandom){
       $sql = Helper::fill_in(Fandom::$methods['insert'],array($fandom->friendly_name,$fandom->name));
-      if(Database::insert($sql)){
-        echo "Inserted";
-      }else{
-        echo "Failed to insert";
-      }
+      return Database::insert($sql);
   }
   public static function deleteFandom($id){
     $sql = Helper::fill_in(Fandom::$methods['delete'],array($id));
-    if(Database::delete($sql)){
-      echo "Deleted";
-    }else{
-      echo "Failed to delete";
-    }
+    return Database::delete($sql);
   }
   public static function updateFandom($id,$fandom){
     $sql = Helper::fill_in(Fandom::$methods['update'],array($fandom->friendly_name,$fandom->name,$id));
-    if(Database::update($sql)){
-        echo "Updated";
-      }else{
-        echo "Failed to update";
-      }
+    return Database::update($sql);
   }
   
 

@@ -56,28 +56,22 @@ class Page{
          
     }
     public static function insertPage($page){
-        $sql = Helper::fill_in(Page::$methods['insert'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript));
-        if(Database::insert($sql)){
-            echo "Inserted";
-        }else{
-            echo "Failed to insert";
-        }
+        $sql = Helper::fill_in(Page::$methods['insert'],array(
+            $page->friendly_name,
+            $page->name,
+            $page->content,
+            $page->custom_css,
+            $page->javascript));
+            
+        return Database::insert($sql);
     }
     public static function deletePage($id){
         $sql = Helper::fill_in(Page::$methods['delete'],array($id));
-        if(Database::delete($sql)){
-            echo "Deleted";
-        }else{
-            echo "Failed to delete";
-        }
+        return Database::delete($sql);
     }
     public static function editPage($id,$page){
         $sql = Helper::fill_in(Page::$methods['update'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript,$id));
-        if(Database::update($sql)){
-            echo "Updated";
-        }else{
-            echo "Failed to update";
-        }
+        return Database::update($sql);
     }
 
 }
