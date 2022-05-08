@@ -10,10 +10,10 @@ ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/cras
 
 require "/crash/.env";
 require "/crash/resources/elements/crash.php";
-require "routes.php";
 foreach (Crash\Crash::$element as $e){
     require $e;
 }
+require "routes.php";
 
 use Crash\Helper as Helper;
 use function Controller\App\process as app_process;
@@ -30,9 +30,12 @@ if(isset($session)){
     }
 }
 
+
 try{
     //try to forward request to a controller
     $req = trim($_SERVER['REQUEST_URI']);
+    //strip get vars
+    $req = explode("?",$req)[0];
     $forward->lookup[$req]();
 }catch(Exception|Throwable){   
     //if route not found in the lookup tabe, fall back to the default controller as a last resort
