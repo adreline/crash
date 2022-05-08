@@ -21,12 +21,16 @@ class Crash{
       "leaflet"=>"resources/elements/leaflet.php",
       "publication"=>"resources/elements/publication.php",
       "session"=>"resources/elements/session.php",
+      "head"=>"resources/elements/head.php",
       "user"=>"resources/elements/user.php"
     );
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
         "home" => "resources/views/home.php",
         "about" => "resources/views/about.php",
+        "admin/panel" => "resources/views/admin/panel.php",
+        "admin/pages" => "resources/views/admin/pages.php",
+        "admin/pages_editor" => "resources/views/admin/pages_editor.php",
         "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
@@ -37,6 +41,7 @@ class Crash{
     //together with a path to the actuall file. the name used here will be same as in request url.
     public static $controller=array(
       "app" => "resources/elements/controllers/app.php",
+      "admin" => "resources/elements/controllers/admin.php",
       "users" => "resources/elements/controllers/users.php"
     );
     
