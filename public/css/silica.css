@@ -96,7 +96,7 @@ ul li::before {
     margin: .5rem;
     background: var(--background);
 }
-.window h2{
+.window .title{
     margin-top: -2rem !important;
     margin-left: 1rem !important;
 }
@@ -130,6 +130,9 @@ ul li::before {
 }
 .content h3{
   font-size: 2.5rem;
+}
+.content.big *{
+  font-size: calc(20% + 1rem);
 }
 /* modal container */
 .modal {
@@ -201,3 +204,17 @@ nav.navbar a.is-active{
     float: right;
     margin: 0;
 }
+
+/* CK Editor 5 styling */
+:root{
+  --ck-color-base-foreground: var(--accent) !important;
+  --ck-color-base-background: var(--background) !important;
+  --ck-color-base-border: var(--accent) !important;
+  --ck-color-base-text: var(--text) !important;
+  --ck-color-button-default-hover-background: var(--accent2) !important;
+  --ck-color-button-on-hover-background: var(--accent2) !important;
+  --ck-color-tooltip-background: var(--accent) !important;
+  --ck-color-tooltip-text: var(--ck-color-base-text) !important;
+  --ck-color-image-caption-background: var(--accent) !important;
+}
+

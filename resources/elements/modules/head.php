@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;400&family=Noto+Sans+JP:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/crash/public/css/silica.css">
     <script src="https://kit.fontawesome.com/36f98a2615.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <?php 
         if (isset($page[0])) {
             echo $page[0]->custom_css;

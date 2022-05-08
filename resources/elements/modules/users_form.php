@@ -1,5 +1,5 @@
                         <div class="window">
-                            <h2>Login or join</h2>
+                            <h2 class="title">Login or join</h2>
                             <div class="content">
                                 <form action="/crash/users/enlist" method="post">
                                     <a>crash@login:~$ <input type="text" name="username"></a>
