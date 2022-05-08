@@ -14,9 +14,9 @@
     <script src="https://kit.fontawesome.com/36f98a2615.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <?php 
-        if (isset($page[0])) {
-            echo $page[0]->custom_css;
-            echo $page[0]->javascript;
+        if (isset($page)) {
+            echo $page->custom_css;
+            echo $page->javascript;
         }
      ?>
 </head>

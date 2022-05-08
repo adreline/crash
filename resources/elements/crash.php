@@ -28,9 +28,9 @@ class Crash{
     public static $static_page=array(
         "home" => "resources/views/home.php",
         "about" => "resources/views/about.php",
-        "admin/panel" => "resources/views/admin/panel.php",
-        "admin/pages" => "resources/views/admin/pages.php",
-        "admin/pages_editor" => "resources/views/admin/pages_editor.php",
+        "admin/panel" => "resources/views/admin/dashboard.php",
+        "admin/pages" => "resources/views/admin/pages/overview.php",
+        "admin/pages_editor" => "resources/views/admin/pages/editor.php",
         "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
@@ -57,9 +57,18 @@ class Crash{
  * There should only be one router instance per application.
  */
 class Router{
-  public $lookup;
-  public function route($route, $fn){
-      $this->lookup[$route]=$fn;
+  public $get;
+  public $post;
+  public function route($route, $fn, $method='GET'){
+      switch($method){
+        case "GET":
+          $this->get[$route]=$fn;
+        break;
+        case "POST":
+          $this->post[$route]=$fn;
+        break;
+      }
+      
   }
 }
 /**

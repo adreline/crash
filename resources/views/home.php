@@ -14,7 +14,7 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2>Popular fandoms</h2>
+                <h2 class="title">Popular fandoms</h2>
                 <div class="content">
                    <?php
                         foreach(E\Fandom::getFandom() as $fandom){
@@ -25,7 +25,7 @@
                 </div>
                 </div>
                 <div class="window">
-                <h2>Recent works</h2>
+                <h2 class="title">Recent works</h2>
                 <div class="content">
                    <?php
                         foreach(E\Publication::getPublication(null,"LIMIT 4") as $publication){

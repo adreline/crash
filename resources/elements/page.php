@@ -69,8 +69,8 @@ class Page{
         $sql = Helper::fill_in(Page::$methods['delete'],array($id));
         return Database::delete($sql);
     }
-    public static function editPage($id,$page){
-        $sql = Helper::fill_in(Page::$methods['update'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript,$id));
+    public static function editPage($page){
+        $sql = Helper::fill_in(Page::$methods['update'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript,$page->id));
         return Database::update($sql);
     }
 

@@ -13,7 +13,7 @@ require "/crash/resources/elements/crash.php";
 foreach (Crash\Crash::$element as $e){
     require $e;
 }
-require "routes.php";
+
 
 use Crash\Helper as Helper;
 use function Controller\App\process as app_process;
@@ -30,13 +30,23 @@ if(isset($session)){
     }
 }
 
+require "routes.php";
 
 try{
     //try to forward request to a controller
     $req = trim($_SERVER['REQUEST_URI']);
     //strip get vars
     $req = explode("?",$req)[0];
-    $forward->lookup[$req]();
+    //determine request method 
+    switch($_SERVER["REQUEST_METHOD"]){
+        case "GET":
+            $forward->get[$req]();
+        break;
+        case "POST":
+            $forward->post[$req]();
+        break;
+    }
+    
 }catch(Exception|Throwable){   
     //if route not found in the lookup tabe, fall back to the default controller as a last resort
     app_process(Helper::assertRoute()[1]);

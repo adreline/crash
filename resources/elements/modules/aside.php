@@ -8,7 +8,7 @@
                             }
                         ?>
                 <div class="window">
-                    <h2>Newcomers</h2>
+                    <h2 class="title">Newcomers</h2>
                     <div class="content">
                         <?php
                             include_once Crash::$element['user'];

@@ -13,13 +13,13 @@
                     <p>maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text"></p>
                 </div>
                 <ul>
-                    <li><a href="http://niecko.4suns.pl/crash/">Home</a></li>             
+                    <li><a href="/crash/">Home</a></li>             
                     <?php
-                        foreach (Page::getPage() as $page){
-                            echo "<li><a href=\"$page->name\">$page->friendly_name</a></li>";
+                        foreach (Page::getPage() as $page_l){
+                            echo "<li><a href=\"/crash/$page_l->name\">$page_l->friendly_name</a></li>";
                         }
                     ?>
-                    <li><a href="http://niecko.4suns.pl/crash/about">What is this?</a></li>
+                    <li><a href="/crash/about">What is this?</a></li>
                 </ul>
             </div>
 </nav>

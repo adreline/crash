@@ -10,7 +10,7 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2><?php echo "$page->friendly_name"; ?></h2>
+                <h2 class="title"><?php echo "$page->friendly_name"; ?></h2>
                 <?php echo "$page->content"; ?>
                 </div>
             </div>

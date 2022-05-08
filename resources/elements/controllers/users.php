@@ -24,8 +24,6 @@ use Elements\Session as Session;
 		});
 	}
 	function enlist($req=null){
-		switch($_SERVER["REQUEST_METHOD"]){
-			case "POST":
 				if(isset($_POST['login'])){
 					//attempt to log the user in
 					//this really need sanitizing to prevent sql injection
@@ -60,11 +58,6 @@ use Elements\Session as Session;
 						Crash::notify("Success","Your account was created");
 					});
 				}
-			}
-			break;
-			default:
-				Crash::error(404, "Thrown in Controller\Users. Requested url: $req");
-			break;
-		}
+			}	
 	}
 ?>

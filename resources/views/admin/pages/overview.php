@@ -13,11 +13,11 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2>Manage pages</h2>
+                <h2 class="title">Manage pages</h2>
                 <div class="content">
                     <div class="columns">
                         <div class="column">
-
+                            <a href="/crash/admin/pages/new"><mark class="success">[new page]</mark></a>
                         </div>
                         <div class="column">
 

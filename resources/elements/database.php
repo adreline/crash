@@ -33,6 +33,7 @@
                 $c->close();
                 return true;
             } else {
+                define("mysql_error",$c->error);
                 $c->close();
                 return false;
             }

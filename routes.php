@@ -21,27 +21,35 @@ $forward->route("/crash/", function(){
 /* Users routes */
 $forward->route("/crash/users/enlist", function(){
     users_enlist();
-});
+},"POST");
 $forward->route("/crash/users/logout", function(){
     users_logout();
-});
+},"POST");
 $forward->route("/crash/users/profile", function(){
     view_profile();
 });
 /* Admin routes */
-$forward->route("/crash/admin", function(){
-        //verify permission level
-        //$prot = $_SESSION['protagonist'];  
-        //if(isset($prot) && $prot->privelage){
+//verify permission level 
+if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){
+    $forward->route("/crash/admin", function(){
             AdminController::showPanel();
-        //}else{
-            //Crash::error('403','You don\'t have permission to access this page.');
-        //}
-});
-$forward->route("/crash/admin/pages", function(){
-    AdminController::showPagesManager();
-});
-$forward->route("/crash/admin/pages/edit", function(){
-    AdminController::showPageEditor($_GET['id']);
-});
+    });
+    $forward->route("/crash/admin/pages", function(){
+        AdminController::showPagesManager();
+    });
+    $forward->route("/crash/admin/pages/edit", function(){
+        AdminController::showPageEditor($_GET['id']);
+    });
+    $forward->route("/crash/admin/pages/edit", function(){
+        AdminController::updatePage($_REQUEST);
+    },"POST");
+    $forward->route("/crash/admin/pages/new", function(){
+        AdminController::showPageEditor();
+    });
+        $forward->route("/crash/admin/pages/new", function(){
+        AdminController::insertNewPage($_REQUEST);
+    },"POST");
+}
+
+
 ?>
