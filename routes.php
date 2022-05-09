@@ -46,9 +46,12 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){
     $forward->route("/crash/admin/pages/new", function(){
         AdminController::showPageEditor();
     });
-        $forward->route("/crash/admin/pages/new", function(){
+    $forward->route("/crash/admin/pages/new", function(){
         AdminController::insertNewPage($_REQUEST);
     },"POST");
+    $forward->route("/crash/admin/pages/delete", function(){
+        AdminController::deletePage($_GET['id']);
+    });
 }
 
 

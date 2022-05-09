@@ -29,7 +29,7 @@
                             echo "<mark class=\"info\">Title:</mark> $page->friendly_name | ";
                             echo "<mark class=\"info\">Uri:</mark> $page->name | ";
                             echo "<a href=\"/crash/admin/pages/edit?id=$page->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/admin/pages/delete?id=$page->id\"><mark class=\"danger\">[delete]</mark></a>";
-                            
+                            echo "<br>";
                         }
                     ?></p>
                 </div>

@@ -61,6 +61,14 @@ class Controller{
         Crash::notify("success","Page updated");
       });
   }
+  public static function deletePage($id_page){
+    if(!Page::deletePage($id_page)){
+      die(mysql_error);
+    }
+    redirect_home('home',function(){
+      Crash::notify("success","Page deleted");
+    });
+  }
 }
 
 ?>

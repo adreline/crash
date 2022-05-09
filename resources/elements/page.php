@@ -49,7 +49,7 @@ class Page{
             return new Page($row['name'],$row['friendly_name'],$row['content'],$row['custom_css'],$row['javascript'],$row['id_page']);
         });
         if(sizeof($pages)==0){
-            return null;
+            return [];
         }else{
             return $pages;
         }
