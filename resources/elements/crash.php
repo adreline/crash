@@ -31,6 +31,8 @@ class Crash{
         "admin/panel" => "resources/views/admin/dashboard.php",
         "admin/pages" => "resources/views/admin/pages/overview.php",
         "admin/pages_editor" => "resources/views/admin/pages/editor.php",
+        "user/dashboard" => "resources/views/user/dashboard.php",
+        "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
         "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers

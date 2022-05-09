@@ -6,11 +6,10 @@ require Crash::$controller['app'];
 require Crash::$controller['users'];
 require Crash::$controller['admin'];
 use Controller\Admin\Controller as AdminController;
+use Controller\Users\Controller as UsersController;
 
 use function Controller\App\process as app_process;
-use function Controller\Users\enlist as users_enlist;
-use function Controller\Users\logout as users_logout;
-use function Controller\Users\view_profile as view_profile;
+
 
 
 $forward = new Router();
@@ -18,19 +17,8 @@ $forward = new Router();
 $forward->route("/crash/", function(){
     app_process("home");
 });
-/* Users routes */
-$forward->route("/crash/users/enlist", function(){
-    users_enlist();
-},"POST");
-$forward->route("/crash/users/logout", function(){
-    users_logout();
-},"POST");
-$forward->route("/crash/users/profile", function(){
-    view_profile();
-});
 /* Admin routes */
-//verify permission level 
-if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){
+if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//verify permission level 
     $forward->route("/crash/admin", function(){
             AdminController::showPanel();
     });
@@ -53,6 +41,20 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){
         AdminController::deletePage($_GET['id']);
     });
 }
-
+/* user specific routes */
+if(isset($_SESSION['protagonist'])){//verify if user is logged in
+    $forward->route("/crash/users/enlist", function(){
+        UsersController::enlist();
+    },"POST");
+    $forward->route("/crash/users/logout", function(){
+        UsersController::logout();
+    },"POST");
+    $forward->route("/crash/users/profile", function(){
+        UsersController::showDashboard();
+    });
+    $forward->route("/crash/users/scriptorium", function(){
+        UsersController::showScriptorium();
+    });
+}
 
 ?>

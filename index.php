@@ -22,15 +22,13 @@ use Elements\User as User;
 session_start(); //start session only after classes are loaded to avoid incomplete object warning
 //this part sets the user object if session exists in the database
 $session = Session::getSession(session_id());
-
 if(isset($session)){
     $protagonist = User::getUser($session->users_id_user);
     if(isset($protagonist[0])){
         $_SESSION['protagonist']=$protagonist[0];
     }
 }
-
-require "routes.php";
+require "routes.php"; //require routes only after session is loaded because routes need it to verify permissions
 
 try{
     //try to forward request to a controller

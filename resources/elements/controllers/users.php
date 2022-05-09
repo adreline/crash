@@ -7,12 +7,15 @@ use Elements\Session as Session;
 /*
 * This controller processes everything that has to do with users
 */
-	function view_profile(){
-		redirect_home('home',function(){
-			Crash::notify("Nope","Not yet implemented");
-		});
+class Controller{
+
+	public static function showDashboard(){
+		include Crash::$static_page["user/dashboard"];
 	}
-	function logout(){
+	public static function showScriptorium(){
+		include Crash::$static_page["user/scriptorium"];
+	}
+	public static function logout(){
 		$_SESSION['protagonist']=null;
 		$session = Session::getSession(session_id());
 		if(isset($session)){
@@ -23,7 +26,7 @@ use Elements\Session as Session;
 			Crash::notify("Loged out","You have been logged out");
 		});
 	}
-	function enlist($req=null){
+	public static function enlist($req=null){
 				if(isset($_POST['login'])){
 					//attempt to log the user in
 					//this really need sanitizing to prevent sql injection
@@ -60,4 +63,7 @@ use Elements\Session as Session;
 				}
 			}	
 	}
+
+}
+
 ?>
