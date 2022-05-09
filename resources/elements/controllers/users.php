@@ -4,17 +4,47 @@ use Crash\Crash as Crash;
 use function Controller\App\process as redirect_home;
 use Elements\User as User;
 use Elements\Session as Session;
+use Elements\Publication as Publication;
+
 /*
 * This controller processes everything that has to do with users
 */
 class Controller{
 
-	public static function showDashboard(){
-		include Crash::$static_page["user/dashboard"];
-	}
+	/* publications management routes */
 	public static function showScriptorium(){
 		include Crash::$static_page["user/scriptorium"];
 	}
+	public static function showPublicationEditor($id_publication=null){
+		if(isset($id_publication)){
+			$publication = Publication::getPublication($id_publication);
+			$action = "/crash/users/scriptorium/publication/edit";
+		}else{
+			$publication = new Publication("",0,0,0,0);
+			$action = "/crash/users/scriptorium/publication/new";
+		}
+		include Crash::$static_page["user/scriptorium/editor"];
+	}
+	public static function insertNewPublication($form){
+		$pub = new Publication(
+			$form['title'],
+			$form['planned_length'],
+			$form['status'],
+			$form['users_id_user'],
+			"1" //in the future, replace with actual fandom id fetch by $form['fandom_name']
+		);
+
+		if(!Publication::insertPublication($pub)){
+			die(mysql_error);
+		}
+		
+		redirect_home('home',function(){
+			Crash::notify("success","Work created");
+		  });
+		
+		
+	}
+	/* account management routes */
 	public static function logout(){
 		$_SESSION['protagonist']=null;
 		$session = Session::getSession(session_id());
@@ -63,7 +93,9 @@ class Controller{
 				}
 			}	
 	}
-
+	public static function showDashboard(){
+		include Crash::$static_page["user/dashboard"];
+	}
 }
 
 ?>

@@ -55,6 +55,13 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/scriptorium", function(){
         UsersController::showScriptorium();
     });
+    $forward->route("/crash/users/scriptorium/publication/editor", function(){
+        UsersController::showPublicationEditor();
+    });
+    $forward->route("/crash/users/scriptorium/publication/new",function(){
+        UsersController::insertNewPublication($_REQUEST);
+    },"POST");
+    
 }
 
 ?>

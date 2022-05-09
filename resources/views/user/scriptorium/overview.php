@@ -29,7 +29,7 @@
                         }
                     ?></p>
                     <h4>Tasks</h4>
-                    <a><mark class="success">[start new work]</mark></a>
+                    <a href="/crash/users/scriptorium/publication/editor"><mark class="success">[start new work]</mark></a>
                 </div>
                 </div>
             </div>
