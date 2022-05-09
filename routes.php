@@ -2,6 +2,7 @@
 use Crash\Helper as Helper;
 use Crash\Crash as Crash;
 use Crash\Router as Router;
+use Elements\Publication as Publication;
 require Crash::$controller['app'];
 require Crash::$controller['users'];
 require Crash::$controller['admin'];
@@ -59,9 +60,37 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         UsersController::showPublicationEditor();
     });
     $forward->route("/crash/users/scriptorium/publication/new",function(){
-        UsersController::insertNewPublication($_REQUEST);
+        //verify if id's have not been tampered with 
+        if($_REQUEST['users_id_user']==$_SESSION['protagonist']->id){
+            UsersController::insertNewPublication($_REQUEST);
+        }else{
+            Crash::error(403,"You don't have permission to publish this publication");
+        }
+        
     },"POST");
-    
+    $forward->route("/crash/users/scriptorium/leaflet", function(){
+        //verify that supplied publication id is that of a publication owned by current user
+        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id'])[0]->users_id_user){
+            UsersController::showLeafOverview($_GET['id']);
+        }else{
+            Crash::error(403,"You aren't an author of this publication");
+        }
+        
+    });
+    $forward->route("/crash/users/scriptorium/leaflet/editor", function(){
+        //verify that supplied publication id is that of a publication owned by current user
+        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id_pub'])[0]->users_id_user){ 
+            UsersController::showLeafEditor($_GET['id_pub'],$_GET['id_leaf']);
+        }else{
+            Crash::error(403,"You aren't an author of this publication");
+        }
+        
+    });
+    $forward->route("/crash/users/scriptorium/leaflet/new", function(){
+        //TODO verify that supplied publication id is that of a publication owned by current user
+        var_dump($_REQUEST);
+        die();
+    });
 }
 
 ?>

@@ -40,9 +40,22 @@ class Controller{
 		
 		redirect_home('home',function(){
 			Crash::notify("success","Work created");
-		  });
-		
-		
+		  });	
+	}
+	public static function showLeafOverview($publication_id){
+		$publication = Publication::getPublication($publication_id)[0];
+		$leafs = Publication::getPublicationLeafs($publication_id);
+		include Crash::$static_page["user/scriptorium/leaf"];
+	}
+	public static function showLeafEditor($id_pub,$id_leaf=null){
+		if(isset($id_leaf)){
+			$leaf = Leaflet::getLeafletById($id_leaf);
+			$action = "/crash/users/scriptorium/leaflet/edit";
+		}else{
+			$action = "/crash/users/scriptorium/leaflet/new";
+		}
+		$publication = Publication::getPublication($id_pub)[0];
+		include Crash::$static_page["user/scriptorium/leaf/editor"];
 	}
 	/* account management routes */
 	public static function logout(){

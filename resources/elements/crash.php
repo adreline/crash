@@ -34,6 +34,8 @@ class Crash{
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
         "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",
+        "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
+        "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
         "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers

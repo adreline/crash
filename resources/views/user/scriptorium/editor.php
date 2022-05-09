@@ -14,7 +14,14 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2 class="title">You are creating a new work</h2>
+                <?php
+                    if(isset($publication->id)){//if true then we are editing existing publication
+                     echo "<h2 class=\"title\">You are creating $publication->title</h2>";
+                    }else{
+                     echo "<h2 class=\"title\">You are creating a new work</h2>";
+                    }
+                 ?>
+                
                 <div class="content">
                     <form action=<?php echo "\"$action\"" ?> method="post">
                         <?php 
