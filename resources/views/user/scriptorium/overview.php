@@ -18,8 +18,12 @@
                 <div class="content">
                     <h4>Published works</h4>
                     <p><?php 
-                        foreach([1,2,3] as $i){
-                            echo "<mark class=\"info\">Title:</mark> some title | ";
+                        foreach(E\User::getUserPublications($protagonist->id) as $pub){
+                            $published_pages=$pub->getPublicationLeafs($pub->id);
+                            $number_of_published_pages=sizeof($published_pages);
+                            echo "<mark class=\"info\">title:</mark> $pub->title | ";
+                            echo "<mark class=\"info\">status:</mark> $pub->status | ";
+                            echo "<mark class=\"info\">published pages:</mark> $number_of_published_pages | ";
                             echo "<a href=\"#\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a>";
                             echo "<br>";
                         }

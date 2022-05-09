@@ -3,6 +3,7 @@ namespace Elements;
 //this class defines a user db object
 use Elements\Database as Database;
 use Crash\Helper as Helper;
+use Elements\Publication as Publication;
 
 class User{
   public $id;
@@ -69,6 +70,9 @@ class User{
       $user->id
     ));
       return Database::update($sql);
+  }
+  public static function getUserPublications($id_user){
+    return Publication::getPublication(null, "WHERE `users_id_user` = $id_user");
   }
 }
 

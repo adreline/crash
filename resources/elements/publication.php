@@ -3,6 +3,7 @@
 namespace Elements;
 use Crash\Helper as Helper;
 use Elements\Database as Database;
+use Elements\Leaflet;
 
 class Publication {
   public $id;
@@ -65,7 +66,9 @@ class Publication {
     $id));
     return Database::update($sql);
   }
-  
+  public static function getPublicationLeafs($id_publication){//this function is an alias for Leaflet::getLeaflet
+    return Leaflet::getLeaflet($id_publication);
+  }
 }
 
 ?>
