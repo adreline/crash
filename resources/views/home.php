@@ -28,11 +28,11 @@
                 <h2 class="title">Recent works</h2>
                 <div class="content">
                    <?php
-                        foreach(E\Publication::getPublication(null,"LIMIT 4") as $publication){
+                        foreach(E\Publication::getPublication(null,"ORDER BY created_at DESC LIMIT 4") as $publication){
                             $title=$publication->title;
                             $leafs=E\Leaflet::getLeaflet($publication->id);
                             if(sizeof($leafs)>0){
-                                $prompt=substr($leafs[0]->body,0,100)."...";
+                                $prompt=substr(htmlspecialchars_decode($leafs[0]->body,ENT_QUOTES),0,100)."...";
                             }else{
                                 $prompt="...";
                             }
