@@ -3,6 +3,8 @@ use Crash\Helper as Helper;
 use Crash\Crash as Crash;
 use Crash\Router as Router;
 use Elements\Publication as Publication;
+use Elements\Leaflet as Leaflet;
+
 require Crash::$controller['app'];
 require Crash::$controller['users'];
 require Crash::$controller['admin'];
@@ -98,6 +100,17 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         }
         
     }, "POST");
+    $forward->route("/crash/users/scriptorium/leaflet/delete", function(){
+        //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
+        $pub = Publication::getPublication($_GET['id_pub'])[0];
+        $user = $_SESSION['protagonist'];
+        $leaf = Leaflet::getLeafletById($_GET['id_leaf']);
+        if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){ 
+            UsersController::deleteLeaflet($_GET['id_leaf']);
+        }else{
+            Crash::error(403,"You aren't an author of this publication or the page does not belong to this publication");
+        }
+    });
 }
 
 ?>

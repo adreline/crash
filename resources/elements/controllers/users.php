@@ -72,6 +72,14 @@ class Controller{
 			Crash::notify("success","Page published");
 		  });
 	}
+	public static function deleteLeaflet($id_leaf){
+		if(!Leaflet::deleteLeaflet($id_leaf)){
+			die(mysql_error);
+		}
+		redirect_home('home',function(){
+			Crash::notify("success","Page deleted");
+		  });
+	}
 	/* account management routes */
 	public static function logout(){
 		$_SESSION['protagonist']=null;

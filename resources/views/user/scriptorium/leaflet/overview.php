@@ -20,7 +20,7 @@
                     <?php
                       foreach($leafs as $leaf){
                             echo "<mark class=\"info\">id:</mark> $leaf->id | ";
-                            echo "<a href=\"#\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a>";
+                            echo "<a href=\"#\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/users/scriptorium/leaflet/delete?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"danger\">[delete]</mark></a>";
                             echo "<br>";
                       }
                     ?></p>
