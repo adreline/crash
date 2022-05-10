@@ -5,6 +5,7 @@ use function Controller\App\process as redirect_home;
 use Elements\User as User;
 use Elements\Session as Session;
 use Elements\Publication as Publication;
+use Elements\Leaflet as Leaflet;
 
 /*
 * This controller processes everything that has to do with users
@@ -39,9 +40,10 @@ class Controller{
 		}
 		
 		redirect_home('home',function(){
-			Crash::notify("success","Work created");
+			Crash::notify("success","Work published");
 		  });	
 	}
+	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
 		$publication = Publication::getPublication($publication_id)[0];
 		$leafs = Publication::getPublicationLeafs($publication_id);
@@ -56,6 +58,19 @@ class Controller{
 		}
 		$publication = Publication::getPublication($id_pub)[0];
 		include Crash::$static_page["user/scriptorium/leaf/editor"];
+	}
+	public static function insertNewLeaf($form){
+		$leaf = new Leaflet(
+			null,
+			htmlspecialchars($form['body'],ENT_QUOTES),
+			$form['id_publication']
+		);
+		if(!Leaflet::insertLeaflet($leaf)){
+			die(mysql_error);
+		}
+		redirect_home('home',function(){
+			Crash::notify("success","Page published");
+		  });
 	}
 	/* account management routes */
 	public static function logout(){

@@ -30,13 +30,13 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//ver
         AdminController::showPageEditor($_GET['id']);
     });
     $forward->route("/crash/admin/pages/edit", function(){
-        AdminController::updatePage($_REQUEST);
+        AdminController::updatePage($_POST);
     },"POST");
     $forward->route("/crash/admin/pages/new", function(){
         AdminController::showPageEditor();
     });
     $forward->route("/crash/admin/pages/new", function(){
-        AdminController::insertNewPage($_REQUEST);
+        AdminController::insertNewPage($_POST);
     },"POST");
     $forward->route("/crash/admin/pages/delete", function(){
         AdminController::deletePage($_GET['id']);
@@ -44,6 +44,7 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//ver
 }
 /* user specific routes */
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
+    /** user account management routes*/
     $forward->route("/crash/users/enlist", function(){
         UsersController::enlist();
     },"POST");
@@ -53,6 +54,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/profile", function(){
         UsersController::showDashboard();
     });
+    /** publication management routes */
     $forward->route("/crash/users/scriptorium", function(){
         UsersController::showScriptorium();
     });
@@ -62,12 +64,13 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/scriptorium/publication/new",function(){
         //verify if id's have not been tampered with 
         if($_REQUEST['users_id_user']==$_SESSION['protagonist']->id){
-            UsersController::insertNewPublication($_REQUEST);
+            UsersController::insertNewPublication($_POST);
         }else{
             Crash::error(403,"You don't have permission to publish this publication");
         }
         
     },"POST");
+    /** leaflet management routes */
     $forward->route("/crash/users/scriptorium/leaflet", function(){
         //verify that supplied publication id is that of a publication owned by current user
         if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id'])[0]->users_id_user){
@@ -87,10 +90,14 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         
     });
     $forward->route("/crash/users/scriptorium/leaflet/new", function(){
-        //TODO verify that supplied publication id is that of a publication owned by current user
-        var_dump($_REQUEST);
-        die();
-    });
+        //TODO verify that supplied publication id is that of a publication owned by current user 
+        if($_SESSION['protagonist']->id == Publication::getPublication($_POST['id_publication'])[0]->users_id_user){
+            UsersController::insertNewLeaf($_POST);
+        }else{
+            Crash::error(403,"You aren't an author of this publication");
+        }
+        
+    }, "POST");
 }
 
 ?>

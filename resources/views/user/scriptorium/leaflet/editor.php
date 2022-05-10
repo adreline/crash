@@ -24,7 +24,8 @@
                  ?>
                 
                 <div class="content">
-    
+                    <input type="hidden" name="id_publication" value="<?php echo $publication->id; ?>">
+                    <button type="submit" name="submit"><mark class="success">[save]</mark></button>
               
                 </div>
                 </div>
@@ -35,15 +36,7 @@
         </div>
         <div class="columns">
             <div class="column">
-                <div class="document-editor">
-                    <div class="document-editor__toolbar"></div>
-                    <div class="document-editor__editable-container">
-                        <div class="document-editor__editable" name="body">
-                            
-                        </div>
-                    </div>
-                </div>
-
+                <textarea id="editor" name="body" rows="40" cols="50"></textarea>
             </div>
             <div class="column is-1-4">
 
@@ -51,18 +44,15 @@
         </div>
         </form>
         <link rel="stylesheet" href="/crash/public/css/leafeditor.css">
-        <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/decoupled-document/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
         <script>
-            DecoupledEditor
-                .create( document.querySelector( '.document-editor__editable' ))
-                .then( editor => {
-                    const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
-                    toolbarContainer.appendChild( editor.ui.view.toolbar.element );
-                    window.editor = editor;
-                } )
-                .catch( err => {
-                    console.error( err );
-                } )
-
+            ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
         </script>
     </body>
