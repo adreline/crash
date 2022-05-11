@@ -31,6 +31,7 @@
                         ?>
                         <input type="hidden" name="users_id_user" value=<?php echo "\"$protagonist->id\"" ?>>
                         <p><mark class="info">title:</mark><input type="text" name="title"></p>
+                        <p><mark class="info">uri:</mark><input type="text" name="uri"></p>
                         <p><mark class="info">planned length:</mark><input type="number" name="planned_length"></p>
                         <p><mark class="info">status:</mark><select name="status">
                             <option value="0">ongoing</option>

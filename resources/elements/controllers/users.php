@@ -21,7 +21,7 @@ class Controller{
 			$publication = Publication::getPublication($id_publication);
 			$action = "/crash/users/scriptorium/publication/edit";
 		}else{
-			$publication = new Publication("",0,0,0,0);
+			$publication = new Publication();
 			$action = "/crash/users/scriptorium/publication/new";
 		}
 		include Crash::$static_page["user/scriptorium/editor"];
@@ -29,6 +29,7 @@ class Controller{
 	public static function insertNewPublication($form){
 		$pub = new Publication(
 			$form['title'],
+			$form['uri'],
 			$form['planned_length'],
 			$form['status'],
 			$form['users_id_user'],
