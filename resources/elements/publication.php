@@ -70,7 +70,7 @@ class Publication {
     $sql = Helper::fill_in(Publication::$methods['delete'],array($id));
     return Database::delete($sql);
   }
-  public static function updatePublication($id,$publication){
+  public static function updatePublication($publication){
     $sql = Helper::fill_in(Publication::$methods['update'],array(
     $publication->title,
     $publication->uri,
@@ -78,7 +78,7 @@ class Publication {
     $publication->status,
     $publication->users_id_user,
     $publication->fandoms_id_fandom,
-    $id));
+    $publication->id));
     return Database::update($sql);
   }
   public static function getPublicationLeafs($id_publication){//this function is an alias for Leaflet::getLeaflet
