@@ -52,6 +52,11 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//ver
     });
 }
 /* user specific routes */
+//this route is used to log in users so we don't verify anything
+$forward->route("/crash/users/enlist", function(){
+    UsersController::enlist();
+},"POST");
+
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
     /** user account management routes*/
     $forward->route("/crash/users/password",function(){
@@ -65,9 +70,6 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
             Crash::error(403,"Unauthorised password change. This incident will be reported.");
         }
         
-    },"POST");
-    $forward->route("/crash/users/enlist", function(){
-        UsersController::enlist();
     },"POST");
     $forward->route("/crash/users/logout", function(){
         UsersController::logout();
