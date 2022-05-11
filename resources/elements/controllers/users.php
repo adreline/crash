@@ -116,6 +116,20 @@ class Controller{
 		  });
 	}
 	/* account management routes */
+	public static function showPasswordForm(){
+		include Crash::$static_page["user/password"];
+
+	}
+	public static function changePassword($form){
+		$active_user=$_SESSION['protagonist'];
+		$active_user->password = password_hash($form['new_pass'], PASSWORD_BCRYPT, array('cost'=>10));
+		if(!User::updateUser($active_user)){
+			die(mysql_error);
+		}
+		redirect_home('home',function(){
+			Crash::notify("success","Your password has been changed");
+		  });
+	}
 	public static function logout(){
 		$_SESSION['protagonist']=null;
 		$session = Session::getSession(session_id());

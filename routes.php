@@ -54,6 +54,18 @@ if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//ver
 /* user specific routes */
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
     /** user account management routes*/
+    $forward->route("/crash/users/password",function(){
+        UsersController::showPasswordForm();
+    });
+    $forward->route("/crash/users/password",function(){
+        //verify if user is that of the current logged in user
+        if($_POST['id_user'] == $_SESSION['protagonist']->id){
+            UsersController::changePassword($_POST);
+        }else{
+            Crash::error(403,"Unauthorised password change. This incident will be reported.");
+        }
+        
+    },"POST");
     $forward->route("/crash/users/enlist", function(){
         UsersController::enlist();
     },"POST");

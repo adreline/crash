@@ -28,7 +28,7 @@
                     </div>
                     <h4>Tasks</h4>
                     <a><mark class="success">[change username]</mark></a>
-                    <a><mark class="success">[change password]</mark></a>
+                    <a href="/crash/users/password"><mark class="success">[change password]</mark></a>
                     <a><mark class="success">[change avatar]</mark></a>
                     <a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a>
                 </div>
