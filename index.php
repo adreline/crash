@@ -30,24 +30,41 @@ if(isset($session)){
 }
 require "routes.php"; //require routes only after session is loaded because routes need it to verify permissions
 
-try{
-    //try to forward request to a controller
-    $req = trim($_SERVER['REQUEST_URI']);
-    //strip get vars
-    $req = explode("?",$req)[0];
+$url = trim($_SERVER['REQUEST_URI']);
+//strip get vars
+$url = explode("?",$url)[0];
+try{ //try to forward request to a controller
     //determine request method 
     switch($_SERVER["REQUEST_METHOD"]){
         case "GET":
-            $forward->get[$req]();
+            $forward->get[$url](); 
         break;
         case "POST":
-            $forward->post[$req]();
+            $forward->post[$url]();
         break;
     }
-    
 }catch(Exception|Throwable){   
-    //if route not found in the lookup tabe, fall back to the default controller as a last resort
-    app_process(Helper::assertRoute()[1]);
+    /**
+    * this will catch any exception such as route not found or function call failure
+    * if function call fails then it means that the route could have a dynamic variable:
+    * a route can sometimes have custom parameters that are not within $_GET. in example: /crash/read/some-title 
+    * some-title is generated dynamically and cannot be caught by the router 
+    * therefore we need to deconstruct the request into controller path and a parameter
+    * here $control is a path /crash/read and $dyn_var is some-title
+    */
+    //try to treat the request as if it was a dynamic variable containing request 
+    try{
+        //strip dynamic uri 
+        $url = explode("/",$url);
+        $control = "/".$url[1]."/".$url[2];
+        $dyn_var = $url[3];
+        //do not determine request method because dynamic uris will never be used in post methods
+        $forward->get[$control]($dyn_var);//pass dynamic variable to the controller method
+    }catch(Exception|Throwable){
+        //request has completely failed, fallback to the default controller as a last result
+        app_process(Helper::assertRoute()[1]);
+    }
+    
 }
 
 
