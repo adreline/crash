@@ -111,6 +111,18 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
             Crash::error(403,"You aren't an author of this publication or the page does not belong to this publication");
         }
     });
+    $forward->route("/crash/users/scriptorium/leaflet/edit", function(){
+        //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
+        $pub = Publication::getPublication($_POST['id_publication'])[0];
+        $user = $_SESSION['protagonist'];
+        $leaf = Leaflet::getLeafletById($_POST['id_leaf']);
+        if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){
+            UsersController::updateLeaf($_POST); 
+         }else{
+            Crash::error(403,"You aren't an author of this publication or the page does not belong to this publication");
+        }
+        
+    },"POST");
 }
 
 ?>

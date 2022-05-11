@@ -52,6 +52,7 @@ class Controller{
 	public static function showLeafEditor($id_pub,$id_leaf=null){
 		if(isset($id_leaf)){
 			$leaf = Leaflet::getLeafletById($id_leaf);
+			$leaf->body = htmlspecialchars_decode($leaf->body, ENT_QUOTES);
 			$action = "/crash/users/scriptorium/leaflet/edit";
 		}else{
 			$action = "/crash/users/scriptorium/leaflet/new";
@@ -71,6 +72,19 @@ class Controller{
 		redirect_home('home',function(){
 			Crash::notify("success","Page published");
 		  });
+	}
+	public static function updateLeaf($form){
+		$leaf = new Leaflet(
+			$form['id_leaf'],
+			htmlspecialchars($form['body'],ENT_QUOTES),
+			$form['id_publication']
+		);
+		if(!Leaflet::updateLeaflet($leaf)){
+			die(mysql_error);
+		}
+		redirect_home('home',function(){
+			Crash::notify("success","Page edited");
+		});
 	}
 	public static function deleteLeaflet($id_leaf){
 		if(!Leaflet::deleteLeaflet($id_leaf)){
