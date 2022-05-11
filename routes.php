@@ -71,6 +71,18 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         }
         
     },"POST");
+    $forward->route("/crash/users/username",function(){
+        UsersController::showUsernameForm();
+    });
+    $forward->route("/crash/users/username",function(){
+        //verify if user is that of the current logged in user
+        if($_POST['id_user'] == $_SESSION['protagonist']->id){
+            UsersController::changeUsername($_POST);
+        }else{
+            Crash::error(403,"Unauthorised username change. This incident will be reported.");
+        }
+        
+    },"POST");
     $forward->route("/crash/users/logout", function(){
         UsersController::logout();
     },"POST");

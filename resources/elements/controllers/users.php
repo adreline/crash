@@ -130,6 +130,20 @@ class Controller{
 			Crash::notify("success","Your password has been changed");
 		  });
 	}
+	public static function showUsernameForm(){
+		include Crash::$static_page["user/username"];
+
+	}
+	public static function changeUsername($form){
+		$active_user=$_SESSION['protagonist'];
+		$active_user->username = $form['new_username'];
+		if(!User::updateUser($active_user)){
+			die(mysql_error);
+		}
+		redirect_home('home',function(){
+			Crash::notify("success","Your username has been changed");
+		  });
+	}
 	public static function logout(){
 		$_SESSION['protagonist']=null;
 		$session = Session::getSession(session_id());

@@ -33,6 +33,7 @@ class Crash{
         "admin/pages_editor" => "resources/views/admin/pages/editor.php",
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/password" => "resources/views/user/profile/password.php",
+        "user/username" => "resources/views/user/profile/username.php",
         "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
         "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",
         "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",

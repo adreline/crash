@@ -14,23 +14,21 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2 class="title"><?php echo $protagonist->username; ?> dashboard</h2>
+                <h2 class="title"><?php echo $protagonist->username; ?> - change your username</h2>
                 <div class="content">
                     <div class="columns">
                         <div class="column is-1-4">
-                            <img class="avatar" src="/crash/public/img/avi_placeholder.jpg">
+                            <form action=<?php echo "\"/crash/users/username\""; ?> method="post">
+                                <input type="hidden" name="id_user" value=<?php echo "\"$protagonist->id\""; ?>>
+                                <p><mark class="info">new username:</mark> <input type="text" name="new_username"></p>
+                                <button type="submit" name="submit"><mark class="success">[save]</mark></button>
+                            </form>
                         </div>
                         <div class="column">
-                            <p>this is pog test</p>
-                            <p>anotherer tetst</p>
-                            <p>some tetst</p>
+ 
                         </div>
                     </div>
-                    <h4>Tasks</h4>
-                    <a href="/crash/users/username"><mark class="success">[change username]</mark></a>
-                    <a href="/crash/users/password"><mark class="success">[change password]</mark></a>
-                    <a><mark class="success">[change avatar]</mark></a>
-                    <a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a>
+
                 </div>
                 </div>
             </div>
