@@ -19,7 +19,8 @@ p{
     text-align: justify;
 }
 a{
-  text-decoration: none;;
+  text-decoration: none;
+  color: var(--text);
 }
 /* Form styling */
 button{
