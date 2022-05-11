@@ -44,6 +44,26 @@ class Controller{
 			Crash::notify("success","Work published");
 		  });	
 	}
+	public static function updatePublication($form){
+		$pub = new Publication(
+			$form['title'],
+			$form['uri'],
+			$form['planned_length'],
+			$form['status'],
+			$form['users_id_user'],
+			"1", //in the future, replace with actual fandom id fetch by $form['fandom_name']
+			null,
+			null,
+			$form['id_publication']
+		);
+		if(!Publication::updatePublication($pub)){
+			die(mysql_error);
+		}
+		
+		redirect_home('home',function(){
+			Crash::notify("success","Work edited");
+		  });	
+	}
 	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
 		$publication = Publication::getPublication($publication_id);

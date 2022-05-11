@@ -24,7 +24,7 @@
                             echo "<mark class=\"info\">title:</mark> $pub->title | ";
                             echo "<mark class=\"info\">status:</mark> $pub->status | ";
                             echo "<mark class=\"info\">published pages:</mark> $number_of_published_pages | ";
-                            echo "<a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see pages]</mark></a> <a href=\"#\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a>";
+                            echo "<a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see pages]</mark></a> <a href=\"/crash/users/scriptorium/publication/editor?id_pub=$pub->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a>";
                             echo "<br>";
                         }
                     ?></p>
