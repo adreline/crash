@@ -36,7 +36,7 @@
                             }else{
                                 $prompt="...";
                             }
-                            
+                            $uri = $publication->uri;
                             include Crash::$module['post'];
                         }
                     ?>

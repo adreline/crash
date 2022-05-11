@@ -46,7 +46,7 @@ class Controller{
 	}
 	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
-		$publication = Publication::getPublication($publication_id)[0];
+		$publication = Publication::getPublication($publication_id);
 		$leafs = Publication::getPublicationLeafs($publication_id);
 		include Crash::$static_page["user/scriptorium/leaf"];
 	}
@@ -58,7 +58,7 @@ class Controller{
 		}else{
 			$action = "/crash/users/scriptorium/leaflet/new";
 		}
-		$publication = Publication::getPublication($id_pub)[0];
+		$publication = Publication::getPublication($id_pub);
 		include Crash::$static_page["user/scriptorium/leaf/editor"];
 	}
 	public static function insertNewLeaf($form){

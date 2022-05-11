@@ -36,6 +36,7 @@ class Crash{
         "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",
         "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
         "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
+        "athenaeum/reader" => "resources/views/athenaeum/reader.php",
         "error" => "resources/views/error.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
@@ -47,7 +48,8 @@ class Crash{
     public static $controller=array(
       "app" => "resources/elements/controllers/app.php",
       "admin" => "resources/elements/controllers/admin.php",
-      "users" => "resources/elements/controllers/users.php"
+      "users" => "resources/elements/controllers/users.php",
+      "athenaeum" => "resources/elements/controllers/reader.php"
     );
     
     public static function error($code, $msg){

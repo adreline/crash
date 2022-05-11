@@ -41,7 +41,7 @@ class Publication {
       $optional_sql="WHERE id_publication=$id ".$optional_sql;
     }
     $sql = Publication::$methods['select']." ".$optional_sql;
-    return Database::select($sql, function($row){
+    $res = Database::select($sql, function($row){
         return new Publication(
           $row['title'],
           $row['uri'],
@@ -54,6 +54,11 @@ class Publication {
           $row['id_publication']
         );
     });
+    if(sizeof($res)==1){
+      return $res[0];
+    }else{
+      return $res;
+    }
   }
   public static function insertPublication($publication){
     $sql = Helper::fill_in(Publication::$methods['insert'],array(
@@ -83,6 +88,9 @@ class Publication {
   }
   public static function getPublicationLeafs($id_publication){//this function is an alias for Leaflet::getLeaflet
     return Leaflet::getLeaflet($id_publication);
+  }
+  public static function getPublicationByUrl($url){
+    return Publication::getPublication(null, "WHERE `publications`.`uri` LIKE '$url'");
   }
 }
 

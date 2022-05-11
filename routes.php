@@ -8,8 +8,10 @@ use Elements\Leaflet as Leaflet;
 require Crash::$controller['app'];
 require Crash::$controller['users'];
 require Crash::$controller['admin'];
+require Crash::$controller['athenaeum'];
 use Controller\Admin\Controller as AdminController;
 use Controller\Users\Controller as UsersController;
+use Controller\Reader\Controller as ReaderController;
 
 use function Controller\App\process as app_process;
 
@@ -19,6 +21,11 @@ $forward = new Router();
 /* Static routes */
 $forward->route("/crash/", function(){
     app_process("home");
+});
+/* Reader routes*/
+$forward->route("/crash/athenaeum",function($title){
+    $pub = Publication::getPublicationByUrl($title);
+    ReaderController::showReader($pub);
 });
 /* Admin routes */
 if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//verify permission level 
@@ -75,7 +82,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     /** leaflet management routes */
     $forward->route("/crash/users/scriptorium/leaflet", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id'])[0]->users_id_user){
+        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id'])->users_id_user){
             UsersController::showLeafOverview($_GET['id']);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -84,7 +91,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id_pub'])[0]->users_id_user){ 
+        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id_pub'])->users_id_user){ 
             UsersController::showLeafEditor($_GET['id_pub'],$_GET['id_leaf']);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -93,7 +100,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/new", function(){
         //TODO verify that supplied publication id is that of a publication owned by current user 
-        if($_SESSION['protagonist']->id == Publication::getPublication($_POST['id_publication'])[0]->users_id_user){
+        if($_SESSION['protagonist']->id == Publication::getPublication($_POST['id_publication'])->users_id_user){
             UsersController::insertNewLeaf($_POST);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -102,7 +109,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     }, "POST");
     $forward->route("/crash/users/scriptorium/leaflet/delete", function(){
         //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
-        $pub = Publication::getPublication($_GET['id_pub'])[0];
+        $pub = Publication::getPublication($_GET['id_pub']);
         $user = $_SESSION['protagonist'];
         $leaf = Leaflet::getLeafletById($_GET['id_leaf']);
         if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){ 
@@ -113,7 +120,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/edit", function(){
         //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
-        $pub = Publication::getPublication($_POST['id_publication'])[0];
+        $pub = Publication::getPublication($_POST['id_publication']);
         $user = $_SESSION['protagonist'];
         $leaf = Leaflet::getLeafletById($_POST['id_leaf']);
         if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){
