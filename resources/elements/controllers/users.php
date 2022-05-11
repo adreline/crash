@@ -1,11 +1,11 @@
 <?php
 namespace Controller\Users;
 use Crash\Crash as Crash;
-use function Controller\App\process as redirect_home;
 use Elements\User as User;
 use Elements\Session as Session;
 use Elements\Publication as Publication;
 use Elements\Leaflet as Leaflet;
+use Elements\Fandom as Fandom;
 
 /*
 * This controller processes everything that has to do with users
@@ -27,22 +27,39 @@ class Controller{
 		include Crash::$static_page["user/scriptorium/editor"];
 	}
 	public static function insertNewPublication($form){
-		$pub = new Publication(
-			$form['title'],
-			$form['uri'],
-			$form['planned_length'],
-			$form['status'],
-			$form['users_id_user'],
-			"1" //in the future, replace with actual fandom id fetch by $form['fandom_name']
-		);
 
-		if(!Publication::insertPublication($pub)){
-			die(mysql_error);
+		//find fandom by name 
+		$fan = Fandom::getFandomByName($form['fandom_name']);
+
+		if(sizeof($fan)==0){
+			//maybe a typo, find closest one using levenshtein algorithm
+			$best_proximity=null;
+			$best_fan=null;
+			foreach(Fandom::getFandom() as $fan){
+				$proximity = levenshtein($fan->friendly_name, $form['fandom_name']);
+				if($proximity<$best_proximity){
+					$best_proximity = $proximity;
+					$best_fan = $fan;
+				}
+			}
+			Crash::redirect("/crash/users/scriptorium/publication/editor",["title"=>"Fandom not found","message"=>"Did you mean: $best_fan->friendly_name"]);
+			
+		}else{
+			$pub = new Publication(
+				$form['title'],
+				$form['uri'],
+				$form['planned_length'],
+				$form['status'],
+				$form['users_id_user'],
+				"1" //in the future, replace with actual fandom id fetch by $form['fandom_name']
+			);
+	
+			if(!Publication::insertPublication($pub)){
+				die(mysql_error);
+			}
+			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work published"]);
 		}
-		
-		redirect_home('home',function(){
-			Crash::notify("success","Work published");
-		  });	
+	
 	}
 	public static function updatePublication($form){
 		$pub = new Publication(
@@ -60,9 +77,7 @@ class Controller{
 			die(mysql_error);
 		}
 		
-		redirect_home('home',function(){
-			Crash::notify("success","Work edited");
-		  });	
+		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work edited"]);
 	}
 	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
@@ -90,9 +105,9 @@ class Controller{
 		if(!Leaflet::insertLeaflet($leaf)){
 			die(mysql_error);
 		}
-		redirect_home('home',function(){
-			Crash::notify("success","Page published");
-		  });
+		$id=$form['id_publication'];
+		Crash::redirect("/crash/users/scriptorium/leaflet?id=$id",["title"=>"success","message"=>"Page published"]);
+
 	}
 	public static function updateLeaf($form){
 		$leaf = new Leaflet(
@@ -103,17 +118,16 @@ class Controller{
 		if(!Leaflet::updateLeaflet($leaf)){
 			die(mysql_error);
 		}
-		redirect_home('home',function(){
-			Crash::notify("success","Page edited");
-		});
+		$id_pub=$form['id_publication'];
+		$id_leaf=$form['id_leaf'];
+		Crash::redirect("/crash/users/scriptorium/leaflet/editor?id_pub=$id_pub&id_leaf=$id_leaf",["title"=>"success","message"=>"Page edited"]);
 	}
 	public static function deleteLeaflet($id_leaf){
 		if(!Leaflet::deleteLeaflet($id_leaf)){
 			die(mysql_error);
 		}
-		redirect_home('home',function(){
-			Crash::notify("success","Page deleted");
-		  });
+		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Page deleted"]);
+
 	}
 	/* account management routes */
 	public static function showPasswordForm(){
@@ -126,9 +140,7 @@ class Controller{
 		if(!User::updateUser($active_user)){
 			die(mysql_error);
 		}
-		redirect_home('home',function(){
-			Crash::notify("success","Your password has been changed");
-		  });
+		Crash::redirect("/crash/users/profile",["title"=>"success","message"=>"Your password has been changed"]);
 	}
 	public static function showUsernameForm(){
 		include Crash::$static_page["user/username"];
@@ -140,9 +152,7 @@ class Controller{
 		if(!User::updateUser($active_user)){
 			die(mysql_error);
 		}
-		redirect_home('home',function(){
-			Crash::notify("success","Your username has been changed");
-		  });
+		Crash::redirect("/crash/users/profile",["title"=>"success","message"=>"Your username has been changed"]);
 	}
 	public static function logout(){
 		$_SESSION['protagonist']=null;
@@ -151,9 +161,7 @@ class Controller{
 			Session::deleteSession($session->id);
 		}
 		session_destroy();
-		redirect_home('home',function(){
-			Crash::notify("Loged out","You have been logged out");
-		});
+		Crash::redirect("/crash/",["title"=>"Loged out","message"=>"You have been logged out"]);
 	}
 	public static function enlist($req=null){
 				if(isset($_POST['login'])){
@@ -168,27 +176,19 @@ class Controller{
 							
 							$_SESSION['protagonist']=$user[0];
 							Session::insertSession(new Session(session_id(),$user[0]->id));
-							redirect_home("home", function(){								
-								Crash::notify("Success","Login successful");
-							});
+							Crash::redirect("/crash/",["title"=>"success","message"=>"Login successful"]);
 						}else{
-							redirect_home("home", function(){
-								Crash::notify("Fail","Password was incorrect");
-							});
+							Crash::redirect("/crash/",["title"=>"fail","message"=>"Password was incorrect"]);
 						}
 					}else{
-						redirect_home("home", function(){
-								Crash::notify("Fail","No user with such name was found");
-							});
+						Crash::redirect("/crash/",["title"=>"fail","message"=>"No user with such name was found"]);
 					}
 				}else{
 				if(isset($_POST['register'])){
 					$username=$_POST['username'];
 					$password=password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost'=>10));
 					User::insertUser(new User($username,$password));
-					redirect_home("home", function(){
-						Crash::notify("Success","Your account was created");
-					});
+					Crash::redirect("/crash/",["title"=>"success","message"=>"Your account was created"]);
 				}
 			}	
 	}

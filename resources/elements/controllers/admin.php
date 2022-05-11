@@ -4,7 +4,6 @@ namespace Controller\Admin;
 use Crash\Crash as Crash;
 use Elements\User as User;
 use Elements\Page as Page;
-use function Controller\App\process as redirect_home;
 /**
  * This controller provides access to the admin interface
  */
@@ -41,9 +40,7 @@ class Controller{
       if(!Page::insertPage($page)){
         die(mysql_error);
       }
-     redirect_home('home',function(){
-        Crash::notify("success","Page created");
-      });
+      Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page created"]);
   }
   public static function updatePage($form){
       $page = new Page(
@@ -57,17 +54,13 @@ class Controller{
       if(!Page::editPage($page)){
        die(mysql_error);
       }
-      redirect_home('home',function(){
-        Crash::notify("success","Page updated");
-      });
+      Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page updated"]);
   }
   public static function deletePage($id_page){
     if(!Page::deletePage($id_page)){
       die(mysql_error);
     }
-    redirect_home('home',function(){
-      Crash::notify("success","Page deleted");
-    });
+    Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page deleted"]);
   }
 }
 

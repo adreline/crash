@@ -6,7 +6,7 @@ use Elements\User as User;
 use Elements\Page as Page;
 use Elements\Publication as Publication;
 use Elements\Leaflet as Leaflet;
-use function Controller\App\process as redirect_home;
+
 /**
  * This controller manages everything related to reading works such as comments and kudos
  */

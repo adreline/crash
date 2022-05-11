@@ -2,7 +2,13 @@
     use Crash\Crash as Crash;  
     use Elements\Page as Page;
 ?>
-
+<?php 
+    //check if there are any notifications to display
+    if(isset($_COOKIE['notification'])){
+        $n=explode(";",$_COOKIE['notification']);
+        Crash::notify($n[0],$n[1]);
+    }
+?>
 <nav class="navbar">
             <div class="logo">
                 <h1>Crash</h1>

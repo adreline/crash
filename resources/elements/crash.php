@@ -39,7 +39,8 @@ class Crash{
         "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
         "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
         "athenaeum/reader" => "resources/views/athenaeum/reader.php",
-        "error" => "resources/views/error.php"
+        "error" => "resources/views/error.php",
+        "loading" => "resources/views/loading.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
     public static $template=array(
@@ -59,6 +60,14 @@ class Crash{
     }
     public static function notify($title, $body){
       include Crash::$module['modal'];
+    }
+    public static function redirect($target,$message=null){
+      include Crash::$static_page['loading'];
+      if(isset($message)){
+        $serial = $message['title'].";".$message['message'];
+        setcookie("notification",$serial,time()+10,$target);
+      }
+      echo "<meta http-equiv=\"refresh\" content=\"0;url=$target\">";
     }
 }
 /**

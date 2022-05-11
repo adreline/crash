@@ -6,11 +6,6 @@ use Elements\Page as Page;
 * This controller processes default pages. usually static pages, which reside in views folder.
 */
 	function process($req, $middleware=null, $template='default'){
-		//we can pass a function $f if we want the controller to ewaluate something prior (like passing a modal message)
-		//think of it as a primitive middleware
-		if(isset($middleware)){
-			$middleware();
-		}
 		//check if requested page is present in static pages 
 		if (isset(Crash::$static_page[$req])) {
 			//reneder the page
