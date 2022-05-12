@@ -55,8 +55,16 @@ class Crash{
       "athenaeum" => "resources/elements/controllers/reader.php"
     );
     
-    public static function error($code, $msg){
+    public static function error($code=null, $msg=null){
+      if(!isset($code)){
+        $e=error_get_last();
+        if($e['type']==2){	
+            $msg=$e['message']."<br>".$e['file']."<br>".$e['line'];
+            $code=500;
+        }
+      }
       include Crash::$static_page['error'];
+      die();
     }
     public static function notify($title, $body){
       include Crash::$module['modal'];
