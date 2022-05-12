@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`fandoms` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_fandom`),
-  UNIQUE INDEX `friendly_name_UNIQUE` (`friendly_name` ASC) VISIBLE,
+  UNIQUE INDEX `friendly_name_UNIQUE` (`friendly_name` ASC) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB;
 
