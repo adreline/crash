@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`fandoms` (
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_fandom`),
   UNIQUE INDEX `friendly_name_UNIQUE` (`friendly_name` ASC) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -47,10 +47,10 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`publications` (
   `users_id_user` INT NOT NULL,
   `fandoms_id_fandom` INT NOT NULL,
   PRIMARY KEY (`id_publication`, `users_id_user`, `fandoms_id_fandom`),
-  INDEX `fk_publications_users1_idx` (`users_id_user` ASC) VISIBLE,
-  INDEX `fk_publications_fandoms1_idx` (`fandoms_id_fandom` ASC) VISIBLE,
-  UNIQUE INDEX `url_UNIQUE` (`url` ASC) VISIBLE,
-  UNIQUE INDEX `title_UNIQUE` (`title` ASC) VISIBLE,
+  INDEX `fk_publications_users1_idx` (`users_id_user` ASC) ,
+  INDEX `fk_publications_fandoms1_idx` (`fandoms_id_fandom` ASC) ,
+  UNIQUE INDEX `url_UNIQUE` (`url` ASC) ,
+  UNIQUE INDEX `title_UNIQUE` (`title` ASC) ,
   CONSTRAINT `fk_publications_users1`
     FOREIGN KEY (`users_id_user`)
     REFERENCES `31300146_niecko`.`users` (`id_user`)
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`image` (
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `publications_id_publication` INT NULL,
   PRIMARY KEY (`id_image`),
-  INDEX `fk_image_publications1_idx` (`publications_id_publication` ASC) VISIBLE,
-  UNIQUE INDEX `path_UNIQUE` (`path` ASC) VISIBLE,
+  INDEX `fk_image_publications1_idx` (`publications_id_publication` ASC) ,
+  UNIQUE INDEX `path_UNIQUE` (`path` ASC) ,
   CONSTRAINT `fk_image_publications1`
     FOREIGN KEY (`publications_id_publication`)
     REFERENCES `31300146_niecko`.`publications` (`id_publication`)
@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`users` (
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `image_id_image` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_user`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  INDEX `fk_users_image1_idx` (`image_id_image` ASC) VISIBLE,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
+  INDEX `fk_users_image1_idx` (`image_id_image` ASC) ,
   CONSTRAINT `fk_users_image1`
     FOREIGN KEY (`image_id_image`)
     REFERENCES `31300146_niecko`.`image` (`id_image`)
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`sessions` (
   `users_id_user` INT NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_session`),
-  INDEX `fk_sessions_users1_idx` (`users_id_user` ASC) VISIBLE,
+  INDEX `fk_sessions_users1_idx` (`users_id_user` ASC) ,
   CONSTRAINT `fk_sessions_users1`
     FOREIGN KEY (`users_id_user`)
     REFERENCES `31300146_niecko`.`users` (`id_user`)
@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`pages` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_page`),
-  UNIQUE INDEX `id_page_UNIQUE` (`id_page` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
+  UNIQUE INDEX `id_page_UNIQUE` (`id_page` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`heads` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_head`, `pages_id_page`),
-  INDEX `fk_heads_pages1_idx` (`pages_id_page` ASC) VISIBLE,
+  INDEX `fk_heads_pages1_idx` (`pages_id_page` ASC) ,
   CONSTRAINT `fk_heads_pages1`
     FOREIGN KEY (`pages_id_page`)
     REFERENCES `31300146_niecko`.`pages` (`id_page`)
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`leafs` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_leaf`, `publications_id_publication`),
-  INDEX `fk_leafs_publications1_idx` (`publications_id_publication` ASC) VISIBLE,
+  INDEX `fk_leafs_publications1_idx` (`publications_id_publication` ASC) ,
   CONSTRAINT `fk_leafs_publications1`
     FOREIGN KEY (`publications_id_publication`)
     REFERENCES `31300146_niecko`.`publications` (`id_publication`)
@@ -205,8 +205,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`tags_has_publications` (
   `tags_id_tag` INT NOT NULL,
   `publications_id_publication` INT NOT NULL,
   PRIMARY KEY (`tags_id_tag`, `publications_id_publication`),
-  INDEX `fk_tags_has_publications_publications1_idx` (`publications_id_publication` ASC) VISIBLE,
-  INDEX `fk_tags_has_publications_tags1_idx` (`tags_id_tag` ASC) VISIBLE,
+  INDEX `fk_tags_has_publications_publications1_idx` (`publications_id_publication` ASC) ,
+  INDEX `fk_tags_has_publications_tags1_idx` (`tags_id_tag` ASC) ,
   CONSTRAINT `fk_tags_has_publications_tags1`
     FOREIGN KEY (`tags_id_tag`)
     REFERENCES `31300146_niecko`.`tags` (`id_tag`)
@@ -228,8 +228,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`kudos` (
   `publications_id_publication` INT NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`users_id_user`, `publications_id_publication`),
-  INDEX `fk_users_has_publications_publications1_idx` (`publications_id_publication` ASC) VISIBLE,
-  INDEX `fk_users_has_publications_users1_idx` (`users_id_user` ASC) VISIBLE,
+  INDEX `fk_users_has_publications_publications1_idx` (`publications_id_publication` ASC) ,
+  INDEX `fk_users_has_publications_users1_idx` (`users_id_user` ASC) ,
   CONSTRAINT `fk_users_has_publications_users1`
     FOREIGN KEY (`users_id_user`)
     REFERENCES `31300146_niecko`.`users` (`id_user`)
@@ -251,8 +251,8 @@ CREATE TABLE IF NOT EXISTS `31300146_niecko`.`comments` (
   `publications_id_publication` INT NOT NULL,
   `body` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_comment`, `users_id_user`, `publications_id_publication`),
-  INDEX `fk_comment_users1_idx` (`users_id_user` ASC) VISIBLE,
-  INDEX `fk_comment_publications1_idx` (`publications_id_publication` ASC) VISIBLE,
+  INDEX `fk_comment_users1_idx` (`users_id_user` ASC) ,
+  INDEX `fk_comment_publications1_idx` (`publications_id_publication` ASC) ,
   CONSTRAINT `fk_comment_users1`
     FOREIGN KEY (`users_id_user`)
     REFERENCES `31300146_niecko`.`users` (`id_user`)
