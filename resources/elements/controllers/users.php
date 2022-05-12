@@ -73,7 +73,7 @@ class Controller{
 				$form['planned_length'],
 				$form['status'],
 				$form['users_id_user'],
-				$fan->id, //in the future, replace with actual fandom id fetch by $form['fandom_name']
+				$fan->id,
 				null,
 				null,
 				$form['id_publication']

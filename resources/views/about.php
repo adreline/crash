@@ -12,7 +12,7 @@
                 <div class="columns">
                 	<div class="column">
                 		<div class="window">
-                			<h2><mark class="success">></mark>Full documentation</h2>
+                			<h2 class="title"><mark class="success">></mark>Full documentation</h2>
                 			<div class="content">
                 				<ul>
                 					<li data-icon="#"> <a href="https://maddie-nie.atlassian.net/l/c/8jAUCsUe"> <mark class="success">Confluence project wiki</mark> </a> </li>
@@ -24,10 +24,10 @@
                 	</div>
                 	<div class="column">
                 		<div class="window">
-			                <h2><mark class="success">$</mark>About the project</h2>
+			                <h2 class="title"><mark class="success">$</mark>About the project</h2>
 				                <div class="content">
-				                	<p>Developed for the community of transformative writters. Crash is a small, fast, and secure CMS written entirely in <mark class="info">PHP</mark>.</p>
-				                	<p>It's meant to be used for publishing written works of fan fiction, but it's fully capable of being expanded upon to fit any micro-blogging requirements. </p>
+				                	<p>Developed for the community of transformative writers. Crash is a small, fast, and secure CMS written entirely in <mark class="info">PHP</mark>.</p>
+				                	<p>It's meant to be used for publishing written works of fan fiction, but it's fully capable of being expanded upon to fit any microblogging requirements. </p>
 				                	<p>It's small, fast, and flexible – what more could you want?</p>
 				                </div>
 			             </div>

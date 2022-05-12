@@ -14,23 +14,27 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2 class="title"><?php echo $protagonist->username; ?> dashboard</h2>
+                <h2 class="title"><?php echo $protagonist->username; ?></h2>
                 <div class="content">
                     <div class="columns">
                         <div class="column is-1-4">
                             <img class="avatar" src="/crash/public/img/avi_placeholder.jpg">
                         </div>
                         <div class="column">
-                            <p>this is pog test</p>
-                            <p>anotherer tetst</p>
-                            <p>some tetst</p>
+                            <p>kudos: <mark class="info">0</mark></p>
+                            <p>works: <mark class="info">0</mark></p>
+                            <p>followers: <mark class="info">0</mark></p>
+                            <p>on crash since: <mark class="info">2022-04-27 17:16:56</mark></p>
+                        </div>
+                        <div class="column">
+                            <ul>
+                                <li><a href="/crash/users/username"><mark class="success">[change username]</mark></a></li>
+                                <li><a href="/crash/users/password"><mark class="success">[change password]</mark></a></li>
+                                <li><a><mark class="success">[change avatar]</mark></a></li>
+                                <li><a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <h4>Tasks</h4>
-                    <a href="/crash/users/username"><mark class="success">[change username]</mark></a>
-                    <a href="/crash/users/password"><mark class="success">[change password]</mark></a>
-                    <a><mark class="success">[change avatar]</mark></a>
-                    <a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a>
                 </div>
                 </div>
             </div>

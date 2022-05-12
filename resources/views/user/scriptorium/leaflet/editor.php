@@ -17,14 +17,21 @@
                 <div class="window">
                 <?php
                     if(isset($leaf)){//if true then we are editing existing leaflet 
-                     echo "<h2 class=\"title\">You are editing page in $publication->title</h2>";
+                     echo "<h2 class=\"title\">You are editing chapter $leaf->id in $publication->title</h2>";
                      echo "<input type=\"hidden\" name=\"id_leaf\" value=\"$leaf->id\">";
                     }else{
                      echo "<h2 class=\"title\">You are writting a new page in $publication->title</h2>";
                     }
                  ?>
-                
+                    <textarea id="editor" name="body" rows="40" cols="50">
+                        <?php
+                            if(isset($leaf)){
+                                echo $leaf->body;
+                            }
+                        ?>
+                    </textarea>
                 <div class="content">
+
                     <input type="hidden" name="id_publication" value="<?php echo $publication->id; ?>">
                     <button type="submit" name="submit"><mark class="success">[save]</mark></button>
               
@@ -37,13 +44,7 @@
         </div>
         <div class="columns">
             <div class="column">
-                <textarea id="editor" name="body" rows="40" cols="50">
-                    <?php
-                        if(isset($leaf)){
-                            echo $leaf->body;
-                        }
-                    ?>
-                </textarea>
+                
             </div>
             <div class="column is-1-4">
 

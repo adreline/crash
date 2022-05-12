@@ -14,17 +14,23 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2 class="title">You are viewing pages in <?php echo "\"$publication->title\"" ?></h2>
+                <h2 class="title">You are viewing chapters in <?php echo "\"$publication->title\"" ?></h2>
                   <div class="content">
-                  <p>
+                  <table>
+                    <tr>
+                      <th><mark class="info">id</mark></th>
+                      <th><mark class="info">actions</mark></th>
+                    </tr>
                     <?php
                       foreach($leafs as $leaf){
-                            echo "<mark class=\"info\">id:</mark> $leaf->id | ";
-                            echo "<a href=\"/crash/users/scriptorium/leaflet/editor?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/users/scriptorium/leaflet/delete?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"danger\">[delete]</mark></a>";
-                            echo "<br>";
+                            echo "<tr>";
+                            echo "<td>$leaf->id</td>";
+                            echo "<td><a href=\"/crash/users/scriptorium/leaflet/editor?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/users/scriptorium/leaflet/delete?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"danger\">[delete]</mark></a></td>";
+                            echo "</tr>";
                       }
-                    ?></p>
-                    <a href=<?php echo "\"/crash/users/scriptorium/leaflet/editor?id_pub=$publication->id\""; ?>><mark class="success">[new page]</mark></a>
+                    ?>
+                    </table>
+                    <a href=<?php echo "\"/crash/users/scriptorium/leaflet/editor?id_pub=$publication->id\""; ?>><mark class="success">[new chapter]</mark></a>
                   </div>
                 </div>
             </div>

@@ -19,13 +19,13 @@
                     <p>maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text"></p>
                 </div>
                 <ul>
-                    <li><a href="/crash/">Home</a></li>             
+                    <li><a href="/crash/">[home]</a></li>             
                     <?php
                         foreach (Page::getPage() as $page_l){
-                            echo "<li><a href=\"/crash/$page_l->name\">$page_l->friendly_name</a></li>";
+                            echo "<li><a href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a></li>";
                         }
                     ?>
-                    <li><a href="/crash/about">What is this?</a></li>
+                    <li><a href="/crash/about">[what is this?]</a></li>
                 </ul>
             </div>
 </nav>

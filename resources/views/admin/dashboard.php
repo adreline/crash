@@ -13,7 +13,7 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2>Admin Panel</h2>
+                <h2 class="title">Admin Panel</h2>
                 <div class="content">
                     <div class="columns">
                         <div class="column">
@@ -27,11 +27,11 @@
                             <p>balh vbah</p>
                         </div>
                     </div>
-                    <h5>Tasks</h5>
-                    <a href="/crash/admin/pages">><mark class="success">Manage static pages</mark></a>
-                    <p>><mark class="success">Manage users</mark></p>
-                    <p>><mark class="success">Manage system settings</mark></p>
-                    <p>><mark class="success">Manage templates</mark></p>
+                    <h4>Actions</h4>
+                    <a href="/crash/admin/pages"><mark class="success">[manage static pages]</mark></a>
+                    <p><mark class="success">[manage users]</mark></p>
+                    <p><mark class="success">[manage system settings]</mark></p>
+                    <p><mark class="success">[manage templates]</mark></p>
                 </div>
                 </div>
             </div>

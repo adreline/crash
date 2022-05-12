@@ -10,15 +10,15 @@
       <p>Followers: n/a</p>
       <p>Kudos: n/a</p> 
       <div class="inline">
+        <a href="/crash/users/profile"><mark class="success">[profile]</mark></a>
         <form action="/crash/users/logout" method="post">
-          <button name="submit" type="submit"><mark class="danger">Logout</mark></button>
+          <button name="submit" type="submit"><mark class="danger">[logout]</mark></button>
         </form>
-        <a href="/crash/users/profile"><mark class="success">Profile</mark></a>
       </div>
        <?php
           //attach admin routes but only when the user have necessery privelage
         if($user->privelage){
-          echo "<a href=\"/crash/admin\"><mark class=\"info\">Administrative</mark></a>";
+          echo "<a href=\"/crash/admin\"><mark class=\"info\">[administrative]</mark></a>";
         }
        ?>
     </div>

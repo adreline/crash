@@ -15,23 +15,24 @@
                 <div class="window">
                 <h2 class="title">Manage pages</h2>
                 <div class="content">
-                    <div class="columns">
-                        <div class="column">
-                            <a href="/crash/admin/pages/new"><mark class="success">[new page]</mark></a>
-                        </div>
-                        <div class="column">
-
-                        </div>
-                    </div>
                     <h5>Existing pages</h5>
-                    <p><?php 
+                    <table>
+                    <tr>
+                      <th><mark class="info">title</mark></th>
+                      <th><mark class="info">url</mark></th>
+                      <th><mark class="info">actions</mark></th>
+                    </tr>
+                    <?php 
                         foreach($pages as $page){
-                            echo "<mark class=\"info\">Title:</mark> $page->friendly_name | ";
-                            echo "<mark class=\"info\">Uri:</mark> $page->name | ";
-                            echo "<a href=\"/crash/admin/pages/edit?id=$page->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/admin/pages/delete?id=$page->id\"><mark class=\"danger\">[delete]</mark></a>";
-                            echo "<br>";
+                            echo "<tr>";
+                            echo "<td>$page->friendly_name</td>";
+                            echo "<td>/crash/$page->name</td>";
+                            echo "<td><a href=\"/crash/admin/pages/edit?id=$page->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/admin/pages/delete?id=$page->id\"><mark class=\"danger\">[delete]</mark></a></td>";
+                            echo "</tr>";
                         }
-                    ?></p>
+                    ?>
+                    </table> 
+                    <a href="/crash/admin/pages/new"><mark class="success">[new page]</mark></a>
                 </div>
                 </div>
             </div>

@@ -17,18 +17,28 @@
                 <h2 class="title"><?php echo $protagonist->username; ?> works</h2>
                 <div class="content">
                     <h4>Published works</h4>
-                    <p><?php 
+                    <table>
+                    <tr>
+                      <th><mark class="info">title</mark></th>
+                      <th><mark class="info">status</mark></th>
+                      <th><mark class="info">published chapters</mark></th>
+                      <th><mark class="info">actions</mark></th>
+                    </tr>
+                    <?php 
                         foreach(E\User::getUserPublications($protagonist->id) as $pub){
                             $published_pages=$pub->getPublicationLeafs($pub->id);
                             $number_of_published_pages=sizeof($published_pages);
-                            echo "<mark class=\"info\">title:</mark> $pub->title | ";
-                            echo "<mark class=\"info\">status:</mark> $pub->status | ";
-                            echo "<mark class=\"info\">published pages:</mark> $number_of_published_pages | ";
-                            echo "<a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see pages]</mark></a> <a href=\"/crash/users/scriptorium/publication/editor?id_pub=$pub->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a>";
-                            echo "<br>";
+
+                            echo "<tr>";
+                            echo "<td>$pub->title</td>";
+                            echo "<td>$pub->status</td>";
+                            echo "<td>$number_of_published_pages</td>";
+                            echo "<td><a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see chapters]</mark></a> <a href=\"/crash/users/scriptorium/publication/editor?id_pub=$pub->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a></td>";
+                            echo "</tr>";
                         }
-                    ?></p>
-                    <h4>Tasks</h4>
+                    ?>
+
+                    </table> 
                     <a href="/crash/users/scriptorium/publication/editor"><mark class="success">[start new work]</mark></a>
                 </div>
                 </div>

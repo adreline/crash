@@ -23,18 +23,43 @@ a{
   color: var(--text);
 }
 /* Form styling */
+textarea{
+  background: var(--background);
+  border: 1px solid var(--accent3);
+}
 button{
   background: none;  
   border: none;
   cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: initial;
 }
 input{
     background: transparent;
     border: none;
     color: var(--text);
+    font-family: inherit;
 }
 input:focus-visible{
     outline: none;
+}
+#editor{
+  display: hidden;
+}
+/* table styling */
+td:nth-child(2), td:nth-child(3){
+  text-align: center;
+}
+th{
+  text-align: center;
+}
+th:nth-child(2), th:nth-child(3){
+  padding-left: .5rem;
+  padding-right: .5rem;
+}
+td{
+  padding-left: .5rem;
+ padding-right: .5rem;
 }
 /* marks, coloured emphasis text */
 mark{
@@ -99,7 +124,6 @@ ul li::before {
 }
 .window .title{
     margin-top: -2rem !important;
-    margin-left: 1rem !important;
 }
 
 .search-box{
@@ -147,10 +171,17 @@ ul li::before {
 	align-self: center;
 	margin-left: auto;
 	margin-right: auto;
+  min-width: 20%;
+}
+.modal button{
+  float: right;
+}
+.modal p{
+  text-align: center;
 }
 .modal button *{
   color: var(--text);
-  font-size: x-large;
+  font-size: large;
 }
 /* post section */
 .post{
