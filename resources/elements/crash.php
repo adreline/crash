@@ -58,13 +58,21 @@ class Crash{
     public static function error($code=null, $msg=null){
       if(!isset($code)){
         $e=error_get_last();
-        if($e['type']==2){	
-            $msg=$e['message']."<br>".$e['file']."<br>".$e['line'];
-            $code=500;
+        if(isset($e)){
+            if(!Helper::str_contains($e['message'],"Undefined array key")){	
+              $msg=$e['message']."<br>".$e['file']."<br>".$e['line'];
+              $code=500;
+              include Crash::$static_page['error'];
+              die();
+          }else{
+            return null;
+          }
+        }else{
+          return null;
         }
-      }
-      include Crash::$static_page['error'];
-      die();
+      }else{
+            include Crash::$static_page['error'];
+      } 
     }
     public static function notify($title, $body){
       include Crash::$module['modal'];

@@ -5,7 +5,6 @@
 * Generally, it should not be edited. 
 */
 ini_set('display_errors', 'On'); //comment out when in production
-error_reporting(E_ERROR); //comment out when in production
 session_set_cookie_params(604800);
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/crash'));
 
@@ -35,6 +34,7 @@ require "routes.php"; //require routes only after session is loaded because rout
 $url = trim($_SERVER['REQUEST_URI']);
 //strip get vars
 $url = explode("?",$url)[0];
+
 try{ //try to forward request to a controller
     //determine request method 
     switch($_SERVER["REQUEST_METHOD"]){
