@@ -37,7 +37,7 @@
                             <option value="0">ongoing</option>
                             <option value="1">finished</option>
                         </select></p>
-                        <p><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$publication->fandoms_id_fandom\"" ?>></p>
+                        <p><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$fandom_name\"" ?>></p>
                         <button type="submit" name="submit"><mark class="success">[save]</mark></button>
                     </form>
               

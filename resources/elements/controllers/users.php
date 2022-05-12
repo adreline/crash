@@ -19,9 +19,11 @@ class Controller{
 	public static function showPublicationEditor($id_publication=null){
 		if(isset($id_publication)){
 			$publication = Publication::getPublication($id_publication);
+			$fandom_name = Fandom::getFandom($publication->fandoms_id_fandom)->friendly_name;
 			$action = "/crash/users/scriptorium/publication/edit";
 		}else{
 			$publication = new Publication();
+			$fandom_name = "";
 			$action = "/crash/users/scriptorium/publication/new";
 		}
 		include Crash::$static_page["user/scriptorium/editor"];
@@ -31,13 +33,13 @@ class Controller{
 		//find fandom by name 
 		$fan = Fandom::getFandomByName($form['fandom_name']);
 
-		if(sizeof($fan)==0){
+		if(!($fan instanceof Fandom)){
 			//maybe a typo, find closest one using levenshtein algorithm
 			$best_proximity=null;
 			$best_fan=null;
 			foreach(Fandom::getFandom() as $fan){
 				$proximity = levenshtein($fan->friendly_name, $form['fandom_name']);
-				if($proximity<$best_proximity){
+				if($proximity<$best_proximity || !isset($best_proximity)){
 					$best_proximity = $proximity;
 					$best_fan = $fan;
 				}
@@ -51,7 +53,7 @@ class Controller{
 				$form['planned_length'],
 				$form['status'],
 				$form['users_id_user'],
-				"1" //in the future, replace with actual fandom id fetch by $form['fandom_name']
+				$fan->id
 			);
 	
 			if(!Publication::insertPublication($pub)){
