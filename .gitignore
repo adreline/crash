@@ -4,6 +4,7 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 #custom
+tag.svg
 img/
 *.html
 *.bak
