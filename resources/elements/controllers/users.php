@@ -64,22 +64,29 @@ class Controller{
 	
 	}
 	public static function updatePublication($form){
-		$pub = new Publication(
-			$form['title'],
-			$form['uri'],
-			$form['planned_length'],
-			$form['status'],
-			$form['users_id_user'],
-			"1", //in the future, replace with actual fandom id fetch by $form['fandom_name']
-			null,
-			null,
-			$form['id_publication']
-		);
-		if(!Publication::updatePublication($pub)){
-			die(mysql_error);
+		//find fandom by name 
+		$fan = Fandom::getFandomByName($form['fandom_name']);
+		if($fan instanceof Fandom){
+			$pub = new Publication(
+				$form['title'],
+				$form['uri'],
+				$form['planned_length'],
+				$form['status'],
+				$form['users_id_user'],
+				$fan->id, //in the future, replace with actual fandom id fetch by $form['fandom_name']
+				null,
+				null,
+				$form['id_publication']
+			);
+			if(!Publication::updatePublication($pub)){
+				die(mysql_error);
+			}
+			
+			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work edited"]);
+		}else{
+			Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
 		}
 		
-		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work edited"]);
 	}
 	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
