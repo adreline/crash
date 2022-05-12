@@ -1,4 +1,5 @@
 # Crash #
+![github tag](http://niecko.4suns.pl/crash/tag.svg)
 
 Crash is a online content management system (CMS), made in pure PHP and designed to be as small as possible. It specialises in publishing written transformative works. 
 
