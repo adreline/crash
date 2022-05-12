@@ -17,7 +17,7 @@
       </div>
        <?php
           //attach admin routes but only when the user have necessery privelage
-        if($user->privelage){
+        if($user->administrator){
           echo "<a href=\"/crash/admin\"><mark class=\"info\">[administrative]</mark></a>";
         }
        ?>

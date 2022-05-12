@@ -18,13 +18,15 @@
                   <div class="content">
                   <table>
                     <tr>
-                      <th><mark class="info">id</mark></th>
+                      <th><mark class="info">title</mark></th>
+                      <th><mark class="info">word count</mark></th>
                       <th><mark class="info">actions</mark></th>
                     </tr>
                     <?php
                       foreach($leafs as $leaf){
                             echo "<tr>";
-                            echo "<td>$leaf->id</td>";
+                            echo "<td>$leaf->title</td>";
+                            echo "<td>$leaf->word_count</td>";
                             echo "<td><a href=\"/crash/users/scriptorium/leaflet/editor?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/users/scriptorium/leaflet/delete?id_pub=$publication->id&id_leaf=$leaf->id\"><mark class=\"danger\">[delete]</mark></a></td>";
                             echo "</tr>";
                       }

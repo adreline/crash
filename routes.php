@@ -28,7 +28,7 @@ $forward->route("/crash/athenaeum",function($title){
     ReaderController::showReader($pub);
 });
 /* Admin routes */
-if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->privelage){//verify permission level 
+if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->administrator){//verify permission level 
     $forward->route("/crash/admin", function(){
             AdminController::showPanel();
     });
@@ -96,7 +96,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/scriptorium/publication/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
         if(isset($_GET['id_pub'])){
-            if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id_pub'])->users_id_user){
+            if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user){
                 UsersController::showPublicationEditor($_GET['id_pub']);
             }else{
                 Crash::error(403,"You aren't an author of this publication");
@@ -128,7 +128,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     /** leaflet management routes */
     $forward->route("/crash/users/scriptorium/leaflet", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id'])->users_id_user){
+        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id'])->users_id_user){
             UsersController::showLeafOverview($_GET['id']);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -137,7 +137,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublication($_GET['id_pub'])->users_id_user){ 
+        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user){ 
             UsersController::showLeafEditor($_GET['id_pub'],$_GET['id_leaf']);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -146,7 +146,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/new", function(){
         //TODO verify that supplied publication id is that of a publication owned by current user 
-        if($_SESSION['protagonist']->id == Publication::getPublication($_POST['id_publication'])->users_id_user){
+        if($_SESSION['protagonist']->id == Publication::getPublicationById($_POST['id_publication'])->users_id_user){
             UsersController::insertNewLeaf($_POST);
         }else{
             Crash::error(403,"You aren't an author of this publication");
@@ -155,7 +155,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     }, "POST");
     $forward->route("/crash/users/scriptorium/leaflet/delete", function(){
         //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
-        $pub = Publication::getPublication($_GET['id_pub']);
+        $pub = Publication::getPublicationById($_GET['id_pub']);
         $user = $_SESSION['protagonist'];
         $leaf = Leaflet::getLeafletById($_GET['id_leaf']);
         if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){ 
@@ -166,7 +166,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/leaflet/edit", function(){
         //verify that supplied publication id is that of a publication owned by current user and that the leaflet belongs to that publication
-        $pub = Publication::getPublication($_POST['id_publication']);
+        $pub = Publication::getPublicationById($_POST['id_publication']);
         $user = $_SESSION['protagonist'];
         $leaf = Leaflet::getLeafletById($_POST['id_leaf']);
         if($user->id == $pub->users_id_user && $leaf->publications_id_publication == $pub->id){

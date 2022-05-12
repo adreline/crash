@@ -10,25 +10,27 @@ class User{
   public $username;
   public $password;
   public $kudos;
-  public $avatar;
-  public $privelage;
+  public $administrator;
   public $created_at;
+  public $updated_at;
+  public $image_id;
 
-  function __construct($username,$password,$avatar=null,$privelage=0,$created_at=null,$id=0){
+  function __construct($username,$password,$image_id=1,$administrator=0,$created_at=null,$updated_at=null,$id=0){
     $this->id = $id;
     $this->username = $username;
     $this->password = $password; 
     $this->kudos = 0;
-    $this->avatar = $avatar;
-    $this->privelage = $privelage;
+    $this->image_id = $image_id;
+    $this->administrator = $administrator;
     $this->created_at = $created_at;
+    $this->updated_at = $updated_at;
   }
 
   private static $methods = array(
     'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1')",
     'select'=>"SELECT * FROM `users`",
     'delete'=>"DELETE FROM `users` WHERE id_user=%0",
-    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,avatar='%4' WHERE id_user=%5"
+    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,image_id='%4',updated_at=CURRENT_TIMESTAMP WHERE id_user=%5"
   );
 
   public static function getUser($id=null,$optional_sql=""){
@@ -40,9 +42,10 @@ class User{
       return new User(
       $row['username'],
       $row['password'],
-      $row['avatar'],
+      $row['images_id_image'],
       $row['administrator'],
-      $row['time_stamp'],
+      $row['created_at'],
+      $row['updated_at'],
       $row['id_user']
       );
     });
@@ -64,9 +67,9 @@ class User{
     $sql = Helper::fill_in(User::$methods['update'],array(
       $user->password,
       $user->username,
-      $user->privelage,
+      $user->administrator,
       $user->kudos,
-      $user->avatar,
+      $user->image_id,
       $user->id
     ));
       return Database::update($sql);

@@ -8,23 +8,25 @@ use Elements\Leaflet;
 class Publication {
   public $id;
   public $title;
-  public $uri;
   public $planned_length;
   public $status;
+  public $uri;
+  public $prompt; 
   public $created_at;
   public $updated_at;
   public $users_id_user;
   public $fandoms_id_fandom;
+  public $images_id_image;
 
 
   private static $methods = array(
-    'insert' => "INSERT INTO `publications` (`id_publication`, `title`, `uri`, `planned_length`, `status`, `created_at`, `updated_at`, `fandoms_id_fandom`, `users_id_user`) VALUES (NULL, '%0', '%1', '%2', '%3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '%4', '%5')",
+    'insert' => "INSERT INTO `publications` (`id_publication`, `title`, `url`, `planned_length`, `status`, `created_at`, `updated_at`, `fandoms_id_fandom`, `users_id_user`, `prompt`) VALUES (NULL, '%0', '%1', '%2', '%3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '%4', '%5', '%6')",
     'select' => "SELECT * FROM `publications`",
     'delete' => "DELETE FROM `publications` WHERE id_fandom=%0",
-    'update' => "UPDATE `publications` SET `title` = '%0', `uri`= '%1', `planned_length` = '%2', `status` = '%3',`updated_at` = CURRENT_TIMESTAMP, `users_id_user` = '%4', `fandoms_id_fandom` = '%5' WHERE `publications`.`id_publication` = %6"
+    'update' => "UPDATE `publications` SET `title` = '%0', `url`= '%1', `planned_length` = '%2', `status` = '%3',`updated_at` = CURRENT_TIMESTAMP, `users_id_user` = '%4', `fandoms_id_fandom` = '%5' `prompt`='%6' WHERE `publications`.`id_publication` = %7"
   );
   
-  function __construct($title="",$uri="",$planned_length=0,$status=0,$users_id_user=0,$fandoms_id_fandom=0,$created_at=0,$updated_at=0,$id=0){
+  function __construct($title=null,$uri=null,$planned_length=0,$status=0,$users_id_user=0,$fandoms_id_fandom=0,$created_at=null,$updated_at=null,$images_id_image=1,$prompt="",$id=0){
     $this->id = $id;
     $this->title = $title;
     $this->uri = $uri;
@@ -34,6 +36,8 @@ class Publication {
     $this->updated_at = $updated_at;
     $this->users_id_user = $users_id_user;
     $this->fandoms_id_fandom = $fandoms_id_fandom;
+    $this->images_id_image = $images_id_image;
+    $this->prompt = $prompt;
   }
   
   public static function getPublication($id=null,$optional_sql=""){
@@ -42,32 +46,38 @@ class Publication {
     }
     $sql = Publication::$methods['select']." ".$optional_sql;
     $res = Database::select($sql, function($row){
+
         return new Publication(
           $row['title'],
-          $row['uri'],
+          $row['url'],
           $row['planned_length'],
           $row['status'],
           $row['users_id_user'],
           $row['fandoms_id_fandom'],
           $row['created_at'],
           $row['updated_at'],
+          $row['images_id_image'],
+          $row['prompt'],
           $row['id_publication']
         );
     });
-    if(sizeof($res)==1){
-      return $res[0];
-    }else{
-      return $res;
-    }
+    return $res;
+  }
+  public static function getPublicationById($id_pub){
+    return Publication::getPublication($id_pub)[0];
   }
   public static function insertPublication($publication){
+    if(!isset($publication->title)&&!isset($publication->uri)){
+      $publication->uri = uniqid();
+    }
     $sql = Helper::fill_in(Publication::$methods['insert'],array(
     $publication->title,
     $publication->uri,
     $publication->planned_length,
     $publication->status,
     $publication->fandoms_id_fandom,
-    $publication->users_id_user
+    $publication->users_id_user,
+    $publication->prompt
     ));
     return Database::insert($sql);
   }
@@ -83,6 +93,7 @@ class Publication {
     $publication->status,
     $publication->users_id_user,
     $publication->fandoms_id_fandom,
+    $publication->prompt,
     $publication->id));
     return Database::update($sql);
   }
@@ -90,7 +101,7 @@ class Publication {
     return Leaflet::getLeaflet($id_publication);
   }
   public static function getPublicationByUrl($url){
-    return Publication::getPublication(null, "WHERE `publications`.`uri` LIKE '$url'");
+    return Publication::getPublication(null, "WHERE `publications`.`url` LIKE '$url'")[0];
   }
 }
 

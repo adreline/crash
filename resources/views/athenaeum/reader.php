@@ -1,7 +1,5 @@
 <?php
     use Crash\Crash as Crash;
-    use Elements as E;
-    $protagonist = $_SESSION['protagonist'];
 ?>
 <!DOCTYPE html>
 <?php
@@ -18,7 +16,7 @@
                     <div class="content">
                         <?php
                             foreach ($leafs as $leaf) {
-                                echo "<h3>$leaf->id</h3>";
+                                echo "<h3>$leaf->title</h3>";
                                 echo "<br>";
                                 echo htmlspecialchars_decode($leaf->body, ENT_QUOTES);
                                 echo "<br><br>";

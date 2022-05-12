@@ -6,19 +6,23 @@ use Elements\Database as Database;
 
 class Page{
     public $id;
-    public $name;
     public $friendly_name;
+    public $name;
     public $content;
     public $custom_css;
     public $javascript;
+    public $created_at;
+    public $updated_at;
 
-    function __construct($name, $friendly_name, $content, $custom_css="", $javascript="",$id=null){
+    function __construct($name="", $friendly_name="", $content="", $custom_css="", $javascript="",$created_at=null,$updated_at=null,$id=null){
         $this->id = $id;
         $this->name = $name;
         $this->friendly_name = $friendly_name;
         $this->content = $content;
         $this->custom_css = $custom_css;
         $this->javascript = $javascript;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
     }
 
     private static $methods = array(

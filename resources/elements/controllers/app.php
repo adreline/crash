@@ -23,7 +23,7 @@ use Elements\Page as Page;
 				include Crash::$template[$template];
 			}else{
 				//page cant be found, return 404.
-				Crash::error(404, "Thrown in Controller\App. Requested url: $req");
+				Crash::error(404, "Thrown in Controller\App. Requested url: $req");	
 			}
 		}
 	}

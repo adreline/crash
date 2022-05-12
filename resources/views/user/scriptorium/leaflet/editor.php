@@ -24,14 +24,10 @@
                     }
                  ?>
                     <textarea id="editor" name="body" rows="40" cols="50">
-                        <?php
-                            if(isset($leaf)){
-                                echo $leaf->body;
-                            }
-                        ?>
+                        <?php if(isset($leaf)) echo $leaf->body; ?>
                     </textarea>
                 <div class="content">
-
+                    <p><mark class="info">chapter title:</mark><input type="text" name="title" value="<?php if(isset($leaf)) echo $leaf->title; ?>"></p>
                     <input type="hidden" name="id_publication" value="<?php echo $publication->id; ?>">
                     <button type="submit" name="submit"><mark class="success">[save]</mark></button>
               

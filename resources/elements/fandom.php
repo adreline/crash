@@ -8,18 +8,28 @@ class Fandom {
   public $id;
   public $friendly_name;
   public $name;
-  
-  function __construct($id=0,$friendly_name){
+  public $active;
+  public $created_at;
+  public $updated_at;
+
+  function __construct($friendly_name="",$name=null,$active=0,$created_at=null,$updated_at=null,$id=0){
     $this->id = $id;
     $this->friendly_name = $friendly_name;
-    $this->name = str_replace(" ","-",$friendly_name);
+    if(isset($name)){
+      $this->name = $name;
+    }else{
+      $this->name = str_replace(" ","-",$friendly_name);
+    }
+    $this->active = $active;
+    $this->created_at = $created_at;
+    $this->updated_at = $updated_at;
   }
   
   private static $methods = array(
-    'insert' => "INSERT INTO `fandoms` (`id_fandom`, `friendly_name`, `name`) VALUES (NULL, '%0', '%1')",
+    'insert' => "INSERT INTO `fandoms` (`id_fandom`, `friendly_name`, `name`, `active`, `created_at`, `updated_at`) VALUES (NULL, '%0', '%1', '%2', CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)",
     'select' => "SELECT * FROM `fandoms`",
     'delete' => "DELETE FROM `fandoms` WHERE id_fandom=%0",
-    'update' => "UPDATE `fandoms` SET `friendly_name` = '%0', `name` = '%1' WHERE `fandoms`.`id_fandom` = %2"
+    'update' => "UPDATE `fandoms` SET `friendly_name` = '%0', `name` = '%1', `active`=%2, `updated_at`=CURRENT_TIMESTAMP WHERE `fandoms`.`id_fandom` = %3"
   );
 
   public static function getFandom($id=null,$optional_sql=""){
@@ -28,16 +38,22 @@ class Fandom {
       }
       $sql = Fandom::$methods['select'].$optional_sql;
       $res = Database::select($sql, function($row){
-            return new Fandom($row['id_fandom'],$row['friendly_name'],$row['name']);
+            return new Fandom(
+              $row['friendly_name'],
+              $row['name'],
+              $row['active'],
+              $row['created_at'],
+              $row['updated_at'],
+              $row['id_fandom']
+            );
       });
-      if(sizeof($res) == 1){
-        return $res[0];
-      }else{
         return $res;
-      }
+  }
+  public static function getFandomById($id){
+    return Fandom::getFandom($id)[0];
   }
   public static function getFandomByName($friendly_name){
-    return Fandom::getFandom(null, "WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'");
+    return Fandom::getFandom(null, "WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'")[0];
   }
   public static function insertFandom($fandom){
       $sql = Helper::fill_in(Fandom::$methods['insert'],array($fandom->friendly_name,$fandom->name));
@@ -48,7 +64,7 @@ class Fandom {
     return Database::delete($sql);
   }
   public static function updateFandom($id,$fandom){
-    $sql = Helper::fill_in(Fandom::$methods['update'],array($fandom->friendly_name,$fandom->name,$id));
+    $sql = Helper::fill_in(Fandom::$methods['update'],array($fandom->friendly_name,$fandom->name,$fandom->active,$id));
     return Database::update($sql);
   }
   

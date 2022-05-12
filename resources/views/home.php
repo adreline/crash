@@ -17,9 +17,15 @@
                 <h2 class="title">Popular fandoms</h2>
                 <div class="content">
                    <?php
-                        foreach(E\Fandom::getFandom() as $fandom){
-                            echo "<p>>$fandom->friendly_name (<mark class=\"info\">2312</mark>)</p>";
+                        $fandoms=E\Fandom::getFandom();
+                        if($fandoms instanceof E\Fandom){
+                            echo "<p>>$fandoms->friendly_name (<mark class=\"info\">2312</mark>)</p>";
+                        }else{
+                            foreach($fandoms as $fandom){
+                                echo "<p>>$fandom->friendly_name (<mark class=\"info\">2312</mark>)</p>";
+                            }
                         }
+                        
                     ?>
  
                 </div>
@@ -29,14 +35,7 @@
                 <div class="content">
                    <?php
                         foreach(E\Publication::getPublication(null,"ORDER BY created_at DESC LIMIT 4") as $publication){
-                            $title=$publication->title;
                             $leafs=E\Leaflet::getLeaflet($publication->id);
-                            if(sizeof($leafs)>0){
-                                $prompt=substr(htmlspecialchars_decode($leafs[0]->body,ENT_QUOTES),0,100)."...";
-                            }else{
-                                $prompt="...";
-                            }
-                            $uri = $publication->uri;
                             include Crash::$module['post'];
                         }
                     ?>

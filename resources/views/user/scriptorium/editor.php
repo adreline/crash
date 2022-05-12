@@ -16,7 +16,7 @@
                 <div class="window">
                 <?php
                     if(isset($publication->id)){//if true then we are editing existing publication
-                     echo "<h2 class=\"title\">You are creating $publication->title</h2>";
+                     echo "<h2 class=\"title\">You are editing $publication->title</h2>";
                     }else{
                      echo "<h2 class=\"title\">You are creating a new work</h2>";
                     }
@@ -38,6 +38,8 @@
                             <option value="1">finished</option>
                         </select></p>
                         <p><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$fandom_name\"" ?>></p>
+                        <p><mark class="info">prompt:</mark></p>
+                        <p><textarea name="prompt" rows="4" cols="50"><?php echo $publication->prompt; ?></textarea></p>
                         <button type="submit" name="submit"><mark class="success">[save]</mark></button>
                     </form>
               

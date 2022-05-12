@@ -26,6 +26,8 @@ a{
 textarea{
   background: var(--background);
   border: 1px solid var(--accent3);
+  color: var(--text);
+  font-family: 'IBM Plex Mono';
 }
 button{
   background: none;  

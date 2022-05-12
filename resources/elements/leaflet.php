@@ -6,43 +6,42 @@ use Elements\Database as Database;
 
 class Leaflet{
   public $id;
+  public $title;
   public $body;
+  public $word_count;
   public $publications_id_publication;
+  public $created_at;
+  public $updated_at;
   
-  function __construct($id=0,$body,$publications_id_publication){
+  function __construct($title="",$body="",$word_count=0,$publications_id_publication=1,$created_at=null,$updated_at=null,$id=0){
     $this->id = $id;
+    $this->title = $title;
     $this->body = $body;
+    $this->word_count = $word_count;
     $this->publications_id_publication = $publications_id_publication;
+    $this->created_at = $created_at;
+    $this->updated_at = $updated_at;
   }
   
   private static $methods = array(
-    'insert' => "INSERT INTO `leafs` (`id_leaf`, `body`, `publications_id_publication`) VALUES (NULL, '%0', '%1')",
+    'insert' => "INSERT INTO `leafs` (`id_leaf`,`title`, `body`,`word_count`, `publications_id_publication`,`created_at`,`updated_at`) VALUES (NULL,'%0','%1', %2, %3,  CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)",
     'select' => "SELECT * FROM `leafs` WHERE `leafs`.`publications_id_publication` = %0",
     'select_by_id' => "SELECT * FROM `leafs` WHERE `leafs`.`id_leaf` = %0",
     'delete' => "DELETE FROM `leafs` WHERE `leafs`.`id_leaf` = %0",
-    'update' => "UPDATE `leafs` SET `body` = '%0' WHERE `leafs`.`id_leaf` = %1"
+    'update' => "UPDATE `leafs` SET `body` = '%0', `title` = '%1', `word_count`=%2 `updated_at`=CURRENT_TIMESTAMP WHERE `leafs`.`id_leaf` = %3"
   );
 
-  public static function getLeaflet($id_publication){
-    //pull all leafs belonging to given publication.
-    $sql = Helper::fill_in(Leaflet::$methods['select'],array($id_publication));
+  public static function getLeaflet($id,$method='select'){
+    $sql = Helper::fill_in(Leaflet::$methods[$method],array($id));
     return Database::select($sql, function($row){
-      return new Leaflet($row['id_leaf'],$row['body'],$row['publications_id_publication']);
+      return new Leaflet($row["title"],$row['body'],$row['word_count'],$row['publications_id_publication'],$row['created_at'],$row['updated_at'],$row['id_leaf']);
     });
   }
   public static function getLeafletById($id){
-    $sql = Helper::fill_in(Leaflet::$methods['select_by_id'], array($id));
-    $res = Database::select($sql, function($row){
-      return new Leaflet($row['id_leaf'],$row['body'],$row['publications_id_publication']);
-    });
-    if(sizeof($res)==1){
-      return $res[0];
-    }else{
-      return null;
-    }
+    return Leaflet::getLeaflet($id,'select_by_id')[0];
   }
   public static function insertLeaflet($leaf){
-    $sql = Helper::fill_in(Leaflet::$methods['insert'],array($leaf->body,$leaf->publications_id_publication));
+    $sql = Helper::fill_in(Leaflet::$methods['insert'],array($leaf->title,$leaf->body,$leaf->word_count,$leaf->publications_id_publication));
     return Database::insert($sql);
   }
   public static function deleteLeaflet($id){
@@ -50,7 +49,7 @@ class Leaflet{
     return Database::delete($sql);
   }
   public static function updateLeaflet($leaf){
-    $sql = Helper::fill_in(Leaflet::$methods['update'],array($leaf->body,$leaf->id));
+    $sql = Helper::fill_in(Leaflet::$methods['update'],array($leaf->body,$leaf->title,$leaf->word_count,$leaf->id));
     return Database::update($sql);
   }
 }

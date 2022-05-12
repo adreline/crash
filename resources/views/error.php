@@ -12,7 +12,7 @@
             include Crash::$module['navbar'];
         ?>
                 	<div class="window">
-                	<h2>Error <?php if(isset($code)) echo $code; ?></h2>
+                	<h2 class="title">Error <?php if(isset($code)) echo $code; ?></h2>
                       <div class="content">
                         <p><?php if(isset($msg)) echo $msg; ?></p>
                       </div>

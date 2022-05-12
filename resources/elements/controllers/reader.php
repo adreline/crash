@@ -11,10 +11,14 @@ use Elements\Leaflet as Leaflet;
  * This controller manages everything related to reading works such as comments and kudos
  */
 class Controller{
-    public static function showReader($pub){
-        $publication = $pub;  
-        $leafs = Publication::getPublicationLeafs($pub->id); 
-        include Crash::$static_page['athenaeum/reader'];
+    public static function showReader($publication){ 
+        if(isset($publication)){
+            $leafs = Publication::getPublicationLeafs($publication->id); 
+            include Crash::$static_page['athenaeum/reader'];
+        }else{
+            Crash::error(404,"Publication not found");
+        }
+
     }
 }
 

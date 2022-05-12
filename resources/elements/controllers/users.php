@@ -18,8 +18,8 @@ class Controller{
 	}
 	public static function showPublicationEditor($id_publication=null){
 		if(isset($id_publication)){
-			$publication = Publication::getPublication($id_publication);
-			$fandom_name = Fandom::getFandom($publication->fandoms_id_fandom)->friendly_name;
+			$publication = Publication::getPublicationById($id_publication);
+			$fandom_name = Fandom::getFandomById($publication->fandoms_id_fandom)->friendly_name;
 			$action = "/crash/users/scriptorium/publication/edit";
 		}else{
 			$publication = new Publication();
@@ -47,13 +47,22 @@ class Controller{
 			Crash::redirect("/crash/users/scriptorium/publication/editor",["title"=>"Fandom not found","message"=>"Did you mean: $best_fan->friendly_name"]);
 			
 		}else{
+			
+			if($form['uri']==''){
+				$form['uri']=str_replace(" ","-",$form['title']);
+			}
 			$pub = new Publication(
 				$form['title'],
 				$form['uri'],
 				$form['planned_length'],
 				$form['status'],
 				$form['users_id_user'],
-				$fan->id
+				$fan->id,
+				null,
+				null,
+				null, //replace with an image in the future
+				$form['prompt'],
+				null
 			);
 	
 			if(!Publication::insertPublication($pub)){
@@ -76,6 +85,8 @@ class Controller{
 				$fan->id,
 				null,
 				null,
+				null, //replace with an image in the future
+				$form['prompt'],
 				$form['id_publication']
 			);
 			if(!Publication::updatePublication($pub)){
@@ -90,7 +101,7 @@ class Controller{
 	}
 	/* leaflet management routes*/
 	public static function showLeafOverview($publication_id){
-		$publication = Publication::getPublication($publication_id);
+		$publication = Publication::getPublicationById($publication_id);
 		$leafs = Publication::getPublicationLeafs($publication_id);
 		include Crash::$static_page["user/scriptorium/leaf"];
 	}
@@ -102,13 +113,15 @@ class Controller{
 		}else{
 			$action = "/crash/users/scriptorium/leaflet/new";
 		}
-		$publication = Publication::getPublication($id_pub);
+		$publication = Publication::getPublicationById($id_pub);
 		include Crash::$static_page["user/scriptorium/leaf/editor"];
 	}
 	public static function insertNewLeaf($form){
+		$word_count=sizeof(explode(" ",$form["body"]));
 		$leaf = new Leaflet(
-			null,
+			$form['title'],
 			htmlspecialchars($form['body'],ENT_QUOTES),
+			$word_count,
 			$form['id_publication']
 		);
 		if(!Leaflet::insertLeaflet($leaf)){
@@ -119,10 +132,16 @@ class Controller{
 
 	}
 	public static function updateLeaf($form){
+		
+		$word_count=sizeof(explode(" ",$form["body"]));
 		$leaf = new Leaflet(
-			$form['id_leaf'],
+			$form['title'],
 			htmlspecialchars($form['body'],ENT_QUOTES),
-			$form['id_publication']
+			$word_count,
+			$form['id_publication'],
+			null,
+			null,
+			$form['id_leaf']
 		);
 		if(!Leaflet::updateLeaflet($leaf)){
 			die(mysql_error);
@@ -172,7 +191,7 @@ class Controller{
 		session_destroy();
 		Crash::redirect("/crash/",["title"=>"Loged out","message"=>"You have been logged out"]);
 	}
-	public static function enlist($req=null){
+	public static function enlist(){
 				if(isset($_POST['login'])){
 					//attempt to log the user in
 					//this really need sanitizing to prevent sql injection
@@ -196,8 +215,11 @@ class Controller{
 				if(isset($_POST['register'])){
 					$username=$_POST['username'];
 					$password=password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost'=>10));
-					User::insertUser(new User($username,$password));
+					if(!User::insertUser(new User($username,$password))){
+						die(mysql_error);
+					}else{
 					Crash::redirect("/crash/",["title"=>"success","message"=>"Your account was created"]);
+					}
 				}
 			}	
 	}
