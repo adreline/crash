@@ -8,7 +8,7 @@
     </div>
     <div class="column">
       <p>Followers: n/a</p>
-      <p>Kudos: n/a</p> 
+      <p>Kudos: <?php echo Elements\Kudo::countReceivedUserKudosById($user->id); ?></p> 
       <div class="inline">
         <a href="/crash/users/profile"><mark class="success">[profile]</mark></a>
         <form action="/crash/users/logout" method="post">
