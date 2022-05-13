@@ -77,6 +77,9 @@ class User{
   public static function getUserPublications($id_user){
     return Publication::getPublication(null, "WHERE `users_id_user` = $id_user");
   }
+  public static function getUserPublicationsCount($id_user){
+    return sizeof(User::getUserPublications($id_user));
+  }
 }
 
 ?>
