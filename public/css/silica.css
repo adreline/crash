@@ -23,6 +23,10 @@ a{
   color: var(--text);
 }
 /* Form styling */
+form .field{
+  display: flex;
+  width: max-content;
+}
 textarea{
   background: var(--background);
   border: 1px solid var(--accent3);

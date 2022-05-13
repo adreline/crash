@@ -93,6 +93,13 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/scriptorium", function(){
         UsersController::showScriptorium();
     });
+    $forward->route("/crash/users/scriptorium/publication/delete", function(){
+        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user){
+            UsersController::deletePublication($_GET['id_pub']);
+        }else{
+            Crash::error(403,"You aren't an author of this publication"); 
+        }
+    });
     $forward->route("/crash/users/scriptorium/publication/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
         if(isset($_GET['id_pub'])){
@@ -121,7 +128,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         if($_REQUEST['users_id_user']==$_SESSION['protagonist']->id){
             UsersController::updatePublication($_POST);
         }else{
-            Crash::error(403,"You don't have permission to publish this publication");
+            Crash::error(403,"You don't have permission to edit this publication");
         }
         
     },"POST");

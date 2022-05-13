@@ -16,6 +16,19 @@ class Controller{
 	public static function showScriptorium(){
 		include Crash::$static_page["user/scriptorium"];
 	}
+	public static function deletePublication($id_publication){
+		//the constraint will fail if we attempt to delete a publication that has published chapters
+		foreach(Publication::getPublicationLeafs($id_publication) as $leaf){
+			if(!Leaflet::deleteLeaflet($leaf->id)){
+				die(mysql_error);
+			}
+		}
+		if(!Publication::deletePublication($id_publication)){
+			die(mysql_error);
+		}else{
+			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work deleted"]);
+		}
+	}
 	public static function showPublicationEditor($id_publication=null){
 		if(isset($id_publication)){
 			$publication = Publication::getPublicationById($id_publication);

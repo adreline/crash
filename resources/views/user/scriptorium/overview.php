@@ -33,7 +33,7 @@
                             echo "<td>$pub->title</td>";
                             echo "<td>$pub->status</td>";
                             echo "<td>$number_of_published_pages</td>";
-                            echo "<td><a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see chapters]</mark></a> <a href=\"/crash/users/scriptorium/publication/editor?id_pub=$pub->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"#\"><mark class=\"danger\">[delete]</mark></a></td>";
+                            echo "<td><a href=\"/crash/users/scriptorium/leaflet?id=$pub->id\"><mark class=\"success\">[see chapters]</mark></a> <a href=\"/crash/users/scriptorium/publication/editor?id_pub=$pub->id\"><mark class=\"info\">[edit]</mark></a> <a href=\"/crash/users/scriptorium/publication/delete?id_pub=$pub->id\"><mark class=\"danger\">[delete]</mark></a></td>";
                             echo "</tr>";
                         }
                     ?>

@@ -13,14 +13,14 @@ class User{
   public $administrator;
   public $created_at;
   public $updated_at;
-  public $image_id;
+  public $images_id_image;
 
-  function __construct($username,$password,$image_id=1,$administrator=0,$created_at=null,$updated_at=null,$id=0){
+  function __construct($username,$password,$images_id_image =1,$administrator=0,$created_at=null,$updated_at=null,$id=0){
     $this->id = $id;
     $this->username = $username;
     $this->password = $password; 
     $this->kudos = 0;
-    $this->image_id = $image_id;
+    $this->images_id_image  = $images_id_image ;
     $this->administrator = $administrator;
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
@@ -30,7 +30,7 @@ class User{
     'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1')",
     'select'=>"SELECT * FROM `users`",
     'delete'=>"DELETE FROM `users` WHERE id_user=%0",
-    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,image_id='%4',updated_at=CURRENT_TIMESTAMP WHERE id_user=%5"
+    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,images_id_image ='%4',updated_at=CURRENT_TIMESTAMP WHERE id_user=%5"
   );
 
   public static function getUser($id=null,$optional_sql=""){
@@ -69,7 +69,7 @@ class User{
       $user->username,
       $user->administrator,
       $user->kudos,
-      $user->image_id,
+      $user->images_id_image,
       $user->id
     ));
       return Database::update($sql);
