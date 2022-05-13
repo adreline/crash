@@ -48,7 +48,7 @@ class Publication {
     $res = Database::select($sql, function($row){
 
         return new Publication(
-          htmlspecialchars_decode($row['title'],ENT_QUOTES),
+          stripslashes($row['title']),
           $row['url'],
           $row['planned_length'],
           $row['status'],
@@ -57,7 +57,7 @@ class Publication {
           $row['created_at'],
           $row['updated_at'],
           $row['images_id_image'],
-          htmlspecialchars_decode($row['prompt'],ENT_QUOTES),
+          htmlspecialchars_decode(stripslashes($row['prompt']),ENT_QUOTES),
           $row['id_publication']
         );
     });

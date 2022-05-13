@@ -28,13 +28,20 @@ class Leaflet{
     'select' => "SELECT * FROM `leafs` WHERE `leafs`.`publications_id_publication` = %0",
     'select_by_id' => "SELECT * FROM `leafs` WHERE `leafs`.`id_leaf` = %0",
     'delete' => "DELETE FROM `leafs` WHERE `leafs`.`id_leaf` = %0",
-    'update' => "UPDATE `leafs` SET `body` = '%0', `title` = '%1', `word_count`=%2 `updated_at`=CURRENT_TIMESTAMP WHERE `leafs`.`id_leaf` = %3"
+    'update' => "UPDATE `leafs` SET `body` = '%0', `title` = '%1', `word_count`=%2, `updated_at`=CURRENT_TIMESTAMP WHERE `leafs`.`id_leaf` = %3"
   );
 
   public static function getLeaflet($id,$method='select'){
     $sql = Helper::fill_in(Leaflet::$methods[$method],array($id));
     return Database::select($sql, function($row){
-      return new Leaflet($row["title"],$row['body'],$row['word_count'],$row['publications_id_publication'],$row['created_at'],$row['updated_at'],$row['id_leaf']);
+      return new Leaflet(
+        stripslashes($row["title"]),
+        htmlspecialchars_decode(stripslashes($row['body']),ENT_QUOTES),
+        $row['word_count'],
+        $row['publications_id_publication'],
+        $row['created_at'],
+        $row['updated_at'],
+        $row['id_leaf']);
     });
   }
   public static function getLeafletById($id){

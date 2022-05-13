@@ -65,7 +65,7 @@ class Controller{
 				$form['uri']=str_replace(" ","-",$form['title']);
 			}
 			$pub = new Publication(
-				htmlspecialchars($form['title'],ENT_QUOTES),
+				addslashes($form['title']),
 				$form['uri'],
 				$form['planned_length'],
 				$form['status'],
@@ -74,7 +74,7 @@ class Controller{
 				null,
 				null,
 				null, //replace with an image in the future
-				htmlspecialchars($form['prompt'],ENT_QUOTES),
+				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 				null
 			);
 	
@@ -90,7 +90,7 @@ class Controller{
 		$fan = Fandom::getFandomByName($form['fandom_name']);
 		if($fan instanceof Fandom){
 			$pub = new Publication(
-				htmlspecialchars($form['title'],ENT_QUOTES),
+				addslashes($form['title']),
 				$form['uri'],
 				$form['planned_length'],
 				$form['status'],
@@ -99,7 +99,7 @@ class Controller{
 				null,
 				null,
 				null, //replace with an image in the future
-				htmlspecialchars($form['prompt'],ENT_QUOTES),
+				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 				$form['id_publication']
 			);
 			if(!Publication::updatePublication($pub)){
@@ -132,8 +132,8 @@ class Controller{
 	public static function insertNewLeaf($form){
 		$word_count=sizeof(explode(" ",$form["body"]));
 		$leaf = new Leaflet(
-			$form['title'],
-			htmlspecialchars($form['body'],ENT_QUOTES),
+			addslashes($form['title']),
+			htmlspecialchars(addslashes($form['body']),ENT_QUOTES),
 			$word_count,
 			$form['id_publication']
 		);
@@ -148,8 +148,8 @@ class Controller{
 		
 		$word_count=sizeof(explode(" ",$form["body"]));
 		$leaf = new Leaflet(
-			$form['title'],
-			htmlspecialchars($form['body'],ENT_QUOTES),
+			addslashes($form['title']),
+			htmlspecialchars(addslashes($form['body']),ENT_QUOTES),
 			$word_count,
 			$form['id_publication'],
 			null,
