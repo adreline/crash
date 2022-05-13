@@ -65,7 +65,7 @@ class Controller{
 				$form['uri']=str_replace(" ","-",$form['title']);
 			}
 			$pub = new Publication(
-				$form['title'],
+				htmlspecialchars($form['title'],ENT_QUOTES),
 				$form['uri'],
 				$form['planned_length'],
 				$form['status'],
@@ -74,7 +74,7 @@ class Controller{
 				null,
 				null,
 				null, //replace with an image in the future
-				$form['prompt'],
+				htmlspecialchars($form['prompt'],ENT_QUOTES),
 				null
 			);
 	
@@ -90,7 +90,7 @@ class Controller{
 		$fan = Fandom::getFandomByName($form['fandom_name']);
 		if($fan instanceof Fandom){
 			$pub = new Publication(
-				$form['title'],
+				htmlspecialchars($form['title'],ENT_QUOTES),
 				$form['uri'],
 				$form['planned_length'],
 				$form['status'],
@@ -99,7 +99,7 @@ class Controller{
 				null,
 				null,
 				null, //replace with an image in the future
-				$form['prompt'],
+				htmlspecialchars($form['prompt'],ENT_QUOTES),
 				$form['id_publication']
 			);
 			if(!Publication::updatePublication($pub)){
