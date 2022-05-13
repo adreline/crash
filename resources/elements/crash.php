@@ -19,6 +19,7 @@ class Crash{
       "page"=>"resources/elements/page.php",
       "fandom"=>"resources/elements/fandom.php",
       "leaflet"=>"resources/elements/leaflet.php",
+      "kudo"=>"resources/elements/kudo.php",
       "publication"=>"resources/elements/publication.php",
       "session"=>"resources/elements/session.php",
       "head"=>"resources/elements/head.php",

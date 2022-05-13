@@ -58,6 +58,15 @@ $forward->route("/crash/users/enlist", function(){
 },"POST");
 
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
+    /* kudo management routes*/
+    $forward->route("/crash/athenaeum/kudo/give", function(){
+        //verify if id_user is that of the current logged in user
+        if($_GET['id_user']==$_SESSION['protagonist']->id){
+            UsersController::leaveKudo($_GET['id_user'],$_GET['id_publication']);
+        }else{
+            Crash::error(403,"This action was unauthorized");
+        }
+    });
     /** user account management routes*/
     $forward->route("/crash/users/password",function(){
         UsersController::showPasswordForm();

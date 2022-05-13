@@ -6,12 +6,21 @@ use Elements\Session as Session;
 use Elements\Publication as Publication;
 use Elements\Leaflet as Leaflet;
 use Elements\Fandom as Fandom;
-
+use Elements\Kudo as Kudo;
 /*
 * This controller processes everything that has to do with users
 */
 class Controller{
 
+	/* kudo management routes*/
+	public static function leaveKudo($id_user,$id_publication){
+		if(!Kudo::insertKudo($id_user,$id_publication)){
+			die(mysql_error);
+		}else{
+			$uri = Publication::getPublicationById($publication_id)->uri;
+			Crash::redirect("/crash/athenaeum/$uri",['title'=>'success', 'message'=>'thank you for leaving Kudo']);
+		}
+	}
 	/* publications management routes */
 	public static function showScriptorium(){
 		include Crash::$static_page["user/scriptorium"];
