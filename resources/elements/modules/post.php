@@ -5,7 +5,7 @@
                     <p><?php echo $publication->prompt; ?></p>
                   <div class="container">
                     <p>Replies: <mark class="info">7</mark> </p>
-                    <p>Kudos: <mark class="info">77</mark> </p>
+                    <p>Kudos: <mark class="info"><?php echo $kudos; ?></mark> </p>
                     <p> <a href="#"> <mark class="success">[reply]</mark> </a> </p>
                   </div>
               </div>

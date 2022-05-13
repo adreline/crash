@@ -1,5 +1,7 @@
 <?php
     use Crash\Crash as Crash;
+    use Elements\Kudo;
+    $p = $_SESSION['protagonist'];
 ?>
 <!DOCTYPE html>
 <?php
@@ -13,6 +15,25 @@
             <div class="column">
                 <div class="window">
                     <h2 class="title"><?php echo "$publication->title"; ?></h2>
+                    <div class="content">
+                        <div class="columns">
+                            <div class="column">
+                                
+                               <?php 
+                               if(!Kudo::kudoExists($p->id,$publication->id)){
+                                echo "<a href=\"/crash/athenaeum/kudo/give?id_user=$p->id&id_publication=$publication->id\"><mark class=\"success\">[leave kudo]</mark></a>"; 
+                               }else{
+                                echo "<a href=\"/crash/athenaeum/kudo/withdraw?id_user=$p->id&id_publication=$publication->id\"><mark class=\"danger\">[withdraw kudo]</mark></a>"; 
+                               }
+                               
+                               
+                               ?>
+                            </div>
+                            <div class="column">
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="content">
                         <?php
                             foreach ($leafs as $leaf) {

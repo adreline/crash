@@ -34,7 +34,6 @@ require "routes.php"; //require routes only after session is loaded because rout
 $url = trim($_SERVER['REQUEST_URI']);
 //strip get vars
 $url = explode("?",$url)[0];
-
 try{ //try to forward request to a controller
     //determine request method 
     switch($_SERVER["REQUEST_METHOD"]){
