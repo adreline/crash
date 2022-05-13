@@ -21,7 +21,7 @@
                             <img class="avatar" src="/crash/public/img/avi_placeholder.jpg">
                         </div>
                         <div class="column">
-                            <p>kudos: <mark class="info">0</mark></p>
+                            <p>kudos: <mark class="info"><?php echo E\Kudo::countReceivedUserKudosById($protagonist->id); ?></mark></p>
                             <p>works: <mark class="info">0</mark></p>
                             <p>followers: <mark class="info">0</mark></p>
                             <p>on crash since: <mark class="info">2022-04-27 17:16:56</mark></p>
