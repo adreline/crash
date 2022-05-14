@@ -11,7 +11,7 @@ class Comment{
     public $body;
     public $created_at;
     public $updated_at;
-}
+
 
 function __construct($users_id_user=0,$publications_id_publication=0,$body="",$created_at=null,$updated_at=null,$id_comment=null){
     $this->id_comment = $id_comment;
@@ -64,4 +64,5 @@ public static function updateComment($comment){
         $comment->id
     ));
     return Database::insert($sql);
+}
 }

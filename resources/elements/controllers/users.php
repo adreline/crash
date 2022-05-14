@@ -7,12 +7,27 @@ use Elements\Publication as Publication;
 use Elements\Leaflet as Leaflet;
 use Elements\Fandom as Fandom;
 use Elements\Kudo as Kudo;
+use Elements\Comment as Comment;
 /*
 * This controller processes everything that has to do with users
 */
 class Controller{
 
-	/* kudo management routes*/
+	/* comment management methods */
+	public static function leaveComment($form){
+		$comment = new Comment(
+			$form['id_user'],
+			$form['id_publication'],
+			$form['body']
+		);
+		if(!Comment::insertComment($comment)){
+			die(mysql_error);
+		}else{
+			$uri_redirect_back = Publication::getPublicationById($form['id_publication'])->uri;
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'Comment submited']);
+		}
+	}
+	/* kudo management methods*/
 	public static function leaveKudo($id_user,$id_publication){
 		if(!Kudo::insertKudo($id_user,$id_publication)){
 			die(mysql_error);
@@ -29,7 +44,7 @@ class Controller{
 			Crash::redirect("/crash/athenaeum/$uri",['title'=>'success', 'message'=>'you have withdrawn your kudo']);
 		}
 	}
-	/* publications management routes */
+	/* publications management methods */
 	public static function showScriptorium(){
 		include Crash::$static_page["user/scriptorium"];
 	}
@@ -129,7 +144,7 @@ class Controller{
 		}
 		
 	}
-	/* leaflet management routes*/
+	/* leaflet management methods*/
 	public static function showLeafOverview($publication_id){
 		$publication = Publication::getPublicationById($publication_id);
 		$leafs = Publication::getPublicationLeafs($publication_id);
@@ -187,7 +202,7 @@ class Controller{
 		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Page deleted"]);
 
 	}
-	/* account management routes */
+	/* account management methods */
 	public static function showPasswordForm(){
 		include Crash::$static_page["user/password"];
 

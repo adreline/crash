@@ -58,6 +58,15 @@ $forward->route("/crash/users/enlist", function(){
 },"POST");
 
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
+    /* comment management routes */
+    $forward->route("/crash/athenaeum/comment/post",function(){
+        //verify if id_user is that of the current logged in user
+        if($_POST['id_user']==$_SESSION['protagonist']->id){
+            UsersController::leaveComment($_POST);
+        }else{
+            Crash::error(403,"This action was unauthorized");
+        }
+    },"POST");
     /* kudo management routes*/
     $forward->route("/crash/athenaeum/kudo/give", function(){
         //verify if id_user is that of the current logged in user
