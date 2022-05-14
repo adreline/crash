@@ -50,7 +50,9 @@ class User{
       );
     });
   }
-  
+  public static function getUserById($id_user){
+    return User::getUser($id_user)[0];
+  }
   public static function insertUser($user){
     $sql = Helper::fill_in(User::$methods['insert'],array(
       $user->username,
