@@ -37,7 +37,7 @@ class Fandom {
        $optional_sql="WHERE id_fandom=$id ".$optional_sql;
       }
       $sql = Fandom::$methods['select'].$optional_sql;
-      $res = Database::select($sql, function($row){
+      return Database::select($sql, function($row){
             return new Fandom(
               $row['friendly_name'],
               $row['name'],
@@ -47,7 +47,6 @@ class Fandom {
               $row['id_fandom']
             );
       });
-        return $res;
   }
   public static function getFandomById($id){
     return Fandom::getFandom($id)[0];
