@@ -18,15 +18,12 @@
                     <div class="content">
                         <div class="columns">
                             <div class="column">
-                                
                                <?php 
                                if(!Kudo::kudoExists($p->id,$publication->id)){
                                 echo "<a href=\"/crash/athenaeum/kudo/give?id_user=$p->id&id_publication=$publication->id\"><mark class=\"success\">[leave kudo]</mark></a>"; 
                                }else{
                                 echo "<a href=\"/crash/athenaeum/kudo/withdraw?id_user=$p->id&id_publication=$publication->id\"><mark class=\"danger\">[withdraw kudo]</mark></a>"; 
-                               }
-                               
-                               
+                               }                               
                                ?>
                             </div>
                             <div class="column">

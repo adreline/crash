@@ -17,8 +17,16 @@ class Controller{
 		if(!Kudo::insertKudo($id_user,$id_publication)){
 			die(mysql_error);
 		}else{
-			$uri = Publication::getPublicationById($publication_id)->uri;
-			Crash::redirect("/crash/athenaeum/$uri",['title'=>'success', 'message'=>'thank you for leaving Kudo']);
+			$uri_redirect_back = Publication::getPublicationById($id_publication)->uri;
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'thank you for leaving Kudo']);
+		}
+	}
+	public static function withdrawKudo($id_user,$id_publication){
+		if(!Kudo::deleteKudo($id_user,$id_publication)){
+			die(mysql_error);
+		}else{
+			$uri = Publication::getPublicationById($id_publication)->uri;
+			Crash::redirect("/crash/athenaeum/$uri",['title'=>'success', 'message'=>'you have withdrawn your kudo']);
 		}
 	}
 	/* publications management routes */

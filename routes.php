@@ -67,6 +67,14 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
             Crash::error(403,"This action was unauthorized");
         }
     });
+    $forward->route("/crash/athenaeum/kudo/withdraw",function(){
+        //verify if id_user is that of the current logged in user
+        if($_GET['id_user']==$_SESSION['protagonist']->id){
+            UsersController::withdrawKudo($_GET['id_user'],$_GET['id_publication']);
+        }else{
+            Crash::error(403,"This action was unauthorized");
+        }
+    });
     /** user account management routes*/
     $forward->route("/crash/users/password",function(){
         UsersController::showPasswordForm();
