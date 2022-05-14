@@ -1,6 +1,7 @@
 <?php
     use Crash\Crash as Crash;
     use Elements\Kudo;
+    use Elements\User;
     $p = $_SESSION['protagonist'];
 ?>
 <!DOCTYPE html>
@@ -60,7 +61,18 @@
                                 <div class="field"><textarea cols="50" rows="10" name="body"></textarea></div> 
                                 <div class="field"><button type="submit"><mark class="success">[submit]</mark></button></div> 
                             </form>
-                    </div>
+                        </div>
+                        <div class="content">
+                            <?php 
+                                foreach($comments as $comment){
+                                    $avatar = "/crash/public/img/placeholder.jpg";
+                                    $comment_body = $comment->body;
+                                    $comment_author = User::getUserById($comment->users_id_user)->username;
+                                    include Crash::$module['comment'];
+                                }
+                                
+                            ?>
+                        </div>
                 </div>
             </div>
             <div class="column is-1-4">

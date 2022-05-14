@@ -6,13 +6,14 @@ namespace Crash;
  */
 class Crash{
     public static $module=array(
-        "navbar"=>"resources/elements/modules/navbar.php",
-        "post"=>"resources/elements/modules/post.php",
-        "aside"=>"resources/elements/modules/aside.php",
-        "modal"=>"resources/elements/modules/modal.php",
-        "users_form"=>"resources/elements/modules/users_form.php",
-        "user_banner"=>"resources/elements/modules/user_banner.php",
-        "head"=>"resources/elements/modules/head.php"
+        "navbar"=>"resources/views/templates/modules/navbar.php",
+        "post"=>"resources/views/templates/modules/post.php",
+        "aside"=>"resources/views/templates/modules/aside.php",
+        "modal"=>"resources/views/templates/modules/modal.php",
+        "comment"=>"resources/views/templates/modules/comment.php",
+        "users_form"=>"resources/views/templates/modules/users_form.php",
+        "user_banner"=>"resources/views/templates/modules/user_banner.php",
+        "head"=>"resources/views/templates/modules/head.php"
     );
     public static $element=array(
       "database"=>"resources/elements/database.php",

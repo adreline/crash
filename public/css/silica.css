@@ -127,6 +127,9 @@ ul li::before {
   width: 100%;
   padding: .5rem;
 }
+.column.is-auto{
+  width: fit-content;
+}
 .column.is-1-4{
   width: 25%; 
 }
@@ -141,6 +144,9 @@ ul li::before {
 .avatar{
   width: 100%;
   border-radius: 100%;
+}
+.tiny-avatar{
+  max-width: 100px;
 }
 .window{
     border: .5rem solid var(--accent);
