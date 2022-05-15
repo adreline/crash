@@ -3,6 +3,7 @@
 namespace Elements;
 use Crash\Helper as Helper;
 use Elements\Database as Database;
+use Elements\Head as Head;
 
 class Page{
     public $id;
@@ -46,7 +47,7 @@ class Page{
                 $row['javascript'],
                 $row['id_page'],
                 $row['created_at'],
-                $row['update_at']);
+                $row['updated_at']);
         });       
     }
     public static function getPageByName($name){
@@ -72,6 +73,9 @@ class Page{
     public static function editPage($page){
         $sql = Helper::fill_in(Page::$methods['update'],array($page->friendly_name, $page->name, $page->content, $page->custom_css, $page->javascript,$page->id));
         return Database::update($sql);
+    }
+    public static function getHead($id_page){
+        return Head::getHead($id_page);
     }
 
 }

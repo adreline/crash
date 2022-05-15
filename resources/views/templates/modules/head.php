@@ -7,7 +7,14 @@
 ?>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crash</title>
+    <?php
+        if(isset($head)){
+            echo "<title>$head->title</title>";
+            echo "<meta name=\"description\" content=\"$head->desc\">";
+        }else{
+            echo "<title>Crash</title>";
+        }
+    ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;400&family=Noto+Sans+JP:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
@@ -19,9 +26,6 @@
             echo $page->custom_css;
             echo $page->javascript;
         }
-        if(isset($head)){
-            echo $head->title;
-            echo $head->desc;
-        }
+        
      ?>
 </head>

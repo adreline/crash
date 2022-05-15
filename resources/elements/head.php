@@ -12,7 +12,7 @@ class Head{
   public $created_at; 
   public $updated_at;
 
-  function __construct($title="", $desc="", $pages_id=0,$created_at=null,$updated_at=null, $id=0){
+  function __construct($title="", $desc="", $pages_id=0,$id=0,$created_at=null,$updated_at=null){
     $this->title = $title;
     $this->desc = $desc;
     $this->pages_id_page = $pages_id;
@@ -35,9 +35,9 @@ class Head{
               $row['title'],
               $row['desc'],
               $row['pages_id_page'],
-              $row['created_at'], 
-              $row['updated_at'],
               $row['id_head'],
+              $row['created_at'], 
+              $row['updated_at']
           );
       })[0];
   }

@@ -4,6 +4,7 @@ namespace Controller\Admin;
 use Crash\Crash as Crash;
 use Elements\User as User;
 use Elements\Page as Page;
+use Elements\Head as Head;
 /**
  * This controller provides access to the admin interface
  */
@@ -18,6 +19,7 @@ class Controller{
   public static function showPageEditor($id_page=null){
       if(isset($id_page) && is_numeric($id_page)){
             $page = Page::getPageById($id_page);
+            $head = Page::getHead($id_page);
             $action = "/crash/admin/pages/edit";
       }else{
             $page = new Page(); //pass an empty page object because we want to make a new one while recycling the same form
@@ -40,6 +42,16 @@ class Controller{
       
       if(!Page::insertPage($page)){
         die(mysql_error);
+      }else{
+        $page = Page::getPageByName($form['name']);
+        $head = new Head(
+          $form['meta_title'],
+          $form['meta_desc'],
+          $page->id 
+        );
+        if(!Head::insertHead($head)){
+          die(mysql_error);
+        }
       }
       Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page created"]);
   }
@@ -51,13 +63,23 @@ class Controller{
       htmlspecialchars($form['custom_css'],ENT_QUOTES),
       htmlspecialchars($form['javascript'],ENT_QUOTES),
       $form['id_page']);
-      
-      if(!Page::editPage($page)){
+      $head = new Head(
+        $form['meta_title'],
+        $form['meta_desc'],
+        $form['id_page'],
+        Head::getHead($form['id_page'])->id
+      );
+      if(!Page::editPage($page)||!Head::updateHead($head)){
        die(mysql_error);
       }
       Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page updated"]);
   }
   public static function deletePage($id_page){
+    //key constraint will fail if we attempt to delete a page, first delete associated head section
+    $head = Head::getHead($id_page);
+    if(!Head::deleteHead($head->id)){
+      die(mysql_error);
+    }
     if(!Page::deletePage($id_page)){
       die(mysql_error);
     }
