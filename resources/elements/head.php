@@ -22,22 +22,22 @@ class Head{
   }
 
   public static $methods = array(
-      'insert' => "INSERT INTO `heads` (`id_head`, `title`, `desc`, `pages_id_page`) VALUES (NULL, '%0', '%1', '%2')",
+      'insert' => "INSERT INTO `heads` (`id_head`, `title`, `desc`, `pages_id_page`,`created_at`,`updated_at`) VALUES (NULL, '%0', '%1', '%2',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)",
       'select' => "SELECT * FROM `heads` WHERE `pages_id_page` = %0",
       'delete' => "DELETE FROM `heads` WHERE `heads`.`id_head` = %0",
-      'update' => "UPDATE `heads` SET `title` = '%0', `desc` = '%1', `pages_id_page` = '%2' WHERE `heads`.`id_head` = %3",
+      'update' => "UPDATE `heads` SET `title` = '%0', `desc` = '%1', `pages_id_page` = '%2', `updated_at`=CURRENT_TIMESTAMP WHERE `heads`.`id_head` = %3",
   );
 
   public static function getHead($id_page){
       $sql = Helper::fill_in(Head::$methods['select'],array($id_page));
-      $heads = Database::select($sql, function ($row){
+      return Database::select($sql, function ($row){
           return new Head(
               $row['title'],
               $row['desc'],
               $row['pages_id_page'],
               $row['created_at'], 
               $row['updated_at'],
-              $row['id_page'],
+              $row['id_head'],
           );
       })[0];
   }
