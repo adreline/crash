@@ -19,5 +19,9 @@
             echo $page->custom_css;
             echo $page->javascript;
         }
+        if(isset($head)){
+            echo $head->title;
+            echo $head->desc;
+        }
      ?>
 </head>

@@ -2,6 +2,8 @@
 namespace Controller\App;
 use Crash\Crash as Crash;
 use Elements\Page as Page;
+use Elements\Head as Head;
+
 /*
 * This controller processes default pages. usually static pages, which reside in views folder.
 */
@@ -12,14 +14,15 @@ use Elements\Page as Page;
 			include Crash::$static_page[$req];
 		}else{
 			//check if requested page is present in the database
-			$page_id = Page::fetchPageByName($req);
-			if ($page_id!=-1) {
-				//render the page
-				$page = Page::getPage($page_id)[0];
+			$page = Page::getPageByName($req);
+			if ($page instanceof Page) {
+				//page present, fetch assoc head section
+				$head = Head::getHead($page->id);
 				//reverse htmlspecialchars 
 				$page->content =  htmlspecialchars_decode($page->content, ENT_QUOTES);
 				$page->custom_css =  htmlspecialchars_decode($page->custom_css, ENT_QUOTES);
 				$page->javascript =  htmlspecialchars_decode($page->javascript, ENT_QUOTES);
+				//render the page
 				include Crash::$template[$template];
 			}else{
 				//page cant be found, return 404.

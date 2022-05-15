@@ -16,11 +16,12 @@ class Controller{
       include Crash::$static_page['admin/pages'];
   }
   public static function showPageEditor($id_page=null){
-      if(isset($id_page)){
-            $page = Page::getPage($id_page)[0];
+      if(isset($id_page) && is_numeric($id_page)){
+            $page = Page::getPageById($id_page);
             $action = "/crash/admin/pages/edit";
       }else{
-            $page = new Page("","",""); //pass an empty page object because we want to make a new one while recycling the same form
+            $page = new Page(); //pass an empty page object because we want to make a new one while recycling the same form
+            $head = new Head();
             $action = "/crash/admin/pages/new";
       }
       include Crash::$static_page['admin/pages_editor'];

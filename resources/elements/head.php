@@ -12,7 +12,7 @@ class Head{
   public $created_at; 
   public $updated_at;
 
-  function __construct($title, $desc, $pages_id,$created_at=null,$updated_at=null, $id=0){
+  function __construct($title="", $desc="", $pages_id=0,$created_at=null,$updated_at=null, $id=0){
     $this->title = $title;
     $this->desc = $desc;
     $this->pages_id_page = $pages_id;
@@ -39,12 +39,7 @@ class Head{
               $row['updated_at'],
               $row['id_page'],
           );
-      });
-      if(isset($heads[0])){
-          return $heads[0];
-      }else{
-          return null;
-      }
+      })[0];
   }
   public static function insertHead($head){
       $sql = Helper::fill_in(Head::$methods['insert'],array(
