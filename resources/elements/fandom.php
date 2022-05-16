@@ -12,7 +12,7 @@ class Fandom {
   public $created_at;
   public $updated_at;
 
-  function __construct($friendly_name="",$name=null,$active=0,$created_at=null,$updated_at=null,$id=0){
+  function __construct($friendly_name="",$name=null,$active=0,$id=0,$created_at=null,$updated_at=null){
     $this->id = $id;
     $this->friendly_name = $friendly_name;
     if(isset($name)){
@@ -62,8 +62,8 @@ class Fandom {
     $sql = Helper::fill_in(Fandom::$methods['delete'],array($id));
     return Database::delete($sql);
   }
-  public static function updateFandom($id,$fandom){
-    $sql = Helper::fill_in(Fandom::$methods['update'],array($fandom->friendly_name,$fandom->name,$fandom->active,$id));
+  public static function updateFandom($fandom){
+    $sql = Helper::fill_in(Fandom::$methods['update'],array($fandom->friendly_name,$fandom->name,$fandom->active,$fandom->id));
     return Database::update($sql);
   }
   
