@@ -23,23 +23,24 @@
                  ?>
                 
                 <div class="content">
-                    <form action=<?php echo "\"$action\"" ?> method="post">
+                    <form action=<?php echo "\"$action\"" ?> method="post" enctype="multipart/form-data">
                         <?php 
                             if(isset($publication->id)){//if true then we are editing existing publication
                                 echo "<input type=\"hidden\" name=\"id_publication\" value=\"$publication->id\">";
                             }
                         ?>
                         <input type="hidden" name="users_id_user" value=<?php echo "\"$protagonist->id\"" ?>>
-                        <p><mark class="info">title:</mark><input type="text" name="title" value=<?php echo "\"$publication->title\"" ?>></p>
-                        <p><mark class="info">uri:</mark><input type="text" name="uri" value=<?php echo "\"$publication->uri\"" ?>></p>
-                        <p><mark class="info">planned length:</mark><input type="number" name="planned_length" value=<?php echo "\"$publication->planned_length\"" ?>></p>
-                        <p><mark class="info">status:</mark><select name="status">
+                        <div class="field"><mark class="info">title:</mark><input type="text" name="title" value=<?php echo "\"$publication->title\"" ?>></div>
+                        <div class="field"><mark class="info">uri:</mark><input type="text" name="uri" value=<?php echo "\"$publication->uri\"" ?>></div>
+                        <div class="field"><mark class="info">cover:</mark><input type="file" name="image"></div>
+                        <div class="field"><mark class="info">planned length:</mark><input type="number" name="planned_length" value=<?php echo "\"$publication->planned_length\"" ?>></div>
+                        <div class="field"><mark class="info">status:</mark><select name="status">
                             <option value="0">ongoing</option>
                             <option value="1">finished</option>
-                        </select></p>
-                        <p><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$fandom_name\"" ?>></p>
-                        <p><mark class="info">prompt:</mark></p>
-                        <p><textarea name="prompt" rows="4" cols="50"><?php echo $publication->prompt; ?></textarea></p>
+                        </select></div>
+                        <div class="field"><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$fandom_name\"" ?>></div>
+                        <div class="field"><mark class="info">prompt:</mark></div>
+                        <div class="field"><textarea name="prompt" rows="4" cols="50"><?php echo $publication->prompt; ?></textarea></div>
                         <button type="submit" name="submit"><mark class="success">[save]</mark></button>
                     </form>
               
