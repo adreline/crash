@@ -24,6 +24,7 @@ class Crash{
       "publication"=>"resources/elements/publication.php",
       "session"=>"resources/elements/session.php",
       "comment"=>"resources/elements/comment.php",
+      "image"=>"resources/elements/image.php",
       "head"=>"resources/elements/head.php",
       "user"=>"resources/elements/user.php"
     );

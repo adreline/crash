@@ -37,6 +37,7 @@
                         foreach(E\Publication::getPublication(null,"ORDER BY created_at DESC LIMIT 4") as $publication){
                             $leafs=E\Leaflet::getLeaflet($publication->id);
                             $kudos=E\Kudo::countPublicationKudosById($publication->id);
+                            $image=E\Image::getImageById($publication->images_id_image);
                             include Crash::$module['post'];
                         }
                     ?>

@@ -4,6 +4,7 @@ namespace Elements;
 use Crash\Helper as Helper;
 use Elements\Database as Database;
 use Elements\Leaflet;
+use Elements\Image;
 
 class Publication {
   public $id;
