@@ -42,9 +42,9 @@ class Fandom {
               $row['friendly_name'],
               $row['name'],
               $row['active'],
+              $row['id_fandom'],
               $row['created_at'],
-              $row['updated_at'],
-              $row['id_fandom']
+              $row['updated_at']
             );
       });
   }
