@@ -96,6 +96,11 @@ class Controller{
 			if($form['uri']==''){
 				$form['uri']=str_replace(" ","-",$form['title']);
 			}
+			//uncomment these lines when upload_tmp_dir issue is fixed
+			//$filename = Image::saveImageAsFile($_FILE['image']);
+			//if(!isset($filename)) die("file upload failed");
+			//if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
+
 			$pub = new Publication(
 				addslashes($form['title']),
 				$form['uri'],
@@ -105,14 +110,12 @@ class Controller{
 				$fan->id,
 				null,
 				null,
-				null, //replace with an image in the future
+				null, //replace with Image::getImageByFilename($filename)->id when upload_tmp_dir issue is fixed
 				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 				null
 			);
-	
-			if(!Publication::insertPublication($pub)){
-				die(mysql_error);
-			}
+			
+			if(!Publication::insertPublication($pub)) die(mysql_error);
 			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work published"]);
 		}
 	
