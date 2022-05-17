@@ -36,6 +36,7 @@ class Crash{
         "admin/panel" => "resources/views/admin/dashboard.php",
         "admin/pages" => "resources/views/admin/pages/overview.php",
         "admin/pages_editor" => "resources/views/admin/pages/editor.php",
+        "admin/fandom/requests" => "resources/views/admin/fandoms/request.php",
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/password" => "resources/views/user/profile/password.php",
         "user/username" => "resources/views/user/profile/username.php",
@@ -44,6 +45,7 @@ class Crash{
         "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
         "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
         "athenaeum/reader" => "resources/views/athenaeum/reader.php",
+        "fandom/request" => "resources/views/user/scriptorium/fandom/request.php",
         "search" => "resources/views/search.php",
         "error" => "resources/views/error.php",
         "loading" => "resources/views/loading.php"

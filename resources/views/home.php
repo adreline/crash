@@ -17,7 +17,7 @@
                 <h2 class="title">Popular fandoms</h2>
                 <div class="content">
                    <?php
-                        $fandoms=E\Fandom::getFandom();
+                        $fandoms=E\Fandom::getActiveFandoms();
                         if($fandoms instanceof E\Fandom){
                             echo "<p>>$fandoms->friendly_name (<mark class=\"info\">2312</mark>)</p>";
                         }else{

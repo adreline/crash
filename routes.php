@@ -36,8 +36,18 @@ $forward->route("/crash/athenaeum",function($title){
 });
 /* Admin routes */
 if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->administrator){//verify permission level 
+    $forward->route("/crash/admin/fandoms", function(){
+        AdminController::showFandomRequests();
+    });
+    $forward->route("/crash/admin/fandoms/accept", function(){
+        AdminController::acceptFandomRequest($_GET['id']);
+    });
+    $forward->route("/crash/admin/fandoms/deny", function(){
+        AdminController::denyFandomRequest($_GET['id']);
+    });
+
     $forward->route("/crash/admin", function(){
-            AdminController::showPanel();
+        AdminController::showPanel();
     });
     $forward->route("/crash/admin/pages", function(){
         AdminController::showPagesManager();
@@ -65,6 +75,13 @@ $forward->route("/crash/users/enlist", function(){
 },"POST");
 
 if(isset($_SESSION['protagonist'])){//verify if user is logged in
+    /* fandom request routes */
+    $forward->route("/crash/users/fandom/request", function(){
+        UsersController::showFandomForm();
+    });
+    $forward->route("/crash/users/fandom/request", function(){
+        UsersController::insertFandom($_POST);
+    },"POST");
     /* comment management routes */
     $forward->route("/crash/athenaeum/comment/post",function(){
         //verify if id_user is that of the current logged in user

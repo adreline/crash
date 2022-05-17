@@ -32,6 +32,7 @@
                                 <li><a href="/crash/users/password"><mark class="success">[change password]</mark></a></li>
                                 <li><a><mark class="success">[change avatar]</mark></a></li>
                                 <li><a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a></li>
+                                <li><a href="/crash/users/fandom/request"><mark class="success">[request new fandom]</mark></a></li>
                             </ul>
                         </div>
                     </div>

@@ -32,10 +32,7 @@ class Fandom {
     'update' => "UPDATE `fandoms` SET `friendly_name` = '%0', `name` = '%1', `active`=%2, `updated_at`=CURRENT_TIMESTAMP WHERE `fandoms`.`id_fandom` = %3"
   );
 
-  public static function getFandom($id=null,$optional_sql=""){
-      if(isset($id)){
-       $optional_sql="WHERE id_fandom=$id ".$optional_sql;
-      }
+  public static function getFandom($optional_sql=""){
       $sql = Fandom::$methods['select'].$optional_sql;
       return Database::select($sql, function($row){
             return new Fandom(
@@ -48,11 +45,17 @@ class Fandom {
             );
       });
   }
+  public static function getInactiveFandoms(){
+    return Fandom::getFandom("WHERE `fandoms`.`active`= 0");
+  }
+  public static function getActiveFandoms(){
+    return Fandom::getFandom("WHERE `fandoms`.`active`= 1");
+  }
   public static function getFandomById($id){
-    return Fandom::getFandom($id)[0];
+    return Fandom::getFandom("WHERE `fandoms`.`id_fandom`=$id")[0];
   }
   public static function getFandomByName($friendly_name){
-    return Fandom::getFandom(null, "WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'")[0];
+    return Fandom::getFandom("WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'")[0];
   }
   public static function insertFandom($fandom){
       $sql = Helper::fill_in(Fandom::$methods['insert'],array($fandom->friendly_name,$fandom->name));

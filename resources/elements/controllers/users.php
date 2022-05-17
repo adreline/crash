@@ -89,7 +89,7 @@ class Controller{
 			//maybe a typo, find closest one using levenshtein algorithm
 			$best_proximity=null;
 			$best_fan=null;
-			foreach(Fandom::getFandom() as $fan){
+			foreach(Fandom::getActiveFandoms() as $fan){
 				$proximity = levenshtein($fan->friendly_name, $form['fandom_name']);
 				if($proximity<$best_proximity || !isset($best_proximity)){
 					$best_proximity = $proximity;
@@ -279,6 +279,18 @@ class Controller{
 	}
 	public static function showDashboard(){
 		include Crash::$static_page["user/dashboard"];
+	}
+	/* fandom request methods */
+	public static function showFandomForm(){
+		include Crash::$static_page["fandom/request"];
+	}
+	public static function insertFandom($form){
+		$form['friendly_name']=addslashes($form['friendly_name']);
+		if($form['name']=="") $form['name'] = str_replace(" ", "-", $form['friendly_name']);
+
+		$fandom = new Fandom($form['friendly_name'],$form['name']);
+		if(!Fandom::insertFandom($fandom)) die(mysql_error());
+		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Your request has been submited"]);
 	}
 }
 

@@ -5,13 +5,32 @@ use Crash\Crash as Crash;
 use Elements\User as User;
 use Elements\Page as Page;
 use Elements\Head as Head;
+use Elements\Fandom as Fandom;
+
 /**
  * This controller provides access to the admin interface
  */
 class Controller{
+  /* fandom requests methods */
+  public static function showFandomRequests(){
+    include Crash::$static_page['admin/fandom/requests'];
+  }
+  public static function acceptFandomRequest($id_fandom){
+    $fandom = Fandom::getFandomById($id_fandom);
+    $fandom->active = 1;
+    if(!Fandom::updateFandom($fandom)) die(mysql_error);
+    Crash::redirect("/crash/admin/fandoms");
+  }
+  public static function denyFandomRequest($id_fandom){
+    if(!Fandom::deleteFandom($id_fandom)) die(mysql_error);
+    Crash::redirect("/crash/admin/fandoms");
+  }
+
+
   public static function showPanel(){
       include Crash::$static_page['admin/panel'];
   }
+  /* pages methods */
   public static function showPagesManager(){
       $pages = Page::getPage();
       include Crash::$static_page['admin/pages'];

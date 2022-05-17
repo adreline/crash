@@ -40,6 +40,7 @@
 
                     </table> 
                     <a href="/crash/users/scriptorium/publication/editor"><mark class="success">[start new work]</mark></a>
+                    <a href="/crash/users/fandom/request"><mark class="success">[request new fandom]</mark></a>
                 </div>
                 </div>
             </div>
