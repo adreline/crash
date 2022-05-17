@@ -53,7 +53,7 @@ class Controller{
           die(mysql_error);
         }
       }
-      Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page created"]);
+      Crash::redirect("/crash/admin/pages");
   }
   public static function updatePage($form){
       $page = new Page(
@@ -72,7 +72,7 @@ class Controller{
       if(!Page::editPage($page)||!Head::updateHead($head)){
        die(mysql_error);
       }
-      Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page updated"]);
+      Crash::redirect("/crash/admin/pages");
   }
   public static function deletePage($id_page){
     //key constraint will fail if we attempt to delete a page, first delete associated head section
@@ -83,7 +83,7 @@ class Controller{
     if(!Page::deletePage($id_page)){
       die(mysql_error);
     }
-    Crash::redirect("/crash/admin/pages",["title"=>"success","message"=>"Page deleted"]);
+    Crash::redirect("/crash/admin/pages");
   }
 }
 

@@ -24,14 +24,14 @@ class Controller{
 			die(mysql_error);
 		}else{
 			$uri_redirect_back = Publication::getPublicationById($form['id_publication'])->uri;
-			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'Comment submited']);
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 		}
 	}
 	public static function deleteComment($id_comment,$uri_redirect_back){
 		if(!Comment::deleteComment($id_comment)){
 			die(mysql_error);
 		}else{
-			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'Comment deleted']);
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 		}
 	}
 	/* kudo management methods*/
@@ -40,7 +40,7 @@ class Controller{
 			die(mysql_error);
 		}else{
 			$uri_redirect_back = Publication::getPublicationById($id_publication)->uri;
-			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'thank you for leaving Kudo']);
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 		}
 	}
 	public static function withdrawKudo($id_user,$id_publication){
@@ -48,7 +48,7 @@ class Controller{
 			die(mysql_error);
 		}else{
 			$uri = Publication::getPublicationById($id_publication)->uri;
-			Crash::redirect("/crash/athenaeum/$uri",['title'=>'success', 'message'=>'you have withdrawn your kudo']);
+			Crash::redirect("/crash/athenaeum/$uri");
 		}
 	}
 	/* publications management methods */
@@ -65,7 +65,7 @@ class Controller{
 		if(!Publication::deletePublication($id_publication)){
 			die(mysql_error);
 		}else{
-			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work deleted"]);
+			Crash::redirect("/crash/users/scriptorium");
 		}
 	}
 	public static function showPublicationEditor($id_publication=null){
@@ -96,7 +96,7 @@ class Controller{
 					$best_fan = $fan;
 				}
 			}
-			Crash::redirect("/crash/users/scriptorium/publication/editor",["title"=>"Fandom not found","message"=>"Did you mean: $best_fan->friendly_name"]);
+			Crash::redirect("/crash/users/scriptorium/publication/editor",["title"=>"Fandom not found","message"=>"Did you mean: $best_fan->friendly_name?"]);
 			
 		}else{
 			
@@ -123,7 +123,7 @@ class Controller{
 			);
 			
 			if(!Publication::insertPublication($pub)) die(mysql_error);
-			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work published"]);
+			Crash::redirect("/crash/users/scriptorium");
 		}
 	
 	}
@@ -148,7 +148,7 @@ class Controller{
 				die(mysql_error);
 			}
 			
-			Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Work edited"]);
+			Crash::redirect("/crash/users/scriptorium");
 		}else{
 			Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
 		}
@@ -183,7 +183,7 @@ class Controller{
 			die(mysql_error);
 		}
 		$id=$form['id_publication'];
-		Crash::redirect("/crash/users/scriptorium/leaflet?id=$id",["title"=>"success","message"=>"Page published"]);
+		Crash::redirect("/crash/users/scriptorium/leaflet?id=$id");
 
 	}
 	public static function updateLeaf($form){
@@ -203,14 +203,13 @@ class Controller{
 		}
 		$id_pub=$form['id_publication'];
 		$id_leaf=$form['id_leaf'];
-		Crash::redirect("/crash/users/scriptorium/leaflet/editor?id_pub=$id_pub&id_leaf=$id_leaf",["title"=>"success","message"=>"Page edited"]);
+		Crash::redirect("/crash/users/scriptorium/leaflet/editor?id_pub=$id_pub&id_leaf=$id_leaf");
 	}
 	public static function deleteLeaflet($id_leaf){
 		if(!Leaflet::deleteLeaflet($id_leaf)){
 			die(mysql_error);
 		}
-		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Page deleted"]);
-
+		Crash::redirect("/crash/users/scriptorium");
 	}
 	/* account management methods */
 	public static function showPasswordForm(){
@@ -244,7 +243,7 @@ class Controller{
 			Session::deleteSession($session->id);
 		}
 		session_destroy();
-		Crash::redirect("/crash/",["title"=>"Loged out","message"=>"You have been logged out"]);
+		Crash::redirect("/crash/");
 	}
 	public static function enlist(){
 				if(isset($_POST['login'])){
@@ -259,7 +258,7 @@ class Controller{
 							
 							$_SESSION['protagonist']=$user[0];
 							Session::insertSession(new Session(session_id(),$user[0]->id));
-							Crash::redirect("/crash/",["title"=>"success","message"=>"Login successful"]);
+							Crash::redirect("/crash/");
 						}else{
 							Crash::redirect("/crash/",["title"=>"fail","message"=>"Password was incorrect"]);
 						}
