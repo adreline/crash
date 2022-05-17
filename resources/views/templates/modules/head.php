@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;400&family=Noto+Sans+JP:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/crash/public/css/silica.css">
     <link rel="icon" type="image/x-icon" href="/crash/favicon.svg">
-    <script src="https://kit.fontawesome.com/36f98a2615.js" crossorigin="anonymous"></script>
     <?php 
         if (isset($page)) {
             echo $page->custom_css;
