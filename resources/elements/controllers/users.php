@@ -27,6 +27,13 @@ class Controller{
 			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'Comment submited']);
 		}
 	}
+	public static function deleteComment($id_comment,$uri_redirect_back){
+		if(!Comment::deleteComment($id_comment)){
+			die(mysql_error);
+		}else{
+			Crash::redirect("/crash/athenaeum/$uri_redirect_back",['title'=>'success', 'message'=>'Comment deleted']);
+		}
+	}
 	/* kudo management methods*/
 	public static function leaveKudo($id_user,$id_publication){
 		if(!Kudo::insertKudo($id_user,$id_publication)){

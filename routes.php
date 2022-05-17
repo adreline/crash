@@ -4,6 +4,7 @@ use Crash\Crash as Crash;
 use Crash\Router as Router;
 use Elements\Publication as Publication;
 use Elements\Leaflet as Leaflet;
+use Elements\Comment as Comment;
 
 require Crash::$controller['app'];
 require Crash::$controller['users'];
@@ -67,6 +68,15 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
             Crash::error(403,"This action was unauthorized");
         }
     },"POST");
+    $forward->route("/crash/athenaeum/comment/delete",function(){
+          //verify if id_user is that of the current logged in user
+        $comment = Comment::getCommentById($_GET['id_comment']);
+        if($comment->users_id_user == $_SESSION['protagonist']->id){
+            UsersController::deleteComment($_GET['id_comment'],$_GET['uri_redirect_back']);
+        }else{
+            Crash::error(403,"This action was unauthorized");
+        }
+    });
     /* kudo management routes*/
     $forward->route("/crash/athenaeum/kudo/give", function(){
         //verify if id_user is that of the current logged in user
