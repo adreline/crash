@@ -10,9 +10,11 @@ require Crash::$controller['app'];
 require Crash::$controller['users'];
 require Crash::$controller['admin'];
 require Crash::$controller['athenaeum'];
+require Crash::$controller['search'];
 use Controller\Admin\Controller as AdminController;
 use Controller\Users\Controller as UsersController;
 use Controller\Reader\Controller as ReaderController;
+use Controller\Search\Controller as SearchController;
 
 use function Controller\App\process as app_process;
 
@@ -22,6 +24,10 @@ $forward = new Router();
 /* Static routes */
 $forward->route("/crash/", function(){
     app_process("home");
+});
+/* search routes */
+$forward->route("/crash/search", function(){
+    SearchController::search($_GET['query']);
 });
 /* Reader routes*/
 $forward->route("/crash/athenaeum",function($title){

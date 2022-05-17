@@ -44,6 +44,7 @@ class Crash{
         "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
         "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
         "athenaeum/reader" => "resources/views/athenaeum/reader.php",
+        "search" => "resources/views/search.php",
         "error" => "resources/views/error.php",
         "loading" => "resources/views/loading.php"
     );
@@ -57,6 +58,7 @@ class Crash{
       "app" => "resources/elements/controllers/app.php",
       "admin" => "resources/elements/controllers/admin.php",
       "users" => "resources/elements/controllers/users.php",
+      "search" => "resources/elements/controllers/search.php",
       "athenaeum" => "resources/elements/controllers/reader.php"
     );
     

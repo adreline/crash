@@ -18,7 +18,9 @@
             </a>
             <div class="container">
                 <div class="search-box">
-                    <p>maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text"></p>
+                    <form method="get" action="/crash/search">
+                        <div class="field">maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text" name="query"></div>
+                    </form>
                 </div>
                 <ul>
                     <li><a href="/crash/">[home]</a></li>             
