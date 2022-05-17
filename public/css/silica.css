@@ -138,6 +138,9 @@ ul li::before {
 }
 
 /* Various containers */
+.grid{
+  display: grid;
+}
 .inline{
   display: flex;
 }
