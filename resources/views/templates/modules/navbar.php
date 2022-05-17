@@ -10,10 +10,12 @@
     }
 ?>
 <nav class="navbar">
-            <div class="logo">
-                <h1>Crash</h1>
-                <h2>クラッシュ</h2>
-            </div>
+            <a href="/crash/">
+                <div class="logo">
+                    <h1>Crash</h1>
+                    <h2>クラッシュ</h2>
+                </div>
+            </a>
             <div class="container">
                 <div class="search-box">
                     <p>maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text"></p>
