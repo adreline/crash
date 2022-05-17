@@ -13,6 +13,7 @@ class Crash{
         "comment"=>"resources/views/templates/modules/comment.php",
         "users_form"=>"resources/views/templates/modules/users_form.php",
         "user_banner"=>"resources/views/templates/modules/user_banner.php",
+        "comment_form"=>"resources/views/templates/modules/comment_form.php",
         "head"=>"resources/views/templates/modules/head.php"
     );
     public static $element=array(

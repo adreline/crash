@@ -28,11 +28,14 @@
                                     <p>chapters (<mark class="info"><?php echo sizeof($leafs); ?></mark>/<mark class="info"><?php echo $publication->planned_length; ?></mark>)</p>
                                     <p>by <mark class="success"><?php echo $pub_author; ?></mark></p>
                                     <?php 
-                                    if(!Kudo::kudoExists($p->id,$publication->id)){
-                                        echo "<a href=\"/crash/athenaeum/kudo/give?id_user=$p->id&id_publication=$publication->id\"><mark class=\"success\">[leave kudo]</mark></a>"; 
-                                    }else{
-                                        echo "<a href=\"/crash/athenaeum/kudo/withdraw?id_user=$p->id&id_publication=$publication->id\"><mark class=\"danger\">[withdraw kudo]</mark></a>"; 
-                                    }                               
+                                    if(isset($p)){//if user is logged in
+                                        if(!Kudo::kudoExists($p->id,$publication->id)){
+                                            echo "<a href=\"/crash/athenaeum/kudo/give?id_user=$p->id&id_publication=$publication->id\"><mark class=\"success\">[leave kudo]</mark></a>"; 
+                                        }else{
+                                            echo "<a href=\"/crash/athenaeum/kudo/withdraw?id_user=$p->id&id_publication=$publication->id\"><mark class=\"danger\">[withdraw kudo]</mark></a>"; 
+                                        } 
+                                    }
+                                                                  
                                     ?>
                                 </div>
                             </div>
@@ -54,13 +57,7 @@
                 <div class="window">
                         <h2 class="title">comments</h2>
                         <div class="content">
-                            <form action="/crash/athenaeum/comment/post" method="post">
-                                <input type="hidden" name="id_user" value=<?php echo "\"$p->id\"" ?>>
-                                <input type="hidden" name="id_publication" value=<?php echo "\"$publication->id\"" ?>>
-                                <div class="field"><mark class="info">leave a comment</mark></div> 
-                                <div class="field"><textarea cols="50" rows="10" name="body"></textarea></div> 
-                                <div class="field"><button type="submit"><mark class="success">[submit]</mark></button></div> 
-                            </form>
+                            <?php if(isset($p)) include Crash::$module['comment_form']; ?>
                         </div>
                         <div class="content">
                             <?php 
