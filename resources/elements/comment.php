@@ -29,7 +29,7 @@ private static $methods = array(
 
 public static function getComment($id=null,$optional_sql=""){
     if(isset($id)){
-        $optional_sql="WHERE id_fandom=$id ".$optional_sql;
+        $optional_sql="WHERE id_comment=$id ".$optional_sql;
        }
        $sql = Comment::$methods['select'].$optional_sql;
     return Database::select($sql, function($row){
@@ -42,6 +42,9 @@ public static function getComment($id=null,$optional_sql=""){
             $row['id_comment']
         );
     });
+}
+public static function getCommentById($id_comment){
+    return Comment::getComment($id_comment)[0];
 }
 public static function getPublicationComments($id_pub){
     return Comment::getComment(null,"WHERE `comments`.`publications_id_publication`=$id_pub");
