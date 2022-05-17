@@ -20,6 +20,9 @@ use Crash\Crash as Crash;
 use function Controller\App\process as app_process;
 use Elements\Session as Session;
 use Elements\User as User;
+
+$DB_CONNECTION = Elements\Database::connect();//globally available db connection object
+
 session_start(); //start session only after classes are loaded to avoid incomplete object warning
 //this part sets the user object if session exists in the database
 $session = Session::getSession(session_id());
@@ -34,6 +37,7 @@ require "routes.php"; //require routes only after session is loaded because rout
 $url = trim($_SERVER['REQUEST_URI']);
 //strip get vars
 $url = explode("?",$url)[0];
+
 try{ //try to forward request to a controller
     //determine request method 
     switch($_SERVER["REQUEST_METHOD"]){
@@ -67,6 +71,7 @@ try{ //try to forward request to a controller
         //check exception type, if its err not warning, then display it
         Crash::error();
         //request has completely failed, fallback to the default controller as a last resort
+        
         app_process(Helper::assertRoute()[1]);
     }
     

@@ -1,7 +1,7 @@
 <?php
     namespace Elements;
     class Database{
-        private static function connect(){
+        public static function connect(){
             $c =  mysqli_connect(DB_CONF['host'],DB_CONF['database_user'],DB_CONF['database_pass'],DB_CONF['database']);
             if(!$c){
                 die("Connection error");
@@ -10,7 +10,8 @@
             }
         }
         public static function select($method,$f){
-            $c = Database::connect();
+            global $DB_CONNECTION;
+            $c = $DB_CONNECTION;
             $results;
             $result = mysqli_query($c, $method);
             if(!$result){
@@ -24,17 +25,15 @@
             } else {
                 return [];
             }
-            mysqli_close($c);
             return $results;
         }
         public static function insert($sql){
-            $c = Database::connect();
+            global $DB_CONNECTION;
+            $c = $DB_CONNECTION;
             if ($c->query($sql) === TRUE) {
-                $c->close();
                 return true;
             } else {
                 define("mysql_error",$sql."<br>".$c->error);
-                $c->close();
                 return false;
             }
         }
