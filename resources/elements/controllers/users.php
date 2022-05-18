@@ -8,6 +8,7 @@ use Elements\Leaflet as Leaflet;
 use Elements\Fandom as Fandom;
 use Elements\Kudo as Kudo;
 use Elements\Comment as Comment;
+use Elements\Validator as Validator;
 /*
 * This controller processes everything that has to do with users
 */
@@ -257,32 +258,23 @@ class Controller{
 	public static function enlist(){
 				if(isset($_POST['login'])){
 					//attempt to log the user in
-					//this really need sanitizing to prevent sql injection
 					$username=$_POST['username'];
 					$password=$_POST['password'];
+					if(!Validator::validatePassword($password) || !Validator::validateUsername($username)) Crash::redirect("/crash/",["title"=>"fail","message"=>"input is incorrect or contains forbidden characters"]);
 					$user = User::getActiveUserByName($username);
-					if(isset($user)){
-						if(password_verify($password,$user->password)){
-							//login successful, redirect back to home and display a modal msg
-							
-							$_SESSION['protagonist']=$user;
-							Session::insertSession(new Session(session_id(),$user->id));
-							Crash::redirect("/crash/");
-						}else{
-							Crash::redirect("/crash/",["title"=>"fail","message"=>"Password was incorrect"]);
-						}
-					}else{
-						Crash::redirect("/crash/",["title"=>"fail","message"=>"No user with such name was found"]);
-					}
+					if(!isset($user)) Crash::redirect("/crash/",["title"=>"fail","message"=>"No user with such name was found"]);
+					if(!password_verify($password,$user->password)) Crash::redirect("/crash/",["title"=>"fail","message"=>"Password was incorrect"]);
+					//login successful, redirect back to home and display a modal msg
+					$_SESSION['protagonist']=$user;
+					Session::insertSession(new Session(session_id(),$user->id));
+					Crash::redirect("/crash/");
 				}else{
 				if(isset($_POST['register'])){
 					$username=$_POST['username'];
+					if(!Validator::validatePassword($_POST['password']) || !Validator::validateUsername($username)) Crash::redirect("/crash/",["title"=>"fail","message"=>"input is incorrect or contains forbidden characters"]);
 					$password=password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost'=>10));
-					if(!User::insertUser(new User($username,$password))){
-						die(mysql_error);
-					}else{
+					if(!User::insertUser(new User($username,$password))) die(mysql_error);
 					Crash::redirect("/crash/",["title"=>"success","message"=>"Your account was created"]);
-					}
 				}
 			}	
 	}

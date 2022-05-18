@@ -26,6 +26,7 @@ class Crash{
       "session"=>"resources/elements/session.php",
       "comment"=>"resources/elements/comment.php",
       "image"=>"resources/elements/image.php",
+      "validator"=>"resources/elements/validator.php",
       "head"=>"resources/elements/head.php",
       "user"=>"resources/elements/user.php"
     );
@@ -82,6 +83,7 @@ class Crash{
         }
       }else{
             include Crash::$static_page['error'];
+            die();
       } 
     }
     public static function notify($title, $body){
@@ -94,6 +96,7 @@ class Crash{
         setcookie("notification",$serial,time()+10,$target);
       }
       echo "<meta http-equiv=\"refresh\" content=\"0;url=$target\">";
+      die();
     }
 }
 /**
