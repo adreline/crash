@@ -1,6 +1,6 @@
 <div class="columns">
     <div class="column is-auto">
-        <img class="avatar tiny-avatar" src=<?php echo "\"$avatar\"" ?>>
+        <img class="avatar tiny-avatar" src=<?php echo "\"$pfp->path\"" ?> alt=<?php echo "\"$pfp->alt\"" ?>>
     </div>
     <div class="column">
         <mark class="info"><?php echo $comment_author->username; ?></mark>

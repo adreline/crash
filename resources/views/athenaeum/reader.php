@@ -65,7 +65,7 @@
                                     
                                     $comment_body = $comment->body;
                                     $comment_author = User::getUserById($comment->users_id_user);
-                                    $avatar = Image::getImageById($comment_author->images_id_image);
+                                    $pfp = Elements\Image::getImageById($comment_author->images_id_image);
                                     include Crash::$module['comment'];
                                 }
                                 
