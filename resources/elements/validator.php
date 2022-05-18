@@ -10,6 +10,10 @@ class Validator{
         }
         return false;
     }
+    public static function sanitizeGeneric($string){
+        $allowed = array('p','h1','h2','h3','i','a','table','tbody','thead','td','tr','blockquote','ul','ol','li','strong');
+        return strip_tags($string,$allowed);
+    }
     public static function validatePassword($pass){
         if(strlen($pass)<4) return false;
         if(Validator::forbidden($pass)) return false;

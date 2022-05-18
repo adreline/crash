@@ -19,7 +19,7 @@
                     <div class="content">
                         <div class="columns">
                             <div class="column is-1-3">
-                                <img src=<?php echo "\"/crash/public/img/placeholder.jpg\""; ?>>
+                                <img src=<?php echo "\"$cover->path\""; ?> alt=<?php echo "\"$cover->alt\""; ?>>
                             </div>
                             <div class="column flex">
                                 <div class="align-bottom flex stretch max-width">

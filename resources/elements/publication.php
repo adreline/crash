@@ -21,10 +21,10 @@ class Publication {
 
 
   private static $methods = array(
-    'insert' => "INSERT INTO `publications` (`id_publication`, `title`, `url`, `planned_length`, `status`, `created_at`, `updated_at`, `fandoms_id_fandom`, `users_id_user`, `prompt`) VALUES (NULL, '%0', '%1', '%2', '%3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '%4', '%5', '%6')",
+    'insert' => "INSERT INTO `publications` (`id_publication`, `title`, `url`, `planned_length`, `status`, `created_at`, `updated_at`, `fandoms_id_fandom`, `users_id_user`, `prompt`, `images_id_image`) VALUES (NULL, '%0', '%1', '%2', '%3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '%4', '%5', '%6','%7')",
     'select' => "SELECT * FROM `publications`",
     'delete' => "DELETE FROM `publications` WHERE id_publication=%0",
-    'update' => "UPDATE `publications` SET `title` = '%0', `url`= '%1', `planned_length` = '%2', `status` = '%3',`updated_at` = CURRENT_TIMESTAMP, `users_id_user` = '%4', `fandoms_id_fandom` = '%5', `prompt`='%6' WHERE `publications`.`id_publication` = %7"
+    'update' => "UPDATE `publications` SET `title` = '%0', `url`= '%1', `planned_length` = '%2', `status` = '%3',`updated_at` = CURRENT_TIMESTAMP, `users_id_user` = '%4', `fandoms_id_fandom` = '%5', `prompt`='%6', `images_id_image`=%7 WHERE `publications`.`id_publication` = %8"
   );
   
   function __construct($title=null,$uri=null,$planned_length=0,$status=0,$users_id_user=0,$fandoms_id_fandom=0,$created_at=null,$updated_at=null,$images_id_image=1,$prompt="",$id=0){
@@ -78,7 +78,8 @@ class Publication {
     $publication->status,
     $publication->fandoms_id_fandom,
     $publication->users_id_user,
-    $publication->prompt
+    $publication->prompt,
+    $publication->images_id_image
     ));
     return Database::insert($sql);
   }
@@ -95,6 +96,7 @@ class Publication {
     $publication->users_id_user,
     $publication->fandoms_id_fandom,
     $publication->prompt,
+    $publication->images_id_image,
     $publication->id));
     return Database::update($sql);
   }

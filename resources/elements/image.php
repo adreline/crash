@@ -47,24 +47,25 @@ public static function getImageByFilename($filename){
     return Image::getImage(null,"WHERE `images`.`path` LIKE '$filename'")[0];
 }
 public static function insertImage($image){
+    $sql = Helper::fill_in(Image::$methods['insert'],array($image->alt,$image->path));
+    return Database::insert($sql);
 }
 public static function deleteImage($id){
     $sql = Helper::fill_in(Image::$methods['delete'],array($id));
     return Database::delete($sql);
-}
-public static function updateImage($image){
-}
+} 
+
 public static function saveImageAsFile($file){
     $filename = basename($file["name"]);
     $root = "/crash/public/img/"; //image filesystem root
     $extension = strtolower(pathinfo($filename,PATHINFO_EXTENSION));
-    $size = (getimagesize($file["size"]))/1000000; //get size in MB
+    $size = ($file["size"])/1000000; //get size in MB
     $max_size = 5; //allow 5MB at max
     $allowed_formats = array("jpg","png","jpeg");
     //validate image
     if(!(in_array($extension, $allowed_formats) && $size<$max_size)) return null;
     //valid, now gen new name and save it
-    $filename = $root.uniqid("crash_").$extension;
+    $filename = $root.uniqid("crash_").".".$extension;
     return (move_uploaded_file($file["tmp_name"], $filename)) ? $filename : null;
 }   
 }

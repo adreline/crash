@@ -7,7 +7,6 @@
 ini_set('display_errors', 'On'); //comment out when in production
 session_set_cookie_params(604800);
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/crash'));
-
 require "/crash/.env";
 require "/crash/resources/elements/crash.php";
 foreach (Crash\Crash::$element as $e){

@@ -9,6 +9,7 @@ use Elements\Fandom as Fandom;
 use Elements\Kudo as Kudo;
 use Elements\Comment as Comment;
 use Elements\Validator as Validator;
+use Elements\Image as Image;
 /*
 * This controller processes everything that has to do with users
 */
@@ -16,17 +17,16 @@ class Controller{
 
 	/* comment management methods */
 	public static function leaveComment($form){
+		if(!is_numeric($form['id_user'])||!is_numeric($form['id_publication'])) Crash::redirect("/crash/",['title'=>'fail','message'=>'input is incorrect']);
+
 		$comment = new Comment(
 			$form['id_user'],
 			$form['id_publication'],
-			$form['body']
+			Validator::sanitizeGeneric($form['body'])
 		);
-		if(!Comment::insertComment($comment)){
-			die(mysql_error);
-		}else{
-			$uri_redirect_back = Publication::getPublicationById($form['id_publication'])->uri;
-			Crash::redirect("/crash/athenaeum/$uri_redirect_back");
-		}
+		if(!Comment::insertComment($comment)) die(mysql_error);
+		$uri_redirect_back = Publication::getPublicationById($form['id_publication'])->uri;
+		Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 	}
 	public static function deleteComment($id_comment,$uri_redirect_back){
 		if(!Comment::deleteComment($id_comment)){
@@ -104,10 +104,10 @@ class Controller{
 			if($form['uri']==''){
 				$form['uri']=str_replace(" ","-",$form['title']);
 			}
-			//uncomment these lines when upload_tmp_dir issue is fixed
-			//$filename = Image::saveImageAsFile($_FILE['image']);
-			//if(!isset($filename)) die("file upload failed");
-			//if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
+			$filename = Image::saveImageAsFile($_FILES['image']);
+			if(!isset($filename)) die("file upload failed");
+			if(strlen($form['alt'])<2) $form['alt'] = "alt";
+			if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
 
 			$pub = new Publication(
 				addslashes($form['title']),
@@ -118,7 +118,7 @@ class Controller{
 				$fan->id,
 				null,
 				null,
-				null, //replace with Image::getImageByFilename($filename)->id when upload_tmp_dir issue is fixed
+				Image::getImageByFilename($filename)->id, 
 				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 				null
 			);
@@ -132,6 +132,17 @@ class Controller{
 		//find fandom by name 
 		$fan = Fandom::getFandomByName($form['fandom_name']);
 		if($fan instanceof Fandom){
+			if(strlen($_FILES['image']['tmp_name'])>0){
+				$filename = Image::saveImageAsFile($_FILES['image']);
+				if(!isset($filename)) die("file upload failed");
+				if(strlen($form['alt'])<2) $form['alt'] = "alt";
+				if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
+				$id_image = Image::getImageByFilename($filename)->id;
+				
+			}else{
+				$id_image = Publication::getPublicationById($form['id_publication']->images_id_image);
+			}
+
 			$pub = new Publication(
 				addslashes($form['title']),
 				$form['uri'],
@@ -141,13 +152,11 @@ class Controller{
 				$fan->id,
 				null,
 				null,
-				null, //replace with an image in the future
+				$id_image,
 				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 				$form['id_publication']
 			);
-			if(!Publication::updatePublication($pub)){
-				die(mysql_error);
-			}
+			if(!Publication::updatePublication($pub)) die(mysql_error);
 			
 			Crash::redirect("/crash/users/scriptorium");
 		}else{
