@@ -28,7 +28,7 @@
                                     <p>chapters (<mark class="info"><?php echo sizeof($leafs); ?></mark>/<mark class="info"><?php echo $publication->planned_length; ?></mark>)</p>
                                     <p>by <mark class="success"><?php echo $pub_author; ?></mark></p>
                                     <?php 
-                                    if(isset($p)){//if user is logged in
+                                    if(isset($p) && $publication->users_id_user != $p->id){//if user is logged in and user is not the author
                                         if(!Kudo::kudoExists($p->id,$publication->id)){
                                             echo "<a href=\"/crash/athenaeum/kudo/give?id_user=$p->id&id_publication=$publication->id\"><mark class=\"success\">[leave kudo]</mark></a>"; 
                                         }else{

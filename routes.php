@@ -102,11 +102,11 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     /* kudo management routes*/
     $forward->route("/crash/athenaeum/kudo/give", function(){
-        //verify if id_user is that of the current logged in user
-        if($_GET['id_user']==$_SESSION['protagonist']->id){
+        //verify if id_user is that of the current logged in user and user is not the author of this publication 
+        if($_GET['id_user']==$_SESSION['protagonist']->id && $_SESSION['protagonist']->id != Publication::getPublicationById($_GET['id_publication'])->users_id_user){
             UsersController::leaveKudo($_GET['id_user'],$_GET['id_publication']);
         }else{
-            Crash::error(403,"This action was unauthorized");
+            Crash::error(403,"This action was unauthorized. You either attempted to give kudo as another user or on your own work.");
         }
     });
     $forward->route("/crash/athenaeum/kudo/withdraw",function(){
