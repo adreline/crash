@@ -16,7 +16,7 @@ class Controller{
         if(isset($publication)){
             $leafs = Publication::getPublicationLeafs($publication->id); 
             $kudo_count = Kudo::countPublicationKudosById($publication->id);
-            $pub_author = User::getUserById($publication->users_id_user)->username;
+            $pub_author =  User::getUserById($publication->users_id_user)->username;
             $pub_status = ($publication->status) ? "finished" : "ongoing";
             $comments = Comment::getPublicationComments($publication->id);
             include Crash::$static_page['athenaeum/reader'];

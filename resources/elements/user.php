@@ -9,17 +9,17 @@ class User{
   public $id;
   public $username;
   public $password;
-  public $kudos;
+  public $active;
   public $administrator;
   public $created_at;
   public $updated_at;
   public $images_id_image;
 
-  function __construct($username,$password,$images_id_image =1,$administrator=0,$created_at=null,$updated_at=null,$id=0){
+  function __construct($username,$password,$images_id_image =1,$administrator=0,$active=1,$id=0,$created_at=null,$updated_at=null){
     $this->id = $id;
     $this->username = $username;
     $this->password = $password; 
-    $this->kudos = 0;
+    $this->active = $active;
     $this->images_id_image  = $images_id_image ;
     $this->administrator = $administrator;
     $this->created_at = $created_at;
@@ -29,29 +29,37 @@ class User{
   private static $methods = array(
     'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1')",
     'select'=>"SELECT * FROM `users`",
-    'delete'=>"DELETE FROM `users` WHERE id_user=%0",
-    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,kudos=%3,images_id_image ='%4',updated_at=CURRENT_TIMESTAMP WHERE id_user=%5"
+    'delete'=>"UPDATE `users` SET active=0,updated_at=CURRENT_TIMESTAMP WHERE id_user=%0",
+    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,images_id_image ='%3',updated_at=CURRENT_TIMESTAMP WHERE id_user=%4"
   );
 
-  public static function getUser($id=null,$optional_sql=""){
-    if(isset($id)){
-      $optional_sql="WHERE id_user=$id ".$optional_sql;
-    }
+  public static function getUser($optional_sql=""){
     $sql = User::$methods['select']." ".$optional_sql;
     return Database::select($sql, function($row){
       return new User(
-      $row['username'],
+      ($row['active']) ? $row['username'] : $row['username']." (account deleted)",
       $row['password'],
       $row['images_id_image'],
       $row['administrator'],
+      $row['active'],
+      $row['id_user'],
       $row['created_at'],
-      $row['updated_at'],
-      $row['id_user']
+      $row['updated_at']
+      
       );
     });
   }
+  public static function getActiveUsers(){
+    return User::getUser("WHERE `users`.`active`=1");
+  }
+  public static function getActiveUserById($id_user){
+    return User::getUser("WHERE `users`.`id_user`=$id_user AND `users`.`active`=1")[0];
+  }
+  public static function getActiveUserByName($username){
+    return User::getUser("WHERE `users`.`username`='$username' AND `users`.`active`=1")[0];
+  }
   public static function getUserById($id_user){
-    return User::getUser($id_user)[0];
+    return User::getUser("WHERE `users`.`id_user`=$id_user")[0];
   }
   public static function insertUser($user){
     $sql = Helper::fill_in(User::$methods['insert'],array(
@@ -70,7 +78,6 @@ class User{
       $user->password,
       $user->username,
       $user->administrator,
-      $user->kudos,
       $user->images_id_image,
       $user->id
     ));

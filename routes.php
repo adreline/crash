@@ -118,6 +118,12 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         }
     });
     /** user account management routes*/
+    $forward->route("/crash/users/delete", function(){
+        UsersController::confirmDeletion();
+    });
+    $forward->route("/crash/users/delete", function(){
+        UsersController::deleteAccount($_SESSION['protagonist']->id);
+    },"POST");
     $forward->route("/crash/users/password",function(){
         UsersController::showPasswordForm();
     });

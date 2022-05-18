@@ -65,7 +65,7 @@
                                     $avatar = "/crash/public/img/placeholder.jpg";
                                     $comment_body = $comment->body;
                                     $comment_author = User::getUserById($comment->users_id_user);
-
+                                    
                                     include Crash::$module['comment'];
                                 }
                                 

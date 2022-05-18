@@ -212,6 +212,7 @@ class Controller{
 		Crash::redirect("/crash/users/scriptorium");
 	}
 	/* account management methods */
+
 	public static function showPasswordForm(){
 		include Crash::$static_page["user/password"];
 
@@ -245,19 +246,27 @@ class Controller{
 		session_destroy();
 		Crash::redirect("/crash/");
 	}
+	public static function deleteAccount($id_account){
+		//users have constraints on publication and comments so we can't actually delete the account. we set it to inactive
+		if(!User::deleteUser($id_account)) die(mysql_error);
+		Controller::logout();
+	}
+	public static function confirmDeletion(){
+		include Crash::$static_page["user/delete"];
+	}
 	public static function enlist(){
 				if(isset($_POST['login'])){
 					//attempt to log the user in
 					//this really need sanitizing to prevent sql injection
 					$username=$_POST['username'];
 					$password=$_POST['password'];
-					$user = User::getUser(null,"WHERE `username`='$username'");
-					if(isset($user[0])){
-						if(password_verify($password,$user[0]->password)){
+					$user = User::getActiveUserByName($username);
+					if(isset($user)){
+						if(password_verify($password,$user->password)){
 							//login successful, redirect back to home and display a modal msg
 							
-							$_SESSION['protagonist']=$user[0];
-							Session::insertSession(new Session(session_id(),$user[0]->id));
+							$_SESSION['protagonist']=$user;
+							Session::insertSession(new Session(session_id(),$user->id));
 							Crash::redirect("/crash/");
 						}else{
 							Crash::redirect("/crash/",["title"=>"fail","message"=>"Password was incorrect"]);

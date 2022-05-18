@@ -27,9 +27,9 @@ session_start(); //start session only after classes are loaded to avoid incomple
 //this part sets the user object if session exists in the database
 $session = Session::getSession(session_id());
 if(isset($session)){
-    $protagonist = User::getUser($session->users_id_user);
-    if(isset($protagonist[0])){
-        $_SESSION['protagonist']=$protagonist[0];
+    $protagonist = User::getActiveUserById($session->users_id_user);
+    if(isset($protagonist)){
+        $_SESSION['protagonist']=$protagonist;
     }
 }
 require "routes.php"; //require routes only after session is loaded because routes need it to verify permissions
@@ -37,6 +37,15 @@ require "routes.php"; //require routes only after session is loaded because rout
 $url = trim($_SERVER['REQUEST_URI']);
 //strip get vars
 $url = explode("?",$url)[0];
+switch($_SERVER["REQUEST_METHOD"]){
+    case "GET":
+        $forward->get[$url](); 
+    break;
+    case "POST":
+        $forward->post[$url]();
+    break;
+}
+die();
 try{ //try to forward request to a controller
     //determine request method 
     switch($_SERVER["REQUEST_METHOD"]){

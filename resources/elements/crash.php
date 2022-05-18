@@ -39,6 +39,7 @@ class Crash{
         "admin/fandom/requests" => "resources/views/admin/fandoms/request.php",
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/password" => "resources/views/user/profile/password.php",
+        "user/delete" => "resources/views/user/profile/delete.php",
         "user/username" => "resources/views/user/profile/username.php",
         "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
         "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",

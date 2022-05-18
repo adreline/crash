@@ -25,6 +25,7 @@
                             <p>works: <mark class="info"><?php echo E\User::getUserPublicationsCount($protagonist->id); ?></mark></p>
                             <p>followers: <mark class="info">0</mark></p>
                             <p>on crash since: <mark class="info"><?php echo $protagonist->created_at; ?></mark></p>
+                            <a href="/crash/users/delete"><mark class="danger">[delete your account]</mark></a>
                         </div>
                         <div class="column">
                             <ul>
