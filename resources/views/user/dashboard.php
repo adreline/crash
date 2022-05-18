@@ -18,11 +18,11 @@
                 <div class="content">
                     <div class="columns">
                         <div class="column is-1-4">
-                            <img class="avatar" src="/crash/public/img/avi_placeholder.jpg">
+                            <img class="avatar" src=<?php echo "\"$pfp->path\""; ?> alt=<?php echo "\"$pfp->alt\""; ?>>
                         </div>
                         <div class="column">
-                            <p>kudos: <mark class="info"><?php echo E\Kudo::countReceivedUserKudosById($protagonist->id); ?></mark></p>
-                            <p>works: <mark class="info"><?php echo E\User::getUserPublicationsCount($protagonist->id); ?></mark></p>
+                            <p>kudos: <mark class="info"><?php echo $kudo_count; ?></mark></p>
+                            <p>works: <mark class="info"><?php echo $work_count; ?></mark></p>
                             <p>followers: <mark class="info">0</mark></p>
                             <p>on crash since: <mark class="info"><?php echo $protagonist->created_at; ?></mark></p>
                             <a href="/crash/users/delete"><mark class="danger">[delete your account]</mark></a>
@@ -31,7 +31,7 @@
                             <ul>
                                 <li><a href="/crash/users/username"><mark class="success">[change username]</mark></a></li>
                                 <li><a href="/crash/users/password"><mark class="success">[change password]</mark></a></li>
-                                <li><a><mark class="success">[change avatar]</mark></a></li>
+                                <li><a href="/crash/users/avatar"><mark class="success">[change avatar]</mark></a></li>
                                 <li><a href="/crash/users/scriptorium"><mark class="success">[go to author board]</mark></a></li>
                                 <li><a href="/crash/users/fandom/request"><mark class="success">[request new fandom]</mark></a></li>
                             </ul>

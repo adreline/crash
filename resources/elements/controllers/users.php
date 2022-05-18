@@ -59,15 +59,14 @@ class Controller{
 	public static function deletePublication($id_publication){
 		//the constraint will fail if we attempt to delete a publication that has published chapters
 		foreach(Publication::getPublicationLeafs($id_publication) as $leaf){
-			if(!Leaflet::deleteLeaflet($leaf->id)){
-				die(mysql_error);
-			}
+			if(!Leaflet::deleteLeaflet($leaf->id)) die(mysql_error);
 		}
-		if(!Publication::deletePublication($id_publication)){
-			die(mysql_error);
-		}else{
-			Crash::redirect("/crash/users/scriptorium");
+		$pub = Publication::getPublicationById($id_publication);
+		if(!Publication::deletePublication($id_publication)) die(mysql_error);
+		if($pub->images_id_image != 1){
+			if(!Image::deleteImage($pub->images_id_image)) die(mysql_error);
 		}
+		Crash::redirect("/crash/users/scriptorium");
 	}
 	public static function showPublicationEditor($id_publication=null){
 		if(isset($id_publication)){
@@ -222,7 +221,24 @@ class Controller{
 		Crash::redirect("/crash/users/scriptorium");
 	}
 	/* account management methods */
-
+	public static function changeAvatar($form){
+		$user = $_SESSION['protagonist'];
+		if(strlen($_FILES['image']['tmp_name'])>0){
+			$filename = Image::saveImageAsFile($_FILES['image']);
+			if(!isset($filename)) die("file upload failed");
+			if(strlen($form['alt'])<2) $form['alt'] = "alt";
+			if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
+			$user->images_id_image = Image::getImageByFilename($filename)->id;
+			
+		}else{
+			$user->images_id_image = $_SESSION['protagonist']->images_id_image;
+		}
+		if(!User::updateUser($user)) die(mysql_error);
+		Crash::redirect("/crash/users/profile");
+	}
+	public static function showAvatarForm(){
+		include Crash::$static_page['user/avatar'];
+	}
 	public static function showPasswordForm(){
 		include Crash::$static_page["user/password"];
 
@@ -288,6 +304,9 @@ class Controller{
 			}	
 	}
 	public static function showDashboard(){
+		$pfp = Image::getImageById($_SESSION['protagonist']->images_id_image);
+		$kudo_count = Kudo::countReceivedUserKudosById($protagonist->id);
+		$work_count = User::getUserPublicationsCount($protagonist->id);
 		include Crash::$static_page["user/dashboard"];
 	}
 	/* fandom request methods */

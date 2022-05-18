@@ -62,10 +62,10 @@
                         <div class="content">
                             <?php 
                                 foreach($comments as $comment){
-                                    $avatar = "/crash/public/img/placeholder.jpg";
+                                    
                                     $comment_body = $comment->body;
                                     $comment_author = User::getUserById($comment->users_id_user);
-                                    
+                                    $avatar = Image::getImageById($comment_author->images_id_image);
                                     include Crash::$module['comment'];
                                 }
                                 

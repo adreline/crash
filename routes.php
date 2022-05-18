@@ -124,6 +124,18 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     $forward->route("/crash/users/delete", function(){
         UsersController::deleteAccount($_SESSION['protagonist']->id);
     },"POST");
+    $forward->route("/crash/users/avatar",function(){
+        UsersController::showAvatarForm();
+    });
+    $forward->route("/crash/users/avatar",function(){
+        //verify if user is that of the current logged in user
+        if($_POST['id_user'] == $_SESSION['protagonist']->id){
+            UsersController::changeAvatar($_POST);
+        }else{
+            Crash::error(403,"Unauthorised profile picture change. This incident will be reported.");
+        }
+        
+    },"POST");
     $forward->route("/crash/users/password",function(){
         UsersController::showPasswordForm();
     });

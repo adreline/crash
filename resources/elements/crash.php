@@ -41,6 +41,7 @@ class Crash{
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/password" => "resources/views/user/profile/password.php",
         "user/delete" => "resources/views/user/profile/delete.php",
+        "user/avatar" => "resources/views/user/profile/avatar.php",
         "user/username" => "resources/views/user/profile/username.php",
         "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
         "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",
