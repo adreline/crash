@@ -28,6 +28,5 @@ $kudo_count = Elements\Kudo::countReceivedUserKudosById($user->id);
       </div>
     </div>
     </div>
-    <p>Recent activity</p>
   </div>
 </div>

@@ -25,8 +25,13 @@
                                 <div class="content">
                                     <h4>tags</h4>
                                     <?php
-                                        foreach($tags as $tag){
-                                            echo "$tag->friendly_name (n/a) ";
+                                        foreach($tags as $key => $tag){
+                                            if($key==0){
+                                                echo "$tag->friendly_name (<mark class=\"info\">0</mark>)";
+                                            }else{
+                                                echo " | $tag->friendly_name (<mark class=\"info\">0</mark>)";
+                                            }
+                                            
                                         }
                                     ?>
                                     <h4>summary</h4>
