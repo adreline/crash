@@ -41,6 +41,8 @@
                         <div class="field"><mark class="info">post inside fandom:</mark><input type="text" name="fandom_name" value=<?php echo "\"$fandom_name\"" ?>></div>
                         <div class="field"><mark class="info">prompt:</mark></div>
                         <div class="field"><textarea name="prompt" rows="4" cols="50"><?php echo $publication->prompt; ?></textarea></div>
+                        <div class="field"><mark class="info">tags:</mark></div>
+                        <div class="field"><textarea name="tags" rows="4" cols="50"><?php echo $tags; ?></textarea></div>
                         <button type="submit" name="submit"><mark class="success">[save]</mark></button>
                     </form>
               

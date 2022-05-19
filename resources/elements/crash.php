@@ -27,6 +27,7 @@ class Crash{
       "comment"=>"resources/elements/comment.php",
       "image"=>"resources/elements/image.php",
       "validator"=>"resources/elements/validator.php",
+      "tag"=>"resources/elements/tag.php",
       "head"=>"resources/elements/head.php",
       "user"=>"resources/elements/user.php"
     );

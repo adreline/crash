@@ -10,6 +10,7 @@ use Elements\Kudo as Kudo;
 use Elements\Comment as Comment;
 use Elements\Validator as Validator;
 use Elements\Image as Image;
+use Elements\Tag as Tag;
 /*
 * This controller processes everything that has to do with users
 */
@@ -72,6 +73,14 @@ class Controller{
 		if(isset($id_publication)){
 			$publication = Publication::getPublicationById($id_publication);
 			$fandom_name = Fandom::getFandomById($publication->fandoms_id_fandom)->friendly_name;
+			$tags = "";
+			try{
+				foreach(Tag::getPublicationTags($id_publication) as $tag){
+					$tags.=$tag->friendly_name.",";
+				}
+				$tags = substr($tags, 0, strlen($tags)-1);
+			}catch(Exception|Throwable){}
+			
 			$action = "/crash/users/scriptorium/publication/edit";
 		}else{
 			$publication = new Publication();
@@ -123,6 +132,15 @@ class Controller{
 			);
 			
 			if(!Publication::insertPublication($pub)) die(mysql_error);
+			try{
+				$tags = explode(',',$form['tags']);
+				foreach($tags as $tag_name){
+					$tag=trim($tag_name);
+					if(!Tag::tagExists($tag_name)) Tag::insert(new Tag($tag_name,str_replace(' ','-',$tag_name)));
+					$id_tag = Tag::getTagByName($tag_name)->id;
+					Tag::attachTag($form['id_publication'],$id_tag);	
+				}
+			}catch(Exception|Throwable){}
 			Crash::redirect("/crash/users/scriptorium");
 		}
 	
@@ -139,7 +157,7 @@ class Controller{
 				$id_image = Image::getImageByFilename($filename)->id;
 				
 			}else{
-				$id_image = Publication::getPublicationById($form['id_publication']->images_id_image);
+				$id_image = Publication::getPublicationById($form['id_publication'])->images_id_image;
 			}
 
 			$pub = new Publication(
@@ -156,7 +174,28 @@ class Controller{
 				$form['id_publication']
 			);
 			if(!Publication::updatePublication($pub)) die(mysql_error);
-			
+			try{
+				$tags = explode(',',$form['tags']);
+				$old_tags = array();
+				foreach(Tag::getPublicationTags($form['id_publication']) as $tag){
+					$old_tags[]=$tag->friendly_name;
+				}
+				$tags_to_unattach = array_diff($old_tags,$tags);
+				unset($old_tags);
+				foreach($tags_to_unattach as $tag_name){
+					$id_tag = Tag::getTagByName($tag_name)->id;
+					Tag::unattachTag($form['id_publication'],$id_tag);
+				}
+				unset($tags_to_unattach);
+				foreach($tags as $tag_name){
+					$tag=trim($tag_name);
+					if(!Tag::tagExists($tag_name)) Tag::insert(new Tag($tag_name,str_replace(' ','-',$tag_name)));
+					$id_tag = Tag::getTagByName($tag_name)->id;
+					Tag::attachTag($form['id_publication'],$id_tag);	
+				}
+			}catch(Exception|Throwable){}
+
+
 			Crash::redirect("/crash/users/scriptorium");
 		}else{
 			Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
