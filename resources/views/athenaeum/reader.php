@@ -21,7 +21,17 @@
                             <div class="column is-1-3">
                                 <img src=<?php echo "\"$cover->path\""; ?> alt=<?php echo "\"$cover->alt\""; ?>>
                             </div>
-                            <div class="column flex">
+                            <div class="column grid">
+                                <div class="content">
+                                    <h4>tags</h4>
+                                    <?php
+                                        foreach($tags as $tag){
+                                            echo "$tag->friendly_name (n/a) ";
+                                        }
+                                    ?>
+                                    <h4>summary</h4>
+                                    <?php echo $publication->prompt; ?>
+                                </div>
                                 <div class="align-bottom flex stretch max-width">
                                     <p>kudos (<mark class="info"><?php echo $kudo_count; ?></mark>)</p>
                                     <p>status (<mark class="info"><?php echo $pub_status; ?></mark>)</p>

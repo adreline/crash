@@ -132,13 +132,14 @@ class Controller{
 			);
 			
 			if(!Publication::insertPublication($pub)) die(mysql_error);
+			$id_publication = Publication::getPublicationByUrl($pub->uri)->id;
 			try{
 				$tags = explode(',',$form['tags']);
 				foreach($tags as $tag_name){
 					$tag=trim($tag_name);
 					if(!Tag::tagExists($tag_name)) Tag::insert(new Tag($tag_name,str_replace(' ','-',$tag_name)));
 					$id_tag = Tag::getTagByName($tag_name)->id;
-					Tag::attachTag($form['id_publication'],$id_tag);	
+					Tag::attachTag($id_publication,$id_tag);	
 				}
 			}catch(Exception|Throwable){}
 			Crash::redirect("/crash/users/scriptorium");
@@ -148,59 +149,52 @@ class Controller{
 	public static function updatePublication($form){
 		//find fandom by name 
 		$fan = Fandom::getFandomByName($form['fandom_name']);
-		if($fan instanceof Fandom){
-			if(strlen($_FILES['image']['tmp_name'])>0){
-				$filename = Image::saveImageAsFile($_FILES['image']);
-				if(!isset($filename)) die("file upload failed");
-				if(strlen($form['alt'])<2) $form['alt'] = "alt";
-				if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
-				$id_image = Image::getImageByFilename($filename)->id;
-				
-			}else{
-				$id_image = Publication::getPublicationById($form['id_publication'])->images_id_image;
-			}
-
-			$pub = new Publication(
-				addslashes($form['title']),
-				$form['uri'],
-				$form['planned_length'],
-				$form['status'],
-				$form['users_id_user'],
-				$fan->id,
-				null,
-				null,
-				$id_image,
-				htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
-				$form['id_publication']
-			);
-			if(!Publication::updatePublication($pub)) die(mysql_error);
-			try{
-				$tags = explode(',',$form['tags']);
-				$old_tags = array();
-				foreach(Tag::getPublicationTags($form['id_publication']) as $tag){
-					$old_tags[]=$tag->friendly_name;
-				}
-				$tags_to_unattach = array_diff($old_tags,$tags);
-				unset($old_tags);
-				foreach($tags_to_unattach as $tag_name){
-					$id_tag = Tag::getTagByName($tag_name)->id;
-					Tag::unattachTag($form['id_publication'],$id_tag);
-				}
-				unset($tags_to_unattach);
-				foreach($tags as $tag_name){
-					$tag=trim($tag_name);
-					if(!Tag::tagExists($tag_name)) Tag::insert(new Tag($tag_name,str_replace(' ','-',$tag_name)));
-					$id_tag = Tag::getTagByName($tag_name)->id;
-					Tag::attachTag($form['id_publication'],$id_tag);	
-				}
-			}catch(Exception|Throwable){}
-
-
-			Crash::redirect("/crash/users/scriptorium");
+		if(!($fan instanceof Fandom)) Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
+		if(strlen($_FILES['image']['tmp_name'])>0){
+			$filename = Image::saveImageAsFile($_FILES['image']);
+			if(!isset($filename)) die("file upload failed");
+			if(strlen($form['alt'])<2) $form['alt'] = "alt";
+			if(!Image::insertImage(new Image($form['alt'],$filename))) die(mysql_error);
+			$id_image = Image::getImageByFilename($filename)->id;
 		}else{
-			Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
+			$id_image = Publication::getPublicationById($form['id_publication'])->images_id_image;
 		}
-		
+
+		$pub = new Publication(
+			addslashes($form['title']),
+			$form['uri'],
+			$form['planned_length'],
+			$form['status'],
+			$form['users_id_user'],
+			$fan->id,
+			null,
+			null,
+			$id_image,
+			htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
+			$form['id_publication']
+			);
+		if(!Publication::updatePublication($pub)) die(mysql_error);
+		try{
+			$tags = explode(',',$form['tags']);
+			$old_tags = array();
+			foreach(Tag::getPublicationTags($form['id_publication']) as $tag){
+				$old_tags[]=$tag->friendly_name;
+			}
+			$tags_to_unattach = array_diff($old_tags,$tags);
+			unset($old_tags);
+			foreach($tags_to_unattach as $tag_name){
+				$id_tag = Tag::getTagByName($tag_name)->id;
+				Tag::unattachTag($form['id_publication'],$id_tag);
+			}
+			unset($tags_to_unattach);
+			foreach($tags as $tag_name){
+				$tag=trim($tag_name);
+				if(!Tag::tagExists($tag_name)) Tag::insert(new Tag($tag_name,str_replace(' ','-',$tag_name)));
+				$id_tag = Tag::getTagByName($tag_name)->id;
+				Tag::attachTag($form['id_publication'],$id_tag);	
+			}
+			}catch(Exception|Throwable){}
+			Crash::redirect("/crash/users/scriptorium");	
 	}
 	/* leaflet management methods*/
 	public static function showLeafOverview($publication_id){
