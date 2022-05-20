@@ -11,6 +11,7 @@
         if(isset($head)){
             echo "<title>$head->title</title>";
             echo "<meta name=\"description\" content=\"$head->desc\">";
+            echo "<meta name=\"robots\" content=\"$head->robots\">";
         }else{
             echo "<title>Crash</title>";
         }
