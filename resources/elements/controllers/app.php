@@ -1,8 +1,8 @@
 <?php
 namespace Controller\App;
-use Crash\Crash as Crash;
-use Elements\Page as Page;
-use Elements\Head as Head;
+use Crash\Crash;
+use Elements\Page;
+use Elements\Head;
 
 /*
 * This controller processes default pages. usually static pages, which reside in views folder.
