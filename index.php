@@ -4,6 +4,7 @@
 * From here, we decide how to process incoming requests.
 * Generally, it should not be edited. 
 */
+ini_set('display_errors', 'On');
 session_set_cookie_params(604800);
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/crash'));
 require "/crash/.env";
