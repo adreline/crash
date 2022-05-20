@@ -21,9 +21,9 @@
                         <input type="hidden" name="id_page" value=<?php echo "\"$page->id\""; ?>>
                         <div class="field"><mark class="info">title:</mark> <input type="text" name="friendly_name" value=<?php echo "\"$page->friendly_name\""; ?>></div>
                         <div class="field"><mark class="info">url:</mark>/crash/<input type="text" name="name" value=<?php echo "\"$page->name\"" ?>></div>
-                        <div class="field"><mark class="info">meta title:</mark><input type="text" name="meta_title" value=<?php echo "\"$head->title\"" ?>></div>
-                        <div class="field"><mark class="info">meta description:</mark><input type="text" name="meta_desc" value=<?php echo "\"$head->desc\"" ?>></div>
-                        <div class="field"><mark class="info">meta robots:</mark><input type="text" name="meta_robots" value=<?php echo "\"$head->robots\"" ?>></div>
+                        <div class="field"><mark class="info">meta title:</mark><input type="text" name="meta_title" value=<?php echo "\"$edit_head->title\"" ?>></div>
+                        <div class="field"><mark class="info">meta description:</mark><input type="text" name="meta_desc" value=<?php echo "\"$edit_head->desc\"" ?>></div>
+                        <div class="field"><mark class="info">meta robots:</mark><input type="text" name="meta_robots" value=<?php echo "\"$edit_head->robots\"" ?>></div>
                         <div class="field"><mark class="info">CSS:</mark></div>
                         <div class="field"><textarea id="css-editor" name="custom_css" rows="4" cols="50"><?php echo "$page->custom_css"; ?></textarea></div>
                         <div class="field"><mark class="info">JS:</mark></div>

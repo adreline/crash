@@ -29,7 +29,6 @@
                             echo "<li><a href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a></li>";
                         }
                     ?>
-                    <li><a href="/crash/about">[what is this?]</a></li>
                 </ul>
             </div>
 </nav>

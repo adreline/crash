@@ -99,20 +99,20 @@ mark.success{
   color: var(--accent2) !important;
 }
 /* globally used ul custom bullet style */
-ul {
+.hash-ul {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
 }
-li {
+.hash-li {
   display: grid;
   grid-template-columns: 0 1fr;
   gap: 1.75em;
   align-items: start;
   line-height: 1.25;
 }
-ul li::before {
+.hash-ul li::before {
   content: attr(data-icon);
   /* Make slightly larger than the li font-size
   but smaller than the li gap */

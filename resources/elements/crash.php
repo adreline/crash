@@ -34,7 +34,6 @@ class Crash{
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
         "home" => "resources/views/home.php",
-        "about" => "resources/views/about.php",
         "admin/panel" => "resources/views/admin/dashboard.php",
         "admin/pages" => "resources/views/admin/pages/overview.php",
         "admin/pages_editor" => "resources/views/admin/pages/editor.php",

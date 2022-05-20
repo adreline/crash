@@ -82,11 +82,11 @@ class Controller{
   public static function showPageEditor($id_page=null){
       if(isset($id_page) && is_numeric($id_page)){
             $page = E\Page::getPageById($id_page);
-            $head = E\Page::getHead($id_page);
+            $edit_head = E\Page::getHead($id_page);
             $action = "/crash/admin/pages/edit";
       }else{
             $page = new E\Page(); //pass an empty page object because we want to make a new one while recycling the same form
-            $head = new E\Head();
+            $edit_head = new E\Head();
             $action = "/crash/admin/pages/new";
       }
       global $head;

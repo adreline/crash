@@ -27,7 +27,7 @@
                             <a href="/crash/users/delete"><mark class="danger">[delete your account]</mark></a>
                         </div>
                         <div class="column">
-                            <ul>
+                            <ul class="hash-ul">
                                 <li><a href="/crash/users/username"><mark class="success">[change username]</mark></a></li>
                                 <li><a href="/crash/users/password"><mark class="success">[change password]</mark></a></li>
                                 <li><a href="/crash/users/avatar"><mark class="success">[change avatar]</mark></a></li>

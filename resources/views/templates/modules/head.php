@@ -20,8 +20,8 @@
     <link rel="icon" type="image/x-icon" href="/crash/favicon.svg">
     <?php 
         if (isset($page)) {
-            echo $page->custom_css;
-            echo $page->javascript;
+            echo "<style>".$page->custom_css."</style>";
+            echo "<script>".$page->javascript."</script>";
         }
         
      ?>
