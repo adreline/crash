@@ -49,6 +49,9 @@ class User{
       );
     });
   }
+  public static function countUsers(){
+    return sizeof(User::getUsers());//in the future replace with mysql count to avoid unnecessary overhead
+  }
   public static function getAllUsers(){
     return User::getUsers();
   }
@@ -91,7 +94,7 @@ class User{
     return Publication::getAllPublications("WHERE `users_id_user` = $id_user");
   }
   public static function getUserPublicationsCount($id_user){
-    return sizeof(User::getUserPublications($id_user));
+    return sizeof(User::getUserPublications($id_user));//in the future replace with mysql count to avoid unnecessary overhead
   }
 }
 

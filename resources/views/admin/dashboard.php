@@ -18,21 +18,17 @@
                     <div class="columns">
                         <div class="column">
                             <h5>System info</h5>
-                            <p>DB Size: <mark class="info">22MB</mark></p>
-                            <p>Registered users: <mark class="info">33</mark></p>
-                            <p>Publications: <mark class="info">342</mark></p>
+                            <p>Registered users: <mark class="info"><?php echo $users_count; ?></mark></p>
+                            <p>Publications: <mark class="info"><?php echo $works_count; ?></mark></p>
                         </div>
                         <div class="column">
-                            <h5>System events</h5>
-                            <p>balh vbah</p>
+
                         </div>
                     </div>
                     <h4>Actions</h4>
                     <a href="/crash/admin/pages"><mark class="success">[manage static pages]</mark></a>
                     <a href="/crash/admin/fandoms"><mark class="success">[view fandom requests]</mark></a>
-                    <p><a href="/crash/admin/users"><mark class="success">[manage users]</mark></a></p>
-                    <p><mark class="success">[manage system settings]</mark></p>
-                    <p><mark class="success">[manage templates]</mark></p>
+                    <a href="/crash/admin/users"><mark class="success">[manage users]</mark></a>
                 </div>
                 </div>
             </div>

@@ -59,6 +59,9 @@ class Publication {
         );
     });
   }
+  public static function countPublications(){
+    return sizeof(Publication::getPublications());//in the future replace with mysql count to avoid unnecessary overhead
+  }
   public static function getAllPublications($sql=""){
     return Publication::getPublications($sql);
   }

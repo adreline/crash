@@ -66,7 +66,9 @@ class Controller{
     $head->title = "admin dashboard - Crash";
     $head->desc = "this is administrative dashboard";
     $head->robots = "noindex,follow";
-      include Crash::$static_page['admin/panel'];
+    $works_count = E\Publication::countPublications();
+    $users_count = E\User::countUsers();
+    include Crash::$static_page['admin/panel'];
   }
   /* pages methods */
   public static function showPagesManager(){

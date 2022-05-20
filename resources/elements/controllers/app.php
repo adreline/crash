@@ -27,8 +27,8 @@ class Controller{
 				//render the page
 				include Crash::$template[$template];
 			}else{
-				//page cant be found, return 404.
-				Crash::error(404, "Thrown in Controller\App. Requested url: $req");	
+				//page cant be found, throw 404.
+				throw new Exception('404');	
 			}
 		}
 	}
