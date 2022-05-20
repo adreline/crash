@@ -11,6 +11,10 @@ use Elements\Fandom as Fandom;
  * This controller provides access to the admin interface
  */
 class Controller{
+  /* user management methods */
+  public static function showUsers(){
+    include Crash::$static_page['admin/users/dashboard'];
+  }
   /* fandom requests methods */
   public static function showFandomRequests(){
     include Crash::$static_page['admin/fandom/requests'];

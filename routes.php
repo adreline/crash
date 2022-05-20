@@ -36,6 +36,9 @@ $forward->route("/crash/athenaeum",function($title){
 });
 /* Admin routes */
 if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->administrator){//verify permission level 
+    $forward->route("/crash/admin/users",function(){
+        AdminController::showUsers();
+    });
     $forward->route("/crash/admin/fandoms", function(){
         AdminController::showFandomRequests();
     });

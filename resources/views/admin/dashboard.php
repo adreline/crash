@@ -30,7 +30,7 @@
                     <h4>Actions</h4>
                     <a href="/crash/admin/pages"><mark class="success">[manage static pages]</mark></a>
                     <a href="/crash/admin/fandoms"><mark class="success">[view fandom requests]</mark></a>
-                    <p><mark class="success">[manage users]</mark></p>
+                    <p><a href="/crash/admin/users"><mark class="success">[manage users]</mark></a></p>
                     <p><mark class="success">[manage system settings]</mark></p>
                     <p><mark class="success">[manage templates]</mark></p>
                 </div>

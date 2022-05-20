@@ -24,7 +24,7 @@ class Kudo{
         'fetch_by_pub_and_user' => "SELECT * FROM `kudos` WHERE `kudos`.`users_id_user`=%0 AND `kudos`.`publications_id_publication`=%1",
         'count_user_kudos_given' => "SELECT COUNT(`users_id_user`) AS `number` FROM `kudos` WHERE `kudos`.`users_id_user`=%0",
         'count_pub_kudos' => "SELECT COUNT(`publications_id_publication`) AS `number` FROM `kudos` WHERE `kudos`.`publications_id_publication`=%0",
-        'count_user_kudos_received' => "SELECT `kudos`.`users_id_user`, `kudos`.`publications_id_publication`, `publications`.`id_publication`, `publications`.`users_id_user`, COUNT(`kudos`.`users_id_user`) AS `number` FROM `kudos` LEFT JOIN `publications` ON `kudos`.`publications_id_publication` = `publications`.`id_publication` WHERE `kudos`.`users_id_user` = `publications`.`users_id_user` AND `kudos`.`users_id_user`=%0"
+        'count_user_kudos_received' => "SELECT `kudos`.`users_id_user` AS `kudo_giver`, `kudos`.`publications_id_publication`, `publications`.`id_publication`, COUNT(`publications`.`users_id_user`) AS `number` FROM `kudos` LEFT JOIN `publications` ON `kudos`.`publications_id_publication` = `publications`.`id_publication` WHERE `publications`.`users_id_user`=%0"
     );
     public static function getKudosByUserId($id_user){
       $sql = Helper::fill_in(Kudo::$methods['fetch_by_user'],array($id_user));
