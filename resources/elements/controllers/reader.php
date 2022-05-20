@@ -16,6 +16,10 @@ class Controller{
             $comments = E\Comment::getPublicationComments($publication->id);
             $cover = E\Image::getImageById($publication->images_id_image);
             $tags = E\Tag::getPublicationTags($publication->id);
+            global $head;
+            $head->title = "$publication->title - work by $pub_author - Crash";
+            $head->desc = $publication->prompt;
+            $head->robots = "index,follow";
             include Crash::$static_page['athenaeum/reader'];
         }else{
             Crash::error(404,"Publication not found");

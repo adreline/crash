@@ -26,7 +26,6 @@ $forward->route("/crash/", function(){
 });
 /* search routes */
 $forward->route("/crash/search", function(){
-    $head=new Elements\Head("Search results - Crash", "This is a search result page","noindex,follow");
     SearchController::search($_GET['query']);
 });
 /* Reader routes*/

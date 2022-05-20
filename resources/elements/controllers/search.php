@@ -3,7 +3,7 @@ namespace Controller\Search;
 use Crash\Crash;
 use Crash\Helper;
 use Elements\Publication;
-
+use Elements\Head;
 /*
 * This controller processes everything that has to do with searches
 */
@@ -21,7 +21,11 @@ class Controller{
                  return ($a_sim > $b_sim) ? -1 : 1;
              };
          };
-         usort($publications, $sorter($query));
+        usort($publications, $sorter($query));
+        global $head;
+        $head->title = "Search results - Crash";
+        $head->desc = "This is a search result page";
+        $head->robots = "noindex,follow";
         include Crash::$static_page['search'];
 
     }

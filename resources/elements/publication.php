@@ -59,7 +59,7 @@ class Publication {
         );
     });
   }
-  public static function getAllPublications($sql){
+  public static function getAllPublications($sql=""){
     return Publication::getPublications($sql);
   }
   public static function getPublicationById($id_pub){

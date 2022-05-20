@@ -9,6 +9,10 @@ use Elements as E;
 class Controller{
   /* user management methods */
   public static function showUsers(){
+    global $head;
+    $head->title = "manage users - admin dashboard - Crash";
+    $head->desc = "user management page";
+    $head->robots = "noindex,follow";
     include Crash::$static_page['admin/users/dashboard'];
   }
   public static function disableUser($id_user){
@@ -39,6 +43,10 @@ class Controller{
   }
   /* fandom requests methods */
   public static function showFandomRequests(){
+    global $head;
+    $head->title = "view fandom requests - admin dashboard - Crash";
+    $head->desc = "accept or deny new fandom requests";
+    $head->robots = "noindex,follow";
     include Crash::$static_page['admin/fandom/requests'];
   }
   public static function acceptFandomRequest($id_fandom){
@@ -54,12 +62,20 @@ class Controller{
 
 
   public static function showPanel(){
+    global $head;
+    $head->title = "admin dashboard - Crash";
+    $head->desc = "this is administrative dashboard";
+    $head->robots = "noindex,follow";
       include Crash::$static_page['admin/panel'];
   }
   /* pages methods */
   public static function showPagesManager(){
-      $pages = E\Page::getAllPages();
-      include Crash::$static_page['admin/pages'];
+    global $head;
+    $head->title = "pages manager - admin dashboard - Crash";
+    $head->desc = "this is administrative pages manager";
+    $head->robots = "noindex,follow";
+    $pages = E\Page::getAllPages();
+    include Crash::$static_page['admin/pages'];
   }
   public static function showPageEditor($id_page=null){
       if(isset($id_page) && is_numeric($id_page)){
@@ -71,6 +87,10 @@ class Controller{
             $head = new E\Head();
             $action = "/crash/admin/pages/new";
       }
+      global $head;
+      $head->title = "pages editor - pages manager - admin dashboard - Crash";
+      $head->desc = "this is administrative pages editor";
+      $head->robots = "noindex,follow";
       include Crash::$static_page['admin/pages_editor'];
   }
   public static function insertNewPage($form){
@@ -85,9 +105,10 @@ class Controller{
       
       if(!E\Page::insertPage($page)) die(mysql_error);
       $page = E\Page::getPageByName($form['name']);
-      $head = new E\Head(
+       $head = new E\Head(
         $form['meta_title'],
         $form['meta_desc'],
+        $form['meta_robots'],
         $page->id 
       );
       if(!E\Head::insertHead($head)) die(mysql_error);
@@ -100,10 +121,13 @@ class Controller{
       htmlspecialchars($form['content'],ENT_QUOTES),
       htmlspecialchars($form['custom_css'],ENT_QUOTES),
       htmlspecialchars($form['javascript'],ENT_QUOTES),
-      $form['id_page']);
+      $form['id_page']
+    );
+
       $head = new E\Head(
         $form['meta_title'],
         $form['meta_desc'],
+        $form['meta_robots'],
         $form['id_page'],
         E\Head::getHead($form['id_page'])->id
       );

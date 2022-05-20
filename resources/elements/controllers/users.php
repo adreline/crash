@@ -39,6 +39,10 @@ class Controller{
 	}
 	/* publications management methods */
 	public static function showScriptorium(){
+		global $head;
+		$head->title = "author workbench - Crash";
+		$head->desc = "Manage your works in one place";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/scriptorium"];
 	}
 	public static function deletePublication($id_publication){
@@ -75,6 +79,10 @@ class Controller{
 			$fandom_name = "";
 			$action = "/crash/users/scriptorium/publication/new";
 		}
+		global $head;
+		$head->title = "work editor - author workbench - Crash";
+		$head->desc = "Create or update your works";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/scriptorium/editor"];
 	}
 	public static function insertNewPublication($form){
@@ -191,6 +199,10 @@ class Controller{
 	public static function showLeafOverview($publication_id){
 		$publication = E\Publication::getPublicationById($publication_id);
 		$leafs = E\Publication::getPublicationLeafs($publication_id);
+		global $head;
+		$head->title = "chapters in $publication->title - author workbench - Crash";
+		$head->desc = "Manage chapters in $publication->title";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/scriptorium/leaf"];
 	}
 	public static function showLeafEditor($id_pub,$id_leaf=null){
@@ -202,6 +214,10 @@ class Controller{
 			$action = "/crash/users/scriptorium/leaflet/new";
 		}
 		$publication = E\Publication::getPublicationById($id_pub);
+		global $head;
+		$head->title = "chapter editor - chapter in $publication->title - author workbench - Crash";
+		$head->desc = "Manage chapter in $publication->title";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/scriptorium/leaf/editor"];
 	}
 	public static function insertNewLeaf($form){
@@ -255,9 +271,17 @@ class Controller{
 		Crash::redirect("/crash/users/profile");
 	}
 	public static function showAvatarForm(){
+		global $head;
+		$head->title = "change your avatar - account setting - Crash";
+		$head->desc = "change your profile picture";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page['user/avatar'];
 	}
 	public static function showPasswordForm(){
+		global $head;
+		$head->title = "change your password - account setting - Crash";
+		$head->desc = "change your account password";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/password"];
 
 	}
@@ -268,6 +292,10 @@ class Controller{
 		Crash::redirect("/crash/users/profile",["title"=>"success","message"=>"Your password has been changed"]);
 	}
 	public static function showUsernameForm(){
+		global $head;
+		$head->title = "change your username - account setting - Crash";
+		$head->desc = "change your profile username";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/username"];
 
 	}
@@ -290,6 +318,10 @@ class Controller{
 		Controller::logout();
 	}
 	public static function confirmDeletion(){
+		global $head;
+		$head->title = "delete your account - account setting - Crash";
+		$head->desc = "please confirm deletion of your account";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/delete"];
 	}
 	public static function enlist(){
@@ -319,10 +351,18 @@ class Controller{
 		$pfp = E\Image::getImageById($_SESSION['protagonist']->images_id_image);
 		$kudo_count = E\Kudo::countReceivedUserKudosById($_SESSION['protagonist']->id);
 		$work_count = E\User::getUserPublicationsCount($_SESSION['protagonist']->id);
+		global $head;
+		$head->title = $_SESSION['protagonist']->username." - Crash";
+		$head->desc = "manage your account";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["user/dashboard"];
 	}
 	/* fandom request methods */
 	public static function showFandomForm(){
+		global $head;
+		$head->title = "request new fandom - Crash";
+		$head->desc = "you can submit new fandom requests here";
+		$head->robots = "noindex,follow";
 		include Crash::$static_page["fandom/request"];
 	}
 	public static function insertFandom($form){

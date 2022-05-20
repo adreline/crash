@@ -18,6 +18,7 @@ class Controller{
 			$page = Page::getPageByName($req);
 			if ($page instanceof Page) {
 				//page present, fetch assoc head section
+				global $head;
 				$head = Head::getHead($page->id);
 				//reverse htmlspecialchars 
 				$page->content =  htmlspecialchars_decode($page->content, ENT_QUOTES);

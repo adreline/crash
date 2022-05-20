@@ -19,7 +19,9 @@ use Crash\Crash as Crash;
 use Controller\App\Controller as DefaultController;
 use Elements\Session as Session;
 use Elements\User as User;
-
+use Elements\Head as Head;
+global $head;//default head, gets overwritten later in the script
+$head = new Head("writtien in pure PHP, crash specializes in publishing written transformative works - Crash","Developed for the community of transformative writers. Crash is a small, fast, and secure CMS written entirely in PHP.","index,follow");
 $DB_CONNECTION = Elements\Database::connect();//globally available db connection object
 
 session_start(); //start session only after classes are loaded to avoid incomplete object warning
