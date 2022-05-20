@@ -3,7 +3,7 @@
     class Database{
         public static function connect(){
             $c =  mysqli_connect(DB_CONF['host'],DB_CONF['database_user'],DB_CONF['database_pass'],DB_CONF['database']);
-            if(!$c) die("Connection error");
+            if(!$c) Crash::error(500,"internal server error");
             return $c;
         }
         public static function select($method,$f){

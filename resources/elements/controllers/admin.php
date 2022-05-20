@@ -16,7 +16,7 @@ class Controller{
     include Crash::$static_page['admin/users/dashboard'];
   }
   public static function disableUser($id_user){
-    if(!E\User::deleteUser($id_user)) die(mysql_error);
+    if(!E\User::deleteUser($id_user)) Crash::error(500,"internal server error");
     foreach(E\Session::getSessionsByUserId($id_user) as $sess){
       E\Session::deleteSession($sess->id);
     }
@@ -26,19 +26,19 @@ class Controller{
     $user = E\User::getUserById($id_user);
     $user->active = 1;
     $user->username = str_replace(" (account deleted)","",$user->username);
-    if(!E\User::updateUser($user)) die(mysql_error);
+    if(!E\User::updateUser($user)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/users");
   }
   public static function demoteUser($id_user){
     $user = E\User::getUserById($id_user);
     $user->administrator = 0;
-    if(!E\User::updateUser($user)) die(mysql_error);
+    if(!E\User::updateUser($user)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/users");
   }
   public static function elevateUser($id_user){
     $user = E\User::getUserById($id_user);
     $user->administrator = 1;
-    if(!E\User::updateUser($user)) die(mysql_error);
+    if(!E\User::updateUser($user)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/users");
   }
   /* fandom requests methods */
@@ -52,11 +52,11 @@ class Controller{
   public static function acceptFandomRequest($id_fandom){
     $fandom = E\Fandom::getFandomById($id_fandom);
     $fandom->active = 1;
-    if(!E\Fandom::updateFandom($fandom)) die(mysql_error);
+    if(!E\Fandom::updateFandom($fandom)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/fandoms");
   }
   public static function denyFandomRequest($id_fandom){
-    if(!E\Fandom::deleteFandom($id_fandom)) die(mysql_error);
+    if(!E\Fandom::deleteFandom($id_fandom)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/fandoms");
   }
 
@@ -105,7 +105,7 @@ class Controller{
       htmlspecialchars($form['javascript'],ENT_QUOTES)
       );
       
-      if(!E\Page::insertPage($page)) die(mysql_error);
+      if(!E\Page::insertPage($page)) Crash::error(500,"internal server error");
       $page = E\Page::getPageByName($form['name']);
        $head = new E\Head(
         $form['meta_title'],
@@ -113,7 +113,7 @@ class Controller{
         $form['meta_robots'],
         $page->id 
       );
-      if(!E\Head::insertHead($head)) die(mysql_error);
+      if(!E\Head::insertHead($head)) Crash::error(500,"internal server error");
       Crash::redirect("/crash/admin/pages");
   }
   public static function updatePage($form){
@@ -133,13 +133,13 @@ class Controller{
         $form['id_page'],
         E\Head::getHead($form['id_page'])->id
       );
-      if(!E\Page::editPage($page)||!E\Head::updateHead($head)) die(mysql_error);
+      if(!E\Page::editPage($page)||!E\Head::updateHead($head)) Crash::error(500,"internal server error");
       Crash::redirect("/crash/admin/pages");
   }
   public static function deletePage($id_page){
     //key constraint will fail if we attempt to delete a page, first delete associated head section
     $head = E\Head::getHead($id_page);
-    if(!E\Head::deleteHead($head->id) || !E\Page::deletePage($id_page)) die(mysql_error);
+    if(!E\Head::deleteHead($head->id) || !E\Page::deletePage($id_page)) Crash::error(500,"internal server error");
     Crash::redirect("/crash/admin/pages");
   }
 }

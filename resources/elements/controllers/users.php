@@ -17,23 +17,23 @@ class Controller{
 			$form['id_publication'],
 			Validator::sanitizeGeneric($form['body'])
 		);
-		if(!E\Comment::insertComment($comment)) die(mysql_error);
+		if(!E\Comment::insertComment($comment)) Crash::error(500,"internal server error");
 		$uri_redirect_back = E\Publication::getPublicationById($form['id_publication'])->uri;
 		Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 	}
 	public static function deleteComment($id_comment,$uri_redirect_back){
-		if(!E\Comment::deleteComment($id_comment)) die(mysql_error);
+		if(!E\Comment::deleteComment($id_comment)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 		
 	}
 	/* kudo management methods*/
 	public static function leaveKudo($id_user,$id_publication){
-		if(!E\Kudo::insertKudo($id_user,$id_publication)) die(mysql_error);
+		if(!E\Kudo::insertKudo($id_user,$id_publication)) Crash::error(500,"internal server error");
 		$uri_redirect_back = E\Publication::getPublicationById($id_publication)->uri;
 		Crash::redirect("/crash/athenaeum/$uri_redirect_back");
 	}
 	public static function withdrawKudo($id_user,$id_publication){
-		if(!E\Kudo::deleteKudo($id_user,$id_publication)) die(mysql_error);
+		if(!E\Kudo::deleteKudo($id_user,$id_publication)) Crash::error(500,"internal server error");
 		$uri = E\Publication::getPublicationById($id_publication)->uri;
 		Crash::redirect("/crash/athenaeum/$uri");
 	}
@@ -48,16 +48,16 @@ class Controller{
 	public static function deletePublication($id_publication){
 		//the constraint will fail if we attempt to delete a publication that has published chapters
 		foreach(E\Publication::getPublicationLeafs($id_publication) as $leaf){
-			if(!E\Leaflet::deleteLeaflet($leaf->id)) die(mysql_error);
+			if(!E\Leaflet::deleteLeaflet($leaf->id)) Crash::error(500,"internal server error");
 		}
 		//the constraint will fail if we attempt to delete a publication that has tags attached
 		foreach(E\Tag::getPublicationTags($id_publication) as $tag){
 			E\Tag::unattachTag($id_publication,$tag->id);
 		}
 		$pub = E\Publication::getPublicationById($id_publication);
-		if(!E\Publication::deletePublication($id_publication)) die(mysql_error);
+		if(!E\Publication::deletePublication($id_publication)) Crash::error(500,"internal server error");
 		if($pub->images_id_image != 1){
-			if(!E\Image::deleteImage($pub->images_id_image)) die(mysql_error);
+			if(!E\Image::deleteImage($pub->images_id_image)) Crash::error(500,"internal server error");
 		}
 		Crash::redirect("/crash/users/scriptorium");
 	}
@@ -111,9 +111,9 @@ class Controller{
 			$id_image=1;
 			if(strlen($_FILES['image']['tmp_name'])>0){
 				$filename = E\Image::saveImageAsFile($_FILES['image']);
-				if(!isset($filename)) die("file upload failed");
+				if(!isset($filename)) Crash::error(500,"failed to upload an image");
 				if(strlen($form['alt'])<2) $form['alt'] = "alt";
-				if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) die(mysql_error);
+				if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) Crash::error(500,"internal server error");
 				$id_image=E\Image::getImageByFilename($filename)->id;
 			}
 			$pub = new E\Publication(
@@ -130,7 +130,7 @@ class Controller{
 				null
 			);
 			
-			if(!E\Publication::insertPublication($pub)) die(mysql_error);
+			if(!E\Publication::insertPublication($pub)) Crash::error(500,"internal server error");
 			$id_publication = E\Publication::getPublicationByUrl($pub->uri)->id;
 			try{
 				$tags = explode(',',$form['tags']);
@@ -151,9 +151,9 @@ class Controller{
 		if(!($fan instanceof E\Fandom)) Crash::redirect("/crash/users/scriptorium",["title"=>"fail","message"=>"Fandom does not exist"]);
 		if(strlen($_FILES['image']['tmp_name'])>0){
 			$filename = E\Image::saveImageAsFile($_FILES['image']);
-			if(!isset($filename)) die("file upload failed");
+			if(!isset($filename)) Crash::error(500,"failed to upload an image");
 			if(strlen($form['alt'])<2) $form['alt'] = "alt";
-			if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) die(mysql_error);
+			if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) Crash::error(500,"internal server error");
 			$id_image = E\Image::getImageByFilename($filename)->id;
 		}else{
 			$id_image = E\Publication::getPublicationById($form['id_publication'])->images_id_image;
@@ -172,7 +172,7 @@ class Controller{
 			htmlspecialchars(addslashes($form['prompt']),ENT_QUOTES),
 			$form['id_publication']
 			);
-		if(!E\Publication::updatePublication($pub)) die(mysql_error);
+		if(!E\Publication::updatePublication($pub)) Crash::error(500,"internal server error");
 		try{
 			$tags = explode(',',$form['tags']);
 			$old_tags = array();
@@ -228,7 +228,7 @@ class Controller{
 			$word_count,
 			$form['id_publication']
 		);
-		if(!E\Leaflet::insertLeaflet($leaf)) die(mysql_error);
+		if(!E\Leaflet::insertLeaflet($leaf)) Crash::error(500,"internal server error");
 		$id=$form['id_publication'];
 		Crash::redirect("/crash/users/scriptorium/leaflet?id=$id");
 
@@ -245,13 +245,13 @@ class Controller{
 			null,
 			$form['id_leaf']
 		);
-		if(!E\Leaflet::updateLeaflet($leaf)) die(mysql_error);
+		if(!E\Leaflet::updateLeaflet($leaf)) Crash::error(500,"internal server error");
 		$id_pub=$form['id_publication'];
 		$id_leaf=$form['id_leaf'];
 		Crash::redirect("/crash/users/scriptorium/leaflet/editor?id_pub=$id_pub&id_leaf=$id_leaf");
 	}
 	public static function deleteLeaflet($id_leaf){
-		if(!E\Leaflet::deleteLeaflet($id_leaf)) die(mysql_error);
+		if(!E\Leaflet::deleteLeaflet($id_leaf)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/users/scriptorium");
 	}
 	/* account management methods */
@@ -259,15 +259,15 @@ class Controller{
 		$user = $_SESSION['protagonist'];
 		if(strlen($_FILES['image']['tmp_name'])>0){
 			$filename = E\Image::saveImageAsFile($_FILES['image']);
-			if(!isset($filename)) die("file upload failed");
+			if(!isset($filename)) Crash::error(500,"failed to upload an image");
 			if(strlen($form['alt'])<2) $form['alt'] = "alt";
-			if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) die(mysql_error);
+			if(!E\Image::insertImage(new E\Image($form['alt'],$filename))) Crash::error(500,"internal server error");
 			$user->images_id_image = E\Image::getImageByFilename($filename)->id;
 			
 		}else{
 			$user->images_id_image = $_SESSION['protagonist']->images_id_image;
 		}
-		if(!E\User::updateUser($user)) die(mysql_error);
+		if(!E\User::updateUser($user)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/users/profile");
 	}
 	public static function showAvatarForm(){
@@ -288,7 +288,7 @@ class Controller{
 	public static function changePassword($form){
 		$active_user=$_SESSION['protagonist'];
 		$active_user->password = password_hash($form['new_pass'], PASSWORD_BCRYPT, array('cost'=>10));
-		if(!E\User::updateUser($active_user)) die(mysql_error);
+		if(!E\User::updateUser($active_user)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/users/profile",["title"=>"success","message"=>"Your password has been changed"]);
 	}
 	public static function showUsernameForm(){
@@ -302,7 +302,7 @@ class Controller{
 	public static function changeUsername($form){
 		$active_user=$_SESSION['protagonist'];
 		$active_user->username = $form['new_username'];
-		if(!E\User::updateUser($active_user)) die(mysql_error);
+		if(!E\User::updateUser($active_user)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/users/profile",["title"=>"success","message"=>"Your username has been changed"]);
 	}
 	public static function logout(){
@@ -314,7 +314,7 @@ class Controller{
 	}
 	public static function deleteAccount($id_account){
 		//users have constraints on publication and comments so we can't actually delete the account. we set it to inactive
-		if(!E\User::deleteUser($id_account)) die(mysql_error);
+		if(!E\User::deleteUser($id_account)) Crash::error(500,"internal server error");
 		Controller::logout();
 	}
 	public static function confirmDeletion(){
@@ -342,7 +342,7 @@ class Controller{
 					$username=$_POST['username'];
 					if(!Validator::validatePassword($_POST['password']) || !Validator::validateUsername($username)) Crash::redirect("/crash/",["title"=>"fail","message"=>"input is incorrect or contains forbidden characters"]);
 					$password=password_hash($_POST['password'], PASSWORD_BCRYPT, array('cost'=>10));
-					if(!E\User::insertUser(new E\User($username,$password))) die(mysql_error);
+					if(!E\User::insertUser(new E\User($username,$password))) Crash::error(500,"internal server error");
 					Crash::redirect("/crash/",["title"=>"success","message"=>"Your account was created"]);
 				}
 			}	
@@ -370,7 +370,7 @@ class Controller{
 		if($form['name']=="") $form['name'] = str_replace(" ", "-", $form['friendly_name']);
 
 		$fandom = new E\Fandom($form['friendly_name'],$form['name']);
-		if(!E\Fandom::insertFandom($fandom)) die(mysql_error());
+		if(!E\Fandom::insertFandom($fandom)) Crash::error(500,"internal server error");
 		Crash::redirect("/crash/users/scriptorium",["title"=>"success","message"=>"Your request has been submited"]);
 	}
 }
