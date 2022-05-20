@@ -25,7 +25,7 @@
                       <th><mark class="info">actions</mark></th>
                     </tr>
                     <?php 
-                        foreach(E\User::getUser() as $user){
+                        foreach(E\User::getAllUsers() as $user){
                             $admin = ($user->administrator) ? "<mark class=\"info\">yes</mark>" : "<mark class=\"success\">no</mark>";
                             $active = ($user->active) ? "<mark class=\"success\">active</mark>" : "<mark class=\"danger\">disabled</mark>";
                             echo "<tr>";

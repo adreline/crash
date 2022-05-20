@@ -1,8 +1,8 @@
 <?php
 namespace Elements;
 //this class defines a tag db object as well as mock table m:m
-use Elements\Database as Database;
-use Crash\Helper as Helper;
+use Elements\Database;
+use Crash\Helper;
 
 class Tag{
 public $id;

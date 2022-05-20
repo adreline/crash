@@ -36,7 +36,7 @@ class Controller{
   }
   /* pages methods */
   public static function showPagesManager(){
-      $pages = Page::getPage();
+      $pages = Page::getAllPages();
       include Crash::$static_page['admin/pages'];
   }
   public static function showPageEditor($id_page=null){

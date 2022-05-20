@@ -1,8 +1,8 @@
 <?php
 //this class defines a fandom db object
 namespace Elements;
-use Crash\Helper as Helper;
-use Elements\Database as Database;
+use Crash\Helper;
+use Elements\Database;
 
 class Image{
 public $id;
@@ -25,10 +25,7 @@ private static $methods = array(
     'delete' => "DELETE FROM `images` WHERE `images`.`id_image` = %0",
     'update' => "UPDATE `images` SET `alt` = '%0', `path` = '%1', `updated_at`=CURRENT_TIMESTAMP WHERE `images`.`id_image` = %2"
 );
-public static function getImage($id=null,$optional_sql=""){
-    if(isset($id)){
-        $optional_sql="WHERE id_image=$id ".$optional_sql;
-       }
+private static function getImage($optional_sql=""){
        $sql = Image::$methods['select'].$optional_sql;
        return Database::select($sql, function($row){
              return new Image(
@@ -41,10 +38,10 @@ public static function getImage($id=null,$optional_sql=""){
        });
 }
 public static function getImageById($id){
-    return Image::getImage($id)[0];
+    return Image::getImage("WHERE `images`.`id_image`=$id")[0];
 }
 public static function getImageByFilename($filename){
-    return Image::getImage(null,"WHERE `images`.`path` LIKE '$filename'")[0];
+    return Image::getImage("WHERE `images`.`path` LIKE '$filename'")[0];
 }
 public static function insertImage($image){
     $sql = Helper::fill_in(Image::$methods['insert'],array($image->alt,$image->path));

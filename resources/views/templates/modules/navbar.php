@@ -25,7 +25,7 @@
                 <ul>
                     <li><a href="/crash/">[home]</a></li>             
                     <?php
-                        foreach (Page::getPage() as $page_l){
+                        foreach (Page::getAllPages() as $page_l){
                             echo "<li><a href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a></li>";
                         }
                     ?>

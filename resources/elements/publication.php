@@ -1,8 +1,8 @@
 <?php
 //this class defines a publication db object
 namespace Elements;
-use Crash\Helper as Helper;
-use Elements\Database as Database;
+use Crash\Helper;
+use Elements\Database;
 use Elements\Leaflet;
 use Elements\Image;
 
@@ -41,13 +41,9 @@ class Publication {
     $this->prompt = $prompt;
   }
   
-  public static function getPublication($id=null,$optional_sql=""){
-    if(isset($id)){
-      $optional_sql="WHERE id_publication=$id ".$optional_sql;
-    }
+  private static function getPublications($optional_sql=""){
     $sql = Publication::$methods['select']." ".$optional_sql;
-    $res = Database::select($sql, function($row){
-
+    return Database::select($sql, function($row){
         return new Publication(
           stripslashes($row['title']),
           $row['url'],
@@ -62,10 +58,12 @@ class Publication {
           $row['id_publication']
         );
     });
-    return $res;
+  }
+  public static function getAllPublications($sql){
+    return Publication::getPublications($sql);
   }
   public static function getPublicationById($id_pub){
-    return Publication::getPublication($id_pub)[0];
+    return Publication::getPublications("WHERE `publications`.`id_publication`=$id_pub")[0];
   }
   public static function insertPublication($publication){
     if(!isset($publication->title)&&!isset($publication->uri)){
@@ -101,10 +99,10 @@ class Publication {
     return Database::update($sql);
   }
   public static function getPublicationLeafs($id_publication){//this function is an alias for Leaflet::getLeaflet
-    return Leaflet::getLeaflet($id_publication);
+    return Leaflet::getPublicationLeafs($id_publication);
   }
   public static function getPublicationByUrl($url){
-    return Publication::getPublication(null, "WHERE `publications`.`url` LIKE '$url'")[0];
+    return Publication::getPublications("WHERE `publications`.`url` LIKE '$url'")[0];
   }
 }
 

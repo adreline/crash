@@ -13,7 +13,7 @@
                         <?php
                             include_once Crash::$element['user'];
                             use Elements\User as User;
-                            foreach(User::getUser("WHERE `users`.`active`=1 ORDER BY created_at DESC LIMIT 5") as $user){
+                            foreach(User::getActiveUsers("ORDER BY created_at DESC LIMIT 5") as $user){
                                 echo "<p>><mark class=\"success\">$user->username</mark><br>joined at $user->created_at</p>";
                             }
                          ?>

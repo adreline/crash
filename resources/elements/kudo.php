@@ -1,9 +1,9 @@
 <?php
 namespace Elements;
 //this class defines a user db object
-use Elements\Database as Database;
-use Crash\Helper as Helper;
-use Elements\Publication as Publication;
+use Elements\Database;
+use Crash\Helper;
+use Elements\Publication;
 
 class Kudo{
     public $users_id_user;
@@ -57,11 +57,7 @@ class Kudo{
                 $row['created_at']
             );
         });
-        if(sizeof($result)==1){
-            return true;
-        }else{
-            return false;
-        }
+        return (sizeof($result)==1);
     }   
     public static function countUserKudosById($user_id){
         $sql = Helper::fill_in(Kudo::$methods['count_user_kudos_given'],array($user_id));

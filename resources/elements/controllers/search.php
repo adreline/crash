@@ -11,7 +11,7 @@ class Controller{
 
     public static function search($query){
         $query = htmlspecialchars(strip_tags(addslashes(strtolower($query))));
-        $publications = Publication::getPublication();
+        $publications = Publication::getAllPublications();
         //we sort publications according to this comparison function passed to usort
         $sorter = function ($q){
             return function($a, $b) use ($q){
@@ -29,7 +29,7 @@ class Controller{
 
     public static function search_depreciated($query){
         $query = htmlspecialchars(strip_tags(addslashes(strtolower($query))));
-        $publications = Publication::getPublication();
+        $publications = Publication::getAllPublications();
 
         //we sort publications according to this comparison function passed to usort
         $sorter = function ($q){

@@ -33,7 +33,7 @@ class User{
     'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,images_id_image ='%3',updated_at=CURRENT_TIMESTAMP WHERE id_user=%4"
   );
 
-  public static function getUser($optional_sql=""){
+  private static function getUsers($optional_sql=""){
     $sql = User::$methods['select']." ".$optional_sql;
     return Database::select($sql, function($row){
       return new User(
@@ -49,17 +49,20 @@ class User{
       );
     });
   }
-  public static function getActiveUsers(){
-    return User::getUser("WHERE `users`.`active`=1");
+  public static function getAllUsers(){
+    return User::getUsers();
+  }
+  public static function getActiveUsers($sql){
+    return User::getUsers("WHERE `users`.`active`=1 $sql");
   }
   public static function getActiveUserById($id_user){
-    return User::getUser("WHERE `users`.`id_user`=$id_user AND `users`.`active`=1")[0];
+    return User::getUsers("WHERE `users`.`id_user`=$id_user AND `users`.`active`=1")[0];
   }
   public static function getActiveUserByName($username){
-    return User::getUser("WHERE `users`.`username`='$username' AND `users`.`active`=1")[0];
+    return User::getUsers("WHERE `users`.`username`='$username' AND `users`.`active`=1")[0];
   }
   public static function getUserById($id_user){
-    return User::getUser("WHERE `users`.`id_user`=$id_user")[0];
+    return User::getUsers("WHERE `users`.`id_user`=$id_user")[0];
   }
   public static function insertUser($user){
     $sql = Helper::fill_in(User::$methods['insert'],array(
@@ -84,7 +87,7 @@ class User{
       return Database::update($sql);
   }
   public static function getUserPublications($id_user){
-    return Publication::getPublication(null, "WHERE `users_id_user` = $id_user");
+    return Publication::getAllPublications("WHERE `users_id_user` = $id_user");
   }
   public static function getUserPublicationsCount($id_user){
     return sizeof(User::getUserPublications($id_user));

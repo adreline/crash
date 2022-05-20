@@ -1,8 +1,8 @@
 <?php
 namespace Elements;
 //this class defines a user db object
-use Elements\Database as Database;
-use Crash\Helper as Helper;
+use Elements\Database;
+use Crash\Helper;
 
 class Comment{
     public $id_comment;
@@ -13,7 +13,7 @@ class Comment{
     public $updated_at;
 
 
-function __construct($users_id_user=0,$publications_id_publication=0,$body="",$created_at=null,$updated_at=null,$id_comment=null){
+function __construct($users_id_user=0,$publications_id_publication=0,$body="",$id_comment=0,$created_at=null,$updated_at=null){
     $this->id_comment = $id_comment;
     $this->users_id_user = $users_id_user;
     $this->publications_id_publication = $publications_id_publication;
@@ -27,27 +27,24 @@ private static $methods = array(
     'update' => "UPDATE `comments` SET `body` = '%0', `updated_at` = CURRENT_TIMESTAMP WHERE `comments`.`id_comment` = %1"
 );
 
-public static function getComment($id=null,$optional_sql=""){
-    if(isset($id)){
-        $optional_sql="WHERE id_comment=$id ".$optional_sql;
-       }
-       $sql = Comment::$methods['select'].$optional_sql;
+private static function getComments($optional_sql=""){
+       $sql = Comment::$methods['select']." ".$optional_sql;
     return Database::select($sql, function($row){
         return new Comment(
             $row['users_id_user'],
             $row['publications_id_publication'],
             $row['body'],
+            $row['id_comment'],
             $row['created_at'],
-            $row['updated_at'],
-            $row['id_comment']
+            $row['updated_at']
         );
     });
 }
 public static function getCommentById($id_comment){
-    return Comment::getComment($id_comment)[0];
+    return Comment::getComments("WHERE `comments`.`id_comment`=$id_comment")[0];
 }
 public static function getPublicationComments($id_pub){
-    return Comment::getComment(null,"WHERE `comments`.`publications_id_publication`=$id_pub");
+    return Comment::getComments("WHERE `comments`.`publications_id_publication`=$id_pub");
 }
 public static function insertComment($comment){
     $sql = Helper::fill_in(Comment::$methods['insert'],array(

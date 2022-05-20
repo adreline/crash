@@ -1,8 +1,8 @@
 <?php
 namespace Elements;
 //this class defines a session db object
-use Elements\Database as Database;
-use Crash\Helper as Helper;
+use Elements\Database;
+use Crash\Helper;
 
 class Session{
     public $id;
@@ -10,7 +10,7 @@ class Session{
     public $users_id_user;
     public $created_at;
 
-    function __construct($secret,$users_id_user,$created_at=null,$id=null){
+    function __construct($secret,$users_id_user,$id=0,$created_at=null){
         $this->secret = $secret;
         $this->users_id_user = $users_id_user;
         $this->created_at = $created_at;
@@ -26,20 +26,14 @@ class Session{
     //it doesn't make sense to pull all sessions so just fetch one by it's secret
     public static function getSession($secret){
         $sql = Helper::fill_in(Session::$methods['select'],array($secret));
-        $sessions = Database::select($sql,function($row){
+        return Database::select($sql,function($row){
             return new Session(
                 $row['secret'],
                 $row['users_id_user'],
                 $row['created_at'],
                 $row['id_session']
             );
-        });
-        if(sizeof($sessions)==1){
-            return $sessions[0]; //by default db will return an array, so we need to pull first element
-        }else{
-            return null;
-        }
-        
+        })[0];
     }
     public static function insertSession($session){
         $sql = Helper::fill_in(Session::$methods['insert'],array(

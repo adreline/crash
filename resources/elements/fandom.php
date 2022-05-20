@@ -1,8 +1,8 @@
 <?php
 //this class defines a fandom db object
 namespace Elements;
-use Crash\Helper as Helper;
-use Elements\Database as Database;
+use Crash\Helper;
+use Elements\Database;
 
 class Fandom {
   public $id;
@@ -15,11 +15,7 @@ class Fandom {
   function __construct($friendly_name="",$name=null,$active=0,$id=0,$created_at=null,$updated_at=null){
     $this->id = $id;
     $this->friendly_name = $friendly_name;
-    if(isset($name)){
-      $this->name = $name;
-    }else{
-      $this->name = str_replace(" ","-",$friendly_name);
-    }
+    $this->name = (isset($name)) ? $name : str_replace(" ","-",$friendly_name);
     $this->active = $active;
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
@@ -32,7 +28,7 @@ class Fandom {
     'update' => "UPDATE `fandoms` SET `friendly_name` = '%0', `name` = '%1', `active`=%2, `updated_at`=CURRENT_TIMESTAMP WHERE `fandoms`.`id_fandom` = %3"
   );
 
-  public static function getFandom($optional_sql=""){
+  private static function getFandom($optional_sql=""){
       $sql = Fandom::$methods['select'].$optional_sql;
       return Database::select($sql, function($row){
             return new Fandom(

@@ -1,9 +1,9 @@
 <?php 
 //this class defines the webpage object. do not confuse it with leaflet 
 namespace Elements;
-use Crash\Helper as Helper;
-use Elements\Database as Database;
-use Elements\Head as Head;
+use Crash\Helper;
+use Elements\Database;
+use Elements\Head;
 
 class Page{
     public $id;
@@ -33,11 +33,8 @@ class Page{
         'delete' => "DELETE FROM `pages` WHERE `pages`.`id_page` = %0"
     );
 
-    public static function getPage($id=null, $optional_sql=""){
-        if(isset($id)){
-            $optional_sql="WHERE id_page=$id ".$optional_sql;
-        }
-        $sql = Page::$methods['select'].$optional_sql;
+    private static function getPages($optional_sql=""){
+        $sql = Page::$methods['select']." ".$optional_sql;
         return Database::select($sql, function ($row){
             return new Page(
                 $row['name'],
@@ -50,11 +47,14 @@ class Page{
                 $row['updated_at']);
         });       
     }
+    public static function getAllPages(){
+        return Page::getPages();
+    }
     public static function getPageByName($name){
-        return Page::getPage(null, "WHERE `pages`.`name` LIKE '$name'")[0];
+        return Page::getPages("WHERE `pages`.`name` LIKE '$name'")[0];
     }
     public static function getPageById($id_page){
-        return Page::getPage($id_page)[0];
+        return Page::getPages("WHERE `pages`.`id_page`=$id_page")[0];
     }
     public static function insertPage($page){
         $sql = Helper::fill_in(Page::$methods['insert'],array(

@@ -72,21 +72,15 @@ class Crash{
     public static function error($code=null, $msg=null){
       if(!isset($code)){
         $e=error_get_last();
-        if(isset($e)){
-            if(!Helper::str_contains($e['message'],"Undefined array key")){	
-              $msg=$e['message']."<br>".$e['file']."<br>".$e['line'];
-              $code=500;
-              include Crash::$static_page['error'];
-              die();
-          }else{
-            return null;
-          }
-        }else{
-          return null;
-        }
+        if(!isset($e)) return null;
+        if(Helper::str_contains($e['message'],"Undefined array key")) return null;
+        $msg=$e['message']."<br>".$e['file']."<br>".$e['line'];
+        $code=500;
+        include Crash::$static_page['error'];
+        die();
       }else{
-            include Crash::$static_page['error'];
-            die();
+        include Crash::$static_page['error'];
+        die();
       } 
     }
     public static function notify($title, $body){
@@ -147,25 +141,14 @@ class Helper{
     $path = trim(str_replace('/',' ',$_SERVER['REQUEST_URI'])); //get rid of trailing slash
     $uris = explode(' ', $path);
     //deconstruct the request
-    if ($uris[0]!='crash') {
-      //due to htaccess config, it will never not be but just to be sure
-        return null;
-    }else{
-      if (isset($uris[1])&&strlen($uris[1])>0) {
-        //this is controller call
-        return $uris;
-      }else{
-        if (sizeof($uris)==1) {
-          //this is home call, just return it as home
-          $uris[]='home';
-          return $uris;
-        }
-      }
+    if ($uris[0]!='crash') return null; //due to htaccess config, it will never not be but just to be sure
+    if (isset($uris[1])&&strlen($uris[1])>0) return $uris; //this is controller call
+    if (sizeof($uris)==1) {
+      //this is home call, just return it as home
+      $uris[]='home';
+      return $uris;
     }
-  
-    
   }
-
 }
 
 ?>

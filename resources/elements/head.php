@@ -1,8 +1,8 @@
 <?php
 //this class defines a section head for any page object
 namespace Elements;
-use Crash\Helper as Helper;
-use Elements\Database as Database;
+use Crash\Helper;
+use Elements\Database;
 
 class Head{
   public $id;

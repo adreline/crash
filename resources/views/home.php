@@ -34,8 +34,7 @@
                 <h2 class="title">Recent works</h2>
                 <div class="content">
                    <?php
-                        foreach(E\Publication::getPublication(null,"ORDER BY created_at DESC LIMIT 4") as $publication){
-                            $leafs=E\Leaflet::getLeaflet($publication->id);
+                        foreach(E\Publication::getAllPublications("ORDER BY created_at DESC LIMIT 4") as $publication){
                             $kudos=E\Kudo::countPublicationKudosById($publication->id);
                             $image=E\Image::getImageById($publication->images_id_image);
                             $comments=sizeof(E\Comment::getPublicationComments($publication->id));

@@ -18,7 +18,6 @@
                 <div class="content">
                    <?php
                         foreach($publications as $publication){
-                            $leafs=E\Leaflet::getLeaflet($publication->id);
                             $kudos=E\Kudo::countPublicationKudosById($publication->id);
                             $image=E\Image::getImageById($publication->images_id_image);
                             $comments=sizeof(E\Comment::getPublicationComments($publication->id));
