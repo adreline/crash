@@ -7,7 +7,8 @@ use Elements\Head;
 /*
 * This controller processes default pages. usually static pages, which reside in views folder.
 */
-	function process($req, $middleware=null, $template='default'){
+class Controller{
+	public static function process($req, $middleware=null, $template='default'){
 		//check if requested page is present in static pages 
 		if (isset(Crash::$static_page[$req])) {
 			//reneder the page
@@ -30,4 +31,6 @@ use Elements\Head;
 			}
 		}
 	}
+}
+
 ?>

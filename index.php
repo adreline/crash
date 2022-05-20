@@ -16,7 +16,7 @@ foreach (Crash\Crash::$element as $e){
 
 use Crash\Helper as Helper;
 use Crash\Crash as Crash;
-use function Controller\App\process as app_process;
+use Controller\App\Controller as DefaultController;
 use Elements\Session as Session;
 use Elements\User as User;
 
@@ -71,7 +71,7 @@ try{ //try to forward request to a controller
         Crash::error();
         //request has completely failed, fallback to the default controller as a last resort
         
-        app_process(Helper::assertRoute()[1]);
+        DefaultController::process(Helper::assertRoute()[1]);
     }
     
 }

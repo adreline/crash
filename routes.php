@@ -15,15 +15,14 @@ use Controller\Admin\Controller as AdminController;
 use Controller\Users\Controller as UsersController;
 use Controller\Reader\Controller as ReaderController;
 use Controller\Search\Controller as SearchController;
-
-use function Controller\App\process as app_process;
+use Controller\App\Controller as DefaultController;
 
 
 
 $forward = new Router();
 /* Static routes */
 $forward->route("/crash/", function(){
-    app_process("home");
+    DefaultController::process("home");
 });
 /* search routes */
 $forward->route("/crash/search", function(){
