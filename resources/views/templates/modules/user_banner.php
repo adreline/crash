@@ -11,7 +11,6 @@ $kudo_count = Elements\Kudo::countReceivedUserKudosById($user->id);
       <img class="avatar"  src=<?php echo "\"$pfp->path\""; ?> alt=<?php echo "\"$pfp->alt\""; ?>>
     </div>
     <div class="column">
-      <p>Followers: n/a</p>
       <p>Kudos: <?php echo $kudo_count; ?></p> 
       <div class="grid">
         <a href="/crash/users/profile"><mark class="success">[profile]</mark></a>

@@ -338,8 +338,8 @@ class Controller{
 	}
 	public static function showDashboard(){
 		$pfp = Image::getImageById($_SESSION['protagonist']->images_id_image);
-		$kudo_count = Kudo::countReceivedUserKudosById($protagonist->id);
-		$work_count = User::getUserPublicationsCount($protagonist->id);
+		$kudo_count = Kudo::countReceivedUserKudosById($_SESSION['protagonist']->id);
+		$work_count = User::getUserPublicationsCount($_SESSION['protagonist']->id);
 		include Crash::$static_page["user/dashboard"];
 	}
 	/* fandom request methods */

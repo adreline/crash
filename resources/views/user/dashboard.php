@@ -23,7 +23,6 @@
                         <div class="column">
                             <p>kudos: <mark class="info"><?php echo $kudo_count; ?></mark></p>
                             <p>works: <mark class="info"><?php echo $work_count; ?></mark></p>
-                            <p>followers: <mark class="info">0</mark></p>
                             <p>on crash since: <mark class="info"><?php echo $protagonist->created_at; ?></mark></p>
                             <a href="/crash/users/delete"><mark class="danger">[delete your account]</mark></a>
                         </div>
