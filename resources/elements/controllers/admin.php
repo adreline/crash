@@ -85,10 +85,9 @@ class Controller{
       
       if(!E\Page::insertPage($page)) die(mysql_error);
       $page = E\Page::getPageByName($form['name']);
-       $head = new E\Head(
+      $head = new E\Head(
         $form['meta_title'],
         $form['meta_desc'],
-        $form['meta_robots'],
         $page->id 
       );
       if(!E\Head::insertHead($head)) die(mysql_error);
@@ -101,13 +100,10 @@ class Controller{
       htmlspecialchars($form['content'],ENT_QUOTES),
       htmlspecialchars($form['custom_css'],ENT_QUOTES),
       htmlspecialchars($form['javascript'],ENT_QUOTES),
-      $form['id_page']
-    );
-
+      $form['id_page']);
       $head = new E\Head(
         $form['meta_title'],
         $form['meta_desc'],
-        $form['meta_robots'],
         $form['id_page'],
         E\Head::getHead($form['id_page'])->id
       );
