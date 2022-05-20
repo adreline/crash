@@ -30,7 +30,7 @@ class User{
     'insert'=>"INSERT INTO `users` (id_user,username,password) VALUES (NULL, '%0', '%1')",
     'select'=>"SELECT * FROM `users`",
     'delete'=>"UPDATE `users` SET active=0,updated_at=CURRENT_TIMESTAMP WHERE id_user=%0",
-    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,images_id_image ='%3',updated_at=CURRENT_TIMESTAMP WHERE id_user=%4"
+    'update'=>"UPDATE `users` SET password='%0',username='%1',administrator=%2,images_id_image ='%3',active=%4,updated_at=CURRENT_TIMESTAMP WHERE id_user=%5"
   );
 
   private static function getUsers($optional_sql=""){
@@ -82,6 +82,7 @@ class User{
       $user->username,
       $user->administrator,
       $user->images_id_image,
+      $user->active,
       $user->id
     ));
       return Database::update($sql);

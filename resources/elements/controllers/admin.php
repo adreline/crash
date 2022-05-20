@@ -11,6 +11,32 @@ class Controller{
   public static function showUsers(){
     include Crash::$static_page['admin/users/dashboard'];
   }
+  public static function disableUser($id_user){
+    if(!E\User::deleteUser($id_user)) die(mysql_error);
+    foreach(E\Session::getSessionsByUserId($id_user) as $sess){
+      E\Session::deleteSession($sess->id);
+    }
+    Crash::redirect("/crash/admin/users");
+  }
+  public static function enableUser($id_user){
+    $user = E\User::getUserById($id_user);
+    $user->active = 1;
+    $user->username = str_replace(" (account deleted)","",$user->username);
+    if(!E\User::updateUser($user)) die(mysql_error);
+    Crash::redirect("/crash/admin/users");
+  }
+  public static function demoteUser($id_user){
+    $user = E\User::getUserById($id_user);
+    $user->administrator = 0;
+    if(!E\User::updateUser($user)) die(mysql_error);
+    Crash::redirect("/crash/admin/users");
+  }
+  public static function elevateUser($id_user){
+    $user = E\User::getUserById($id_user);
+    $user->administrator = 1;
+    if(!E\User::updateUser($user)) die(mysql_error);
+    Crash::redirect("/crash/admin/users");
+  }
   /* fandom requests methods */
   public static function showFandomRequests(){
     include Crash::$static_page['admin/fandom/requests'];

@@ -2,7 +2,7 @@
 namespace Controller\Users;
 use Crash\Crash as Crash;
 use Elements as E;
-use E\Validator as Validator;
+use Elements\Validator as Validator;
 /*
 * This controller processes everything that has to do with users
 */

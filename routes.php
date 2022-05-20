@@ -35,6 +35,19 @@ $forward->route("/crash/athenaeum",function($title){
 });
 /* Admin routes */
 if(isset($_SESSION['protagonist']) && $_SESSION['protagonist']->administrator){//verify permission level 
+    $forward->route("/crash/admin/users/disable",function(){
+        if($_GET['id_user']==$_SESSION['protagonist']->id && $_SESSION['protagonist']->administrator) Crash::error(403,"You can't disable your own account because you are an administrator");
+        AdminController::disableUser($_GET['id_user']);
+    });
+    $forward->route("/crash/admin/users/enable",function(){
+        AdminController::enableUser($_GET['id_user']);
+    });
+    $forward->route("/crash/admin/users/demote",function(){
+        AdminController::demoteUser($_GET['id_user']);
+    });
+    $forward->route("/crash/admin/users/elevate",function(){
+        AdminController::elevateUser($_GET['id_user']);
+    });
     $forward->route("/crash/admin/users",function(){
         AdminController::showUsers();
     });

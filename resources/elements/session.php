@@ -19,21 +19,28 @@ class Session{
 
     private static $methods = array(
         'insert'=>"INSERT INTO `sessions` (`id_session`, `secret`, `users_id_user`) VALUES (NULL, '%0', '%1');",
-        'select'=>"SELECT * FROM `sessions` WHERE `secret`='%0'",
+        'select'=>"SELECT * FROM `sessions`",
         'delete'=>"DELETE FROM `sessions` WHERE `sessions`.`id_session` = %0",
         'update'=>"UPDATE `sessions` SET `secret` = '%0', `users_id_user` = '%1' WHERE `sessions`.`id_session` = %2;"
       );
-    //it doesn't make sense to pull all sessions so just fetch one by it's secret
-    public static function getSession($secret){
-        $sql = Helper::fill_in(Session::$methods['select'],array($secret));
+    //it doesn't make sense to pull all sessions so just fetch one by it's secret or id
+    private static function getSessions($optional_sql=""){
+        $sql = Session::$methods['select']." ".$optional_sql;
         return Database::select($sql,function($row){
             return new Session(
                 $row['secret'],
                 $row['users_id_user'],
-                $row['created_at'],
-                $row['id_session']
+                $row['id_session'],
+                $row['created_at']
             );
-        })[0];
+        });
+    }
+
+    public static function getSession($secret){
+        return Session::getSessions("WHERE `secret`='$secret'")[0];
+    }
+    public static function getSessionsByUserId($id_user){
+        return Session::getSessions("WHERE `sessions`.`users_id_user`=$id_user");
     }
     public static function insertSession($session){
         $sql = Helper::fill_in(Session::$methods['insert'],array(
