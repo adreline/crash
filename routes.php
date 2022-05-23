@@ -100,20 +100,14 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     /* comment management routes */
     $forward->route("/crash/athenaeum/comment/post",function(){
         //verify if id_user is that of the current logged in user
-        if($_POST['id_user']==$_SESSION['protagonist']->id){
-            UsersController::leaveComment($_POST);
-        }else{
-            Crash::error(403,"This action was unauthorized");
-        }
+        if($_POST['id_user']!=$_SESSION['protagonist']->id) Crash::error(403,"This action was unauthorized");
+        UsersController::leaveComment($_POST);
     },"POST");
     $forward->route("/crash/athenaeum/comment/delete",function(){
           //verify if id_user is that of the current logged in user
         $comment = Comment::getCommentById($_GET['id_comment']);
-        if($comment->users_id_user == $_SESSION['protagonist']->id){
+        if($comment->users_id_user != $_SESSION['protagonist']->id) Crash::error(403,"This action was unauthorized");
             UsersController::deleteComment($_GET['id_comment'],$_GET['uri_redirect_back']);
-        }else{
-            Crash::error(403,"This action was unauthorized");
-        }
     });
     /* kudo management routes*/
     $forward->route("/crash/athenaeum/kudo/give", function(){
@@ -138,7 +132,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/avatar",function(){
         //verify if user is that of the current logged in user
-        if($_POST['id_user'] == $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised profile picture change. This incident will be reported.");
+        if($_POST['id_user'] != $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised profile picture change. This incident will be reported.");
         UsersController::changeAvatar($_POST);
     },"POST");
     $forward->route("/crash/users/password",function(){
@@ -146,7 +140,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/password",function(){
         //verify if user is that of the current logged in user
-        if($_POST['id_user'] == $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised password change. This incident will be reported.");
+        if($_POST['id_user'] != $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised password change. This incident will be reported.");
             UsersController::changePassword($_POST);
     },"POST");
     $forward->route("/crash/users/username",function(){
@@ -154,7 +148,7 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/username",function(){
         //verify if user is that of the current logged in user
-        if($_POST['id_user'] == $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised username change. This incident will be reported.");
+        if($_POST['id_user'] != $_SESSION['protagonist']->id) Crash::error(403,"Unauthorised username change. This incident will be reported.");
             UsersController::changeUsername($_POST);
     },"POST");
     $forward->route("/crash/users/logout", function(){
@@ -168,13 +162,13 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
         UsersController::showScriptorium();
     });
     $forward->route("/crash/users/scriptorium/publication/delete", function(){
-        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
+        if($_SESSION['protagonist']->id != Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
             UsersController::deletePublication($_GET['id_pub']);
     });
     $forward->route("/crash/users/scriptorium/publication/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
         if(isset($_GET['id_pub'])){
-            if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
+            if($_SESSION['protagonist']->id != Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
             UsersController::showPublicationEditor($_GET['id_pub']);
         }else{
             UsersController::showPublicationEditor();
@@ -182,28 +176,28 @@ if(isset($_SESSION['protagonist'])){//verify if user is logged in
     });
     $forward->route("/crash/users/scriptorium/publication/new",function(){
         //verify if id's have not been tampered with 
-        if($_REQUEST['users_id_user']==$_SESSION['protagonist']->id) Crash::error(403,"You don't have permission to publish this publication");
+        if($_REQUEST['users_id_user']!=$_SESSION['protagonist']->id) Crash::error(403,"You don't have permission to publish this publication");
         UsersController::insertNewPublication($_POST);
     },"POST");
     $forward->route("/crash/users/scriptorium/publication/edit",function(){
         //verify if id's have not been tampered with 
-        if($_REQUEST['users_id_user']==$_SESSION['protagonist']->id) Crash::error(403,"You don't have permission to edit this publication");
+        if($_REQUEST['users_id_user']!=$_SESSION['protagonist']->id) Crash::error(403,"You don't have permission to edit this publication");
         UsersController::updatePublication($_POST);
     },"POST");
     /** leaflet management routes */
     $forward->route("/crash/users/scriptorium/leaflet", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
+        if($_SESSION['protagonist']->id != Publication::getPublicationById($_GET['id'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
         UsersController::showLeafOverview($_GET['id']);
     });
     $forward->route("/crash/users/scriptorium/leaflet/editor", function(){
         //verify that supplied publication id is that of a publication owned by current user
-        if($_SESSION['protagonist']->id == Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
+        if($_SESSION['protagonist']->id != Publication::getPublicationById($_GET['id_pub'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
         UsersController::showLeafEditor($_GET['id_pub'],$_GET['id_leaf']);
     });
     $forward->route("/crash/users/scriptorium/leaflet/new", function(){
         //TODO verify that supplied publication id is that of a publication owned by current user 
-        if($_SESSION['protagonist']->id == Publication::getPublicationById($_POST['id_publication'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
+        if($_SESSION['protagonist']->id != Publication::getPublicationById($_POST['id_publication'])->users_id_user) Crash::error(403,"You aren't an author of this publication");
         UsersController::insertNewLeaf($_POST);        
     }, "POST");
     $forward->route("/crash/users/scriptorium/leaflet/delete", function(){
