@@ -364,11 +364,21 @@ mark.success{
 }
 
 
-
+@media screen and (min-width: 801px) {
+  .is-hidden-desktop{
+    display: none;
+  }
+}
 
 /* mobile styles */
 
 @media screen and (max-width: 800px){
+  .avatar{
+    width:10%;
+  }
+  .is-hidden-mobile{
+    display: none;
+  }
   .flex{
     display: block;
   }
@@ -377,6 +387,10 @@ mark.success{
   }
   .columns{
     display: block;
+    padding: 0;
+  }
+  .column{
+    padding: 0;
   }
   .post img {
     max-width: 100%;

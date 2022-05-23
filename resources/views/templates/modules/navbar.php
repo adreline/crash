@@ -32,15 +32,14 @@
         foreach (Page::getAllPages() as $page_l){
             echo "<a class=\"navbar-item\" href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a>";
         }
+        if(isset($_SESSION['protagonist'])){
+            echo "<div class=\"is-hidden-desktop\">";
+            include Crash::$module['user_banner_mobile'];
+            echo "</div>";
+          }
         ?>
-        <a class="navbar-item" href="/crash/about">[what is this?]</a>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-
-      </div>
-    </div>
+    
+    </div>      
   </div>
 </nav>
 
