@@ -10,25 +10,36 @@
     }
 ?>
 <nav class="navbar">
-            <a href="/crash/">
-                <div class="logo">
-                    <h1>Crash</h1>
-                    <h2>クラッシュ</h2>
-                </div>
-            </a>
-            <div class="container">
-                <div class="search-box">
-                    <form method="get" action="/crash/search">
-                        <div class="field">maddieuwu@search<mark class="info">:</mark>~<mark class="info">$</mark><input type="text" name="query"></div>
-                    </form>
-                </div>
-                <ul>
-                    <li><a href="/crash/">[home]</a></li>             
-                    <?php
-                        foreach (Page::getAllPages() as $page_l){
-                            echo "<li><a href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a></li>";
-                        }
-                    ?>
-                </ul>
-            </div>
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/crash/">
+        <div class="logo">
+            <h1>Crash</h1>
+            <h2>クラッシュ</h2>
+        </div>
+    </a>
+
+    <a id="burger" class="navbar-burger">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="menu" class="navbar-menu">
+    <div class="navbar-start">
+        <a class="navbar-item" href="/crash/">[home]</a>        
+        <?php
+        foreach (Page::getAllPages() as $page_l){
+            echo "<a class=\"navbar-item\" href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a>";
+        }
+        if(isset($_SESSION['protagonist'])){
+            echo "<div class=\"is-hidden-desktop\">";
+            include Crash::$module['user_banner_mobile'];
+            echo "</div>";
+          }
+        ?>
+    
+    </div>      
+  </div>
 </nav>
+
