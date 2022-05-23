@@ -25,4 +25,5 @@
         }
         
      ?>
+     <script src="/crash/public/js/mobile-navbar.js"></script>
 </head>
