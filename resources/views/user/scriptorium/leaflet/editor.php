@@ -23,7 +23,7 @@
                      echo "<h2 class=\"title\">You are writting a new page in $publication->title</h2>";
                     }
                  ?>
-                    <textarea id="editor" name="body" rows="40" cols="50">
+                    <textarea id="editor" name="body">
                         <?php if(isset($leaf)) echo $leaf->body; ?>
                     </textarea>
                 <div class="content">

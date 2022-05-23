@@ -43,13 +43,14 @@ img{
 /* Form styling */
 form .field{
   display: flex;
-  width: max-content;
+  width: inherit;
 }
 textarea{
   background: var(--background);
   border: 1px solid var(--accent3);
   color: var(--text);
   font-family: 'IBM Plex Mono';
+  width: 100%;
 }
 button{
   background: none;  
@@ -58,11 +59,14 @@ button{
   font-family: 'IBM Plex Mono', monospace;
   font-size: initial;
 }
-input{
-    background: transparent;
-    border: none;
-    color: var(--text);
-    font-family: inherit;
+input {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+}
+input[type="text"],input[type="password"]{
+  border-bottom: 1px solid var(--accent3);
 }
 input:focus-visible{
     outline: none;
@@ -368,11 +372,22 @@ mark.success{
   .is-hidden-desktop{
     display: none;
   }
+  .navbar-end {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
 }
 
 /* mobile styles */
 
 @media screen and (max-width: 800px){
+  .chapter {
+    padding-left: .1rem; 
+    padding-right: .1rem; 
+  }
+  .window {
+    margin: 0;
+  }
   .navbar .avatar{
     width:10%;
   }
