@@ -42,6 +42,10 @@
             echo "<div class=\"is-hidden-desktop\">";
             include Crash::$module['user_banner_mobile'];
             echo "</div>";
+          }else{
+            echo "<div class=\"is-hidden-desktop\">";
+            include Crash::$module['users_form_mobile'];
+            echo "</div>";
           }
         ?>
     
