@@ -3,6 +3,7 @@
 namespace Elements;
 use Crash\Helper;
 use Elements\Database;
+use Elements\Publication;
 
 class Fandom {
   public $id;
@@ -52,6 +53,16 @@ class Fandom {
   }
   public static function getFandomByName($friendly_name){
     return Fandom::getFandom("WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'")[0];
+  }
+  public static function getFandomByUri($uri){
+    return Fandom::getFandom("WHERE `fandoms`.`name` LIKE '$uri'")[0];
+  }
+  public static function getFandomPublications($id_fan){
+    if(!(Fandom::getFandomById($id_fan)->active)) return [];
+    return Publication::getFandomPublications($id_fan);
+  }
+  public static function getFandomSize($id_fan){
+    return sizeof(Fandom::getFandomPublications($id_fan));
   }
   public static function insertFandom($fandom){
       $sql = Helper::fill_in(Fandom::$methods['insert'],array($fandom->friendly_name,$fandom->name));

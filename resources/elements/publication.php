@@ -107,6 +107,9 @@ class Publication {
   public static function getPublicationByUrl($url){
     return Publication::getPublications("WHERE `publications`.`url` LIKE '$url'")[0];
   }
+  public static function getFandomPublications($id_fan){
+    return Publication::getPublications("WHERE `publications`.`fandoms_id_fandom`=$id_fan");
+  }
 }
 
 ?>

@@ -28,6 +28,9 @@ $forward->route("/crash/", function(){
 $forward->route("/crash/search", function(){
     SearchController::search($_GET['query']);
 });
+$forward->route("/crash/fandom",function($name){
+    SearchController::fetchFandom($name);
+});
 /* Reader routes*/
 $forward->route("/crash/athenaeum",function($title){
     $pub = Publication::getPublicationByUrl($title);
