@@ -20,7 +20,7 @@
                         <div class="column is-1-4">
                             <form action=<?php echo "\"/crash/users/password\""; ?> method="post">
                                 <input type="hidden" name="id_user" value=<?php echo "\"$protagonist->id\""; ?>>
-                                <div class="field"><mark class="info">new password:</mark> <input type="password" name="new_pass"></div>
+                                <div class="field"><mark class="info">new password:</mark> <input type="password" name="new_pass" placeholder="crash@password:~$"></div>
                                 <button type="submit" name="submit"><mark class="success">[save]</mark></button>
                             </form>
                         </div>

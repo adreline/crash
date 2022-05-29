@@ -35,7 +35,7 @@
         }
         ?>
         <form class="navbar-item" method="get" action="/crash/search">
-          <div class="field"><input type="text" name="query"><mark class="info">?</mark></div>
+          <div class="field"><input type="text" name="query" placeholder="crash@search:~$"></div>
         </form>
         <?php
         if(isset($_SESSION['protagonist'])){
