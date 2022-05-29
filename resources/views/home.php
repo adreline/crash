@@ -4,9 +4,8 @@
         use Elements as E;
     ?>
 <!DOCTYPE html>
-    <?php
-        include Crash::$module['head'];
-    ?>
+
+
     <body>
         <?php
             include Crash::$module['navbar'];

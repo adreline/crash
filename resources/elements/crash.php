@@ -7,58 +7,35 @@ namespace Crash;
 class Crash{
     public static $module=array(
         "navbar"=>"resources/views/templates/modules/navbar.php",
-        "post"=>"resources/views/templates/modules/post.php",
         "aside"=>"resources/views/templates/modules/aside.php",
         "modal"=>"resources/views/templates/modules/modal.php",
-        "comment"=>"resources/views/templates/modules/comment.php",
         "users_form"=>"resources/views/templates/modules/users_form.php",
         "user_banner"=>"resources/views/templates/modules/user_banner.php",
         "user_banner_mobile"=>"resources/views/templates/modules/user_banner_mobile.php",
         "users_form_mobile"=>"resources/views/templates/modules/users_form_mobile.php",
-        "comment_form"=>"resources/views/templates/modules/comment_form.php",
         "head"=>"resources/views/templates/modules/head.php"
     );
     public static $element=array(
       "database"=>"resources/elements/database.php",
-      "page"=>"resources/elements/page.php",
-      "fandom"=>"resources/elements/fandom.php",
-      "leaflet"=>"resources/elements/leaflet.php",
-      "kudo"=>"resources/elements/kudo.php",
-      "publication"=>"resources/elements/publication.php",
       "session"=>"resources/elements/session.php",
-      "comment"=>"resources/elements/comment.php",
       "image"=>"resources/elements/image.php",
       "validator"=>"resources/elements/validator.php",
-      "tag"=>"resources/elements/tag.php",
-      "head"=>"resources/elements/head.php",
       "user"=>"resources/elements/user.php"
     );
     //This constant, defines static pages that the app recognizes. useful if you need to add a page that can't be created dynamically.
     public static $static_page=array(
         "home" => "resources/views/home.php",
         "admin/panel" => "resources/views/admin/dashboard.php",
-        "admin/pages" => "resources/views/admin/pages/overview.php",
-        "admin/pages_editor" => "resources/views/admin/pages/editor.php",
-        "admin/fandom/requests" => "resources/views/admin/fandoms/request.php",
         "admin/users/dashboard" => "resources/views/admin/users/dashboard.php",
         "user/dashboard" => "resources/views/user/dashboard.php",
         "user/password" => "resources/views/user/profile/password.php",
         "user/delete" => "resources/views/user/profile/delete.php",
         "user/avatar" => "resources/views/user/profile/avatar.php",
         "user/username" => "resources/views/user/profile/username.php",
-        "user/scriptorium" => "resources/views/user/scriptorium/overview.php",
-        "user/scriptorium/editor" => "resources/views/user/scriptorium/editor.php",
-        "user/scriptorium/leaf" => "resources/views/user/scriptorium/leaflet/overview.php",
-        "user/scriptorium/leaf/editor" => "resources/views/user/scriptorium/leaflet/editor.php",
-        "athenaeum/reader" => "resources/views/athenaeum/reader.php",
-        "fandom/request" => "resources/views/user/scriptorium/fandom/request.php",
-        "search" => "resources/views/search.php",
-        "error" => "resources/views/error.php",
         "loading" => "resources/views/loading.php"
     );
     //Primitive templating files with fixed variables to fill. you can add new ones and use them in controllers
     public static $template=array(
-      "default" => "resources/views/templates/default.php"
     );
     //When adding new nesting level (higher then 2) you must add a new controller and add it here
     //together with a path to the actuall file. the name used here will be same as in request url.
@@ -66,8 +43,6 @@ class Crash{
       "app" => "resources/elements/controllers/app.php",
       "admin" => "resources/elements/controllers/admin.php",
       "users" => "resources/elements/controllers/users.php",
-      "search" => "resources/elements/controllers/search.php",
-      "athenaeum" => "resources/elements/controllers/reader.php"
     );
     
     public static function error($code=null, $msg=null){

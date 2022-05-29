@@ -1,15 +1,6 @@
-# Crash #
-![github tag](http://niecko.4suns.pl/crash/tag-beta.svg)
-![github tag](http://niecko.4suns.pl/crash/tag-stable.svg)
+# Crash framework #
 
-Crash is an online content management system (CMS), made in pure PHP and designed to be as small as possible. It specializes in publishing written transformative works.
-
-### What is this repository for? ###
-
-For SunriseSystem internal evaluation.
-
-* [Documentation](https://maddie-nie.atlassian.net/l/c/zEJqCSvo)
-* [Live demo](http://niecko.4suns.pl/crash/)
+This is a bare core of Crash, meant to be used as general purpose php framework. For details refer to master repository
 
 ### How do I get set up? ###
 Pull the repo
@@ -37,7 +28,6 @@ mysql -u your_database_user -p your_database_name < crash/resources/database/mig
 #### What now? #####
 [Learn how to build on Crash](https://maddie-nie.atlassian.net/l/c/prTPb4iP)
 
-~~You may want to populate database with mock data. To do that, navigate to /your/host/crash/resources/database/factory.php~~ <- Depreciated
 
 
 
