@@ -17,15 +17,9 @@
                 <h2 class="title">Popular fandoms</h2>
                 <div class="content cloud">
                    <?php
-                        $fandoms=E\Fandom::getActiveFandoms();
-                        if($fandoms instanceof E\Fandom){
-                            $fandom_size = E\Fandom::getFandomSize($fandoms->id);
-                            echo "<a href=\"/crash/fandom/$fandoms->name\">[$fandoms->friendly_name](<mark class=\"info\">$fandom_size</mark>)</a>";
-                        }else{
-                            foreach($fandoms as $fandom){
-                                $fandom_size = E\Fandom::getFandomSize($fandom->id);
-                                echo "<a href=\"/crash/fandom/$fandom->name\">[$fandom->friendly_name] (<mark class=\"info\">$fandom_size</mark>)</a>";
-                            }
+                        foreach(E\Fandom::getPopularFandoms() as $struct){
+                            $fandom = $struct->fandom;
+                            if($fandom->active) echo "<a href=\"/crash/fandom/$fandom->name\">[$fandom->friendly_name] (<mark class=\"info\">$struct->size</mark>)</a>";
                         }
                         
                     ?>

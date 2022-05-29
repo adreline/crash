@@ -48,6 +48,24 @@ class Fandom {
   public static function getActiveFandoms(){
     return Fandom::getFandom("WHERE `fandoms`.`active`= 1");
   }
+  public static function getPopularFandoms($limit=10){
+    $sql = "SELECT `publications`.`fandoms_id_fandom` AS `id_fandom`, COUNT(`publications`.`id_publication`) AS `count` FROM `publications`"
+    ." GROUP BY `publications`.`fandoms_id_fandom`"
+    ." ORDER BY `count` DESC"
+    ." LIMIT $limit";
+    return Database::select($sql, function($row){
+      $f = Fandom::getFandomById($row['id_fandom']);
+      $c = $row['count'];
+      return new class($f,$c){
+        public $fandom;
+        public $size;
+        function __construct($fa,$co){
+          $this->fandom = $fa;
+          $this->size = $co;
+        }
+      };
+    });
+  }
   public static function getFandomById($id){
     return Fandom::getFandom("WHERE `fandoms`.`id_fandom`=$id")[0];
   }
