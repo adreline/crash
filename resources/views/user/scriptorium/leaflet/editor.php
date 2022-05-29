@@ -23,11 +23,11 @@
                      echo "<h2 class=\"title\">You are writting a new page in $publication->title</h2>";
                     }
                  ?>
-                    <textarea id="editor" name="body" rows="40" cols="50">
+                    <textarea id="editor" name="body">
                         <?php if(isset($leaf)) echo $leaf->body; ?>
                     </textarea>
                 <div class="content">
-                    <p><mark class="info">chapter title:</mark><input type="text" name="title" value="<?php if(isset($leaf)) echo $leaf->title; ?>"></p>
+                    <p><mark class="info">chapter title:</mark><input type="text" name="title" placeholder="can be left empty" value="<?php if(isset($leaf)) echo $leaf->title; ?>"></p>
                     <input type="hidden" name="id_publication" value="<?php echo $publication->id; ?>">
                     <button type="submit" name="submit"><mark class="success">[save]</mark></button>
               

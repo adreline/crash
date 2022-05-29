@@ -15,15 +15,11 @@
             <div class="column">
                 <div class="window">
                 <h2 class="title">Popular fandoms</h2>
-                <div class="content">
+                <div class="content cloud">
                    <?php
-                        $fandoms=E\Fandom::getActiveFandoms();
-                        if($fandoms instanceof E\Fandom){
-                            echo "<p>>$fandoms->friendly_name (<mark class=\"info\">2312</mark>)</p>";
-                        }else{
-                            foreach($fandoms as $fandom){
-                                echo "<p>>$fandom->friendly_name (<mark class=\"info\">2312</mark>)</p>";
-                            }
+                        foreach(E\Fandom::getPopularFandoms() as $struct){
+                            $fandom = $struct->fandom;
+                            if($fandom->active) echo "<a href=\"/crash/fandom/$fandom->name\">[$fandom->friendly_name] (<mark class=\"info\">$struct->size</mark>)</a>";
                         }
                         
                     ?>

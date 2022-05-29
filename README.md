@@ -27,6 +27,7 @@ Example of .env:
         "database_pass"=>"your_database_password"
     ));
     define("ANCHOR","http://your_host/crash/");
+    define("EVIROMENT",ENV_LOOKUP["PRODUCTION"]);
     ?>
 ```
 Migrate the database

@@ -27,19 +27,29 @@
 
   <div id="menu" class="navbar-menu">
     <div class="navbar-start">
+        
         <a class="navbar-item" href="/crash/">[home]</a>        
         <?php
         foreach (Page::getAllPages() as $page_l){
             echo "<a class=\"navbar-item\" href=\"/crash/$page_l->name\">[$page_l->friendly_name]</a>";
         }
+        ?>
+        <form class="navbar-item" method="get" action="/crash/search">
+          <div class="field"><input type="text" name="query" placeholder="crash@search:~$"></div>
+        </form>
+        <?php
         if(isset($_SESSION['protagonist'])){
             echo "<div class=\"is-hidden-desktop\">";
             include Crash::$module['user_banner_mobile'];
             echo "</div>";
+          }else{
+            echo "<div class=\"is-hidden-desktop\">";
+            include Crash::$module['users_form_mobile'];
+            echo "</div>";
           }
         ?>
     
-    </div>      
+    </div>     
   </div>
 </nav>
 

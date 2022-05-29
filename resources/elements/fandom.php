@@ -3,6 +3,7 @@
 namespace Elements;
 use Crash\Helper;
 use Elements\Database;
+use Elements\Publication;
 
 class Fandom {
   public $id;
@@ -47,11 +48,39 @@ class Fandom {
   public static function getActiveFandoms(){
     return Fandom::getFandom("WHERE `fandoms`.`active`= 1");
   }
+  public static function getPopularFandoms($limit=10){
+    $sql = "SELECT `publications`.`fandoms_id_fandom` AS `id_fandom`, COUNT(`publications`.`id_publication`) AS `count` FROM `publications`"
+    ." GROUP BY `publications`.`fandoms_id_fandom`"
+    ." ORDER BY `count` DESC"
+    ." LIMIT $limit";
+    return Database::select($sql, function($row){
+      $f = Fandom::getFandomById($row['id_fandom']);
+      $c = $row['count'];
+      return new class($f,$c){
+        public $fandom;
+        public $size;
+        function __construct($fa,$co){
+          $this->fandom = $fa;
+          $this->size = $co;
+        }
+      };
+    });
+  }
   public static function getFandomById($id){
     return Fandom::getFandom("WHERE `fandoms`.`id_fandom`=$id")[0];
   }
   public static function getFandomByName($friendly_name){
     return Fandom::getFandom("WHERE `fandoms`.`friendly_name` LIKE '$friendly_name'")[0];
+  }
+  public static function getFandomByUri($uri){
+    return Fandom::getFandom("WHERE `fandoms`.`name` LIKE '$uri'")[0];
+  }
+  public static function getFandomPublications($id_fan){
+    if(!(Fandom::getFandomById($id_fan)->active)) return [];
+    return Publication::getFandomPublications($id_fan);
+  }
+  public static function getFandomSize($id_fan){
+    return sizeof(Fandom::getFandomPublications($id_fan));
   }
   public static function insertFandom($fandom){
       $sql = Helper::fill_in(Fandom::$methods['insert'],array($fandom->friendly_name,$fandom->name));

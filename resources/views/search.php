@@ -14,7 +14,7 @@
         <div class="columns">
             <div class="column">
                 <div class="window">
-                <h2 class="title">Search results</h2>
+                <h2 class="title"><?php echo $page_title; ?></h2>
                 <div class="content">
                    <?php
                         foreach($publications as $publication){

@@ -4,10 +4,11 @@
 * From here, we decide how to process incoming requests.
 * Generally, it should not be edited. 
 */
-
+define("ENV_LOOKUP",array("DEVELOPMENT"=>"1","PRODUCTION"=>"0"));
 session_set_cookie_params(604800);
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/crash'));
 require "/crash/.env";
+ini_set('display_errors', EVIROMENT);
 require "/crash/resources/elements/crash.php";
 foreach (Crash\Crash::$element as $e){
     require $e;
@@ -21,7 +22,7 @@ use Elements\Session as Session;
 use Elements\User as User;
 use Elements\Head as Head;
 global $head;//default head, gets overwritten later in the script
-$head = new Head("writtien in pure PHP, crash specializes in publishing written transformative works - Crash","Developed for the community of transformative writers. Crash is a small, fast, and secure CMS written entirely in PHP.","index,follow");
+$head = new Head("transformative works publishing - Crash","Developed for the community of transformative writers. Crash is a small, fast, and secure CMS written entirely in PHP.","index,follow");
 $DB_CONNECTION = Elements\Database::connect();//globally available db connection object
 
 session_start(); //start session only after classes are loaded to avoid incomplete object warning
