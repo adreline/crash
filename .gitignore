@@ -5,7 +5,6 @@
 
 #custom
 tag-*.svg
-img/
 *.html
 *.bak
 .env
